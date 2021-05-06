@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    >
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/diceContainer"
+        android:layout_width="500dp"
+        android:layout_height="300dp"
+        app:cardBackgroundColor="#C1000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.498">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cardViewLyt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ImageView
+                android:id="@+id/diceTwoAttack"
+                android:layout_width="88dp"
+                android:layout_height="75dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginBottom="28dp"
+                app:layout_constraintBottom_toTopOf="@+id/diceThreeAttack"
+                app:layout_constraintEnd_toStartOf="@+id/cardView2"
+                app:srcCompat="@drawable/dicered" />
+
+            <ImageView
+                android:id="@+id/diceOneAttack"
+                android:layout_width="109dp"
+                android:layout_height="107dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="44dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/cardView2"
+                app:srcCompat="@drawable/dicered" />
+
+            <ImageView
+                android:id="@+id/diceThreeAttack"
+                android:layout_width="100dp"
+                android:layout_height="86dp"
+                android:layout_marginEnd="44dp"
+                android:layout_marginBottom="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/diceOneAttack"
+                app:srcCompat="@drawable/dicered" />
+
+            <ImageView
+                android:id="@+id/attackerAvatar"
+                android:layout_width="137dp"
+                android:layout_height="236dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/blue" />
+
+            <TextView
+                android:id="@+id/diceContainerLbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/erica_one2"
+                android:text="Würfeln"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.501"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.06" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView2"
+                android:layout_width="2dp"
+                android:layout_height="250dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.501"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/diceContainerLbl">
+
+                <ImageView
+                    android:id="@+id/map"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:srcCompat="@drawable/map" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/attackerLbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/erica_one2"
+                android:text="Angreifer"
+                android:textColor="#FFFFFF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/cardView2"
+                app:layout_constraintHorizontal_bias="0.486"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.209" />
+
+            <TextView
+                android:id="@+id/defenderLbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/erica_one2"
+                android:text="Verteidiger"
+                android:textColor="#FFFFFF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.523"
+                app:layout_constraintStart_toEndOf="@+id/cardView2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.217" />
+
+            <ImageView
+                android:id="@+id/defenderAvatar"
+                android:layout_width="137dp"
+                android:layout_height="236dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/red" />
+
+            <ImageView
+                android:id="@+id/diceOneDefense"
+                android:layout_width="109dp"
+                android:layout_height="107dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="44dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/defenderAvatar"
+                app:srcCompat="@drawable/diceblue" />
+
+            <ImageView
+                android:id="@+id/diceTwoDefense"
+                android:layout_width="109dp"
+                android:layout_height="107dp"
+                android:layout_marginStart="36dp"
+                android:layout_marginBottom="120dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/diceOneAttack"
+                app:srcCompat="@drawable/diceblue" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
