@@ -1,4 +1,4 @@
-package se2.nisavovic.application.services;
+package services;
 
 import android.app.Service;
 import android.content.Intent;
@@ -26,7 +26,7 @@ public class BackgroundMusicService extends Service {
 
         Log.i(TAG, "OnCreate executes");
 
-        player = MediaPlayer.create(this,R.id.ba);
+        player = MediaPlayer.create(this,R.raw.music);
         player.setLooping(true);
         player.setVolume(100,100);
         player.start();
