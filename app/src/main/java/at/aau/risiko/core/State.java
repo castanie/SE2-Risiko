@@ -1,5 +1,7 @@
 package at.aau.risiko.core;
 
+import android.view.View;
+
 public abstract class State {
 
     Game game;
@@ -11,7 +13,7 @@ public abstract class State {
     
     // Methods:
 
-    public abstract void handleInput();
+    public abstract void handleInput(View view);
     public abstract void changeState();
 
 }

@@ -1,5 +1,7 @@
 package at.aau.risiko.core;
 
+import android.view.View;
+
 public class DraftState extends State {
 
     public DraftState(Game game) {
@@ -24,7 +26,7 @@ public class DraftState extends State {
     // Methods:
 
     @Override
-    public void handleInput() {
+    public void handleInput(View view) {
         // TODO Auto-generated method stub
         
     }
