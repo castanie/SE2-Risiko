@@ -77,4 +77,195 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_south_america" />
+
+    <ImageButton
+        android:id="@+id/northCounter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/outlineImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.143"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.29"
+        app:srcCompat="@drawable/ic_army_counter" />
+
+    <ImageButton
+        android:id="@+id/oceaniaCounter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/outlineImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.879"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.752"
+        app:srcCompat="@drawable/ic_army_counter" />
+
+    <ImageButton
+        android:id="@+id/europeCounter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/outlineImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.24"
+        app:srcCompat="@drawable/ic_army_counter" />
+
+    <ImageButton
+        android:id="@+id/asiaCounter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/outlineImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.732"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.24"
+        app:srcCompat="@drawable/ic_army_counter" />
+
+    <ImageButton
+        android:id="@+id/southCounter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/outlineImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.261"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.674"
+        app:srcCompat="@drawable/ic_army_counter" />
+
+    <ImageButton
+        android:id="@+id/africaCounter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/outlineImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.526"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.498"
+        app:srcCompat="@drawable/ic_army_counter" />
+
+    <TextView
+        android:id="@+id/asiaText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/asiaCounter"
+        app:layout_constraintEnd_toEndOf="@id/asiaCounter"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@id/asiaCounter"
+        app:layout_constraintTop_toTopOf="@id/asiaCounter"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <TextView
+        android:id="@+id/oceaniaText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/oceaniaCounter"
+        app:layout_constraintEnd_toEndOf="@id/oceaniaCounter"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@id/oceaniaCounter"
+        app:layout_constraintTop_toTopOf="@id/oceaniaCounter"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <TextView
+        android:id="@+id/africaText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/africaCounter"
+        app:layout_constraintEnd_toEndOf="@id/africaCounter"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@id/africaCounter"
+        app:layout_constraintTop_toTopOf="@id/africaCounter"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <TextView
+        android:id="@+id/southText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/southCounter"
+        app:layout_constraintEnd_toEndOf="@+id/southCounter"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/southCounter"
+        app:layout_constraintTop_toTopOf="@+id/southCounter"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <TextView
+        android:id="@+id/northText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/northCounter"
+        app:layout_constraintEnd_toEndOf="@+id/northCounter"
+        app:layout_constraintStart_toStartOf="@+id/northCounter"
+        app:layout_constraintTop_toTopOf="@+id/northCounter" />
+
+    <TextView
+        android:id="@+id/europeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/europeCounter"
+        app:layout_constraintEnd_toEndOf="@id/europeCounter"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@id/europeCounter"
+        app:layout_constraintTop_toTopOf="@id/europeCounter"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupOceania"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="oceaniaCounter,oceaniaImageView,oceaniaText" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupSouth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="southImageView,southCounter,southText" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupAfrica"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="africaCounter,africaImageView" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupNorth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="northCounter,northImageView,northText" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupEurope"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="europeCounter,europeImageView,europeText" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupAsia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="asiaImageView,asiaCounter,africaText" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
