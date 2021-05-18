@@ -25,4 +25,8 @@ public class MapActivity extends AppCompatActivity {
     public void onClick(View view) {
         game.handleInput(view);
     }
+
+    public void onClick(View view) {
+        view.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ffffbb33")));
+    }
 }
