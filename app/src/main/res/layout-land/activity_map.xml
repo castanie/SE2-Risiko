@@ -115,67 +115,7 @@
         app:constraint_referenced_ids="asiaImageView" />
 
     <Button
-        android:id="@+id/buttonNorth"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:background="@drawable/ic_army_counter"
-        android:fontFamily="@font/erica_one"
-        android:text="1"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.146"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.264" />
-
-    <Button
-        android:id="@+id/buttonOceania"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:background="@drawable/ic_army_counter"
-        android:fontFamily="@font/erica_one"
-        android:text="1"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.864"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.722" />
-
-    <Button
-        android:id="@+id/buttonAsia"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:background="@drawable/ic_army_counter"
-        android:fontFamily="@font/erica_one"
-        android:text="1"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.743"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.264" />
-
-    <Button
-        android:id="@+id/buttonEurope"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:background="@drawable/ic_army_counter"
-        android:fontFamily="@font/erica_one"
-        android:text="1"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.499"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.232" />
-
-    <Button
-        android:id="@+id/buttonSouth"
+        android:id="@+id/buttonQuebec"
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:background="@drawable/ic_army_counter"
@@ -187,10 +127,10 @@
         app:layout_constraintHorizontal_bias="0.254"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.648" />
+        app:layout_constraintVertical_bias="0.208" />
 
     <Button
-        android:id="@+id/buttonAfrica"
+        android:id="@+id/buttonOntario"
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:background="@drawable/ic_army_counter"
@@ -199,9 +139,444 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.519"
+        app:layout_constraintHorizontal_bias="0.162"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.168" />
+
+    <Button
+        android:id="@+id/buttonCentralAmerica"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/ic_army_counter"
+        android:fontFamily="@font/erica_one"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.138"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.453" />
+
+    <Button
+        android:id="@+id/buttonArgentina"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/ic_army_counter"
+        android:fontFamily="@font/erica_one"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.254"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.848" />
+
+    <Button
+        android:id="@+id/buttonPeru"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/ic_army_counter"
+        android:fontFamily="@font/erica_one"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.227"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.722" />
+
+    <Button
+        android:id="@+id/buttonWestCoast"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/ic_army_counter"
+        android:fontFamily="@font/erica_one"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.11"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.304" />
+
+    <Button
+        android:id="@+id/buttonEastCoast"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/ic_army_counter"
+        android:fontFamily="@font/erica_one"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.189"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.328" />
+
+    <Button
+        android:id="@+id/buttonGreenland"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/ic_army_counter"
+        android:fontFamily="@font/erica_one"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.374"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.09" />
+
+    <Button
+        android:id="@+id/buttonScandinavia"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/ic_army_counter"
+        android:fontFamily="@font/erica_one"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.112" />
+
+    <Button
+        android:id="@+id/buttonAlaska"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/ic_army_counter"
+        android:fontFamily="@font/erica_one"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.061"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.136" />
+
+    <Button
+        android:id="@+id/buttonEastAustralia"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/ic_army_counter"
+        android:fontFamily="@font/erica_one"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.916"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.752" />
+
+    <Button
+        android:id="@+id/buttonMongolia"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/ic_army_counter"
+        android:fontFamily="@font/erica_one"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.733"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.264" />
+
+    <Button
+        android:id="@+id/buttonSiberia"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/ic_army_counter"
+        android:fontFamily="@font/erica_one"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.682"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.168" />
+
+    <Button
+        android:id="@+id/buttonWestAustralia"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/ic_army_counter"
+        android:fontFamily="@font/erica_one"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.828"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.752" />
+
+    <Button
+        android:id="@+id/buttonYakutsk"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/ic_army_counter"
+        android:fontFamily="@font/erica_one"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.828"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.168" />
+
+    <Button
+        android:id="@+id/buttonUral"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/ic_army_counter"
+        android:fontFamily="@font/erica_one"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.604"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.208" />
+
+    <Button
+        android:id="@+id/buttonMiddleEast"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/ic_army_counter"
+        android:fontFamily="@font/erica_one"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.604"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.36" />
+
+    <Button
+        android:id="@+id/buttonIndia"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/ic_army_counter"
+        android:fontFamily="@font/erica_one"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.707"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.402" />
+
+    <Button
+        android:id="@+id/buttonSiam"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/ic_army_counter"
+        android:fontFamily="@font/erica_one"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.795"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.498" />
+
+    <Button
+        android:id="@+id/buttonChina"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/ic_army_counter"
+        android:fontFamily="@font/erica_one"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.795"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.36" />
+
+    <Button
+        android:id="@+id/buttonUkraine"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/ic_army_counter"
+        android:fontFamily="@font/erica_one"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.53"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.235" />
+
+    <Button
+        android:id="@+id/buttonNewGuinea"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/ic_army_counter"
+        android:fontFamily="@font/erica_one"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.943"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.594" />
+
+    <Button
+        android:id="@+id/buttonIndonesia"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/ic_army_counter"
+        android:fontFamily="@font/erica_one"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.847"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.594" />
+
+    <Button
+        android:id="@+id/buttonWestEurope"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/ic_army_counter"
+        android:fontFamily="@font/erica_one"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.434"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.260" />
+
+    <Button
+        android:id="@+id/buttonBrazil"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/ic_army_counter"
+        android:fontFamily="@font/erica_one"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.293"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.645" />
+
+    <Button
+        android:id="@+id/buttonVenezuela"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/ic_army_counter"
+        android:fontFamily="@font/erica_one"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.227"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.549" />
+
+    <Button
+        android:id="@+id/buttonEgypt"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/ic_army_counter"
+        android:fontFamily="@font/erica_one"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.532"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.424" />
+
+    <Button
+        android:id="@+id/buttonCongo"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/ic_army_counter"
+        android:fontFamily="@font/erica_one"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.568" />
+
+    <Button
+        android:id="@+id/buttonEthiopia"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/ic_army_counter"
+        android:fontFamily="@font/erica_one"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.584"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.594" />
+
+    <Button
+        android:id="@+id/buttonNorthAfrica"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/ic_army_counter"
+        android:fontFamily="@font/erica_one"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.434"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.472" />
+
+    <Button
+        android:id="@+id/buttonSouthAfrica"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/ic_army_counter"
+        android:fontFamily="@font/erica_one"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.532"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.722" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
