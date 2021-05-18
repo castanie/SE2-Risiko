@@ -1,5 +1,7 @@
 package at.aau.risiko.core;
 
+import android.view.View;
+
 public class Game {
 
     // Game is the local instance of the controller.
@@ -16,8 +18,8 @@ public class Game {
 
     // Methods:
     
-    public void handleInput() {
-        state.handleInput();
+    public void handleInput(View view) {
+        state.handleInput(view);
     }
 
     public void changeState() {

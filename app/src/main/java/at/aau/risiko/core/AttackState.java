@@ -1,5 +1,7 @@
 package at.aau.risiko.core;
 
+import android.view.View;
+
 public class AttackState extends State {
 
     private Country attacking;
@@ -27,7 +29,7 @@ public class AttackState extends State {
     // Methods:
 
     @Override
-    public void handleInput() {
+    public void handleInput(View view) {
         // TODO Auto-generated method stub
         
         

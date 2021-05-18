@@ -1,5 +1,7 @@
 package at.aau.risiko.core;
 
+import android.view.View;
+
 public class DefendState extends State {
 
     public DefendState(Game game) {
@@ -20,7 +22,7 @@ public class DefendState extends State {
     // Methods:
 
     @Override
-    public void handleInput() {
+    public void handleInput(View view) {
         // TODO Auto-generated method stub
         
     }
