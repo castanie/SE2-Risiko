@@ -11,7 +11,7 @@ public class Game {
     int index = 0;
 
     public Game(Player[] players) {
-        this.state = null;
+        this.state = new ObserveState(this);
         this.players = players;
     }
 

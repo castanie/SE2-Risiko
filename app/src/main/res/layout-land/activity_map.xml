@@ -281,7 +281,7 @@
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:background="@drawable/ic_army_counter"
-        android:backgroundTint="?attr/colorButtonNormal"
+        android:backgroundTint="@android:color/holo_orange_light"
         android:backgroundTintMode="multiply"
         android:fontFamily="@font/erica_one"
         android:onClick="onClick"
