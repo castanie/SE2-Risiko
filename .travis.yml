@@ -1,5 +1,4 @@
 language: android
-dist: trusty
 
 jdk:
   - openjdk11
@@ -42,6 +41,7 @@ before_script:
 
 script:
   - ./gradlew clean
+  - ./gradlew :server:jacocoTestReport
   - ./gradlew sonarqube
 
 before_cache:
