@@ -1,3 +1,3 @@
 include ':app'
+include ':server'
 rootProject.name = "Risiko"
-include ':Server'
