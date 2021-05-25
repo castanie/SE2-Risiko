@@ -44,7 +44,7 @@ public class Main {
                 @Override
                 public void received(Connection connection, Object object) {
                     if (object instanceof TextMessage) {
-                        server.sendToAllTCP(new TextMessage("Greetings from Hawaii!"));
+                        System.out.println(((TextMessage) object).text);
                     } else if (object instanceof StartMessage) {
                         System.out.println("StartMessage from " + connection.getRemoteAddressTCP().getHostString());
                         server.sendToAllTCP(object);

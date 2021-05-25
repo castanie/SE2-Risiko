@@ -28,36 +28,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        EditText txtNickname = (EditText)findViewById(R.id.txtNickname);
-        Button btnConfirm = (Button)findViewById(R.id.btnConfirm);
-
-        Log.i("loginActivity", "LoginActivity launched");
-
-        btnConfirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //to send on server
-                String enteredNickname = txtNickname.getText().toString();
-
-                if(txtNickname.getText().toString().isEmpty()){
-                    showToast("Player's name has not been entered!");
-                }
-                else{
-                    showToast("Player's name: " + enteredNickname);
-                    // TODO: send nickname to server
-                    // example: server.sendTCP(enteredNicknname);
-                    startActivity(new Intent(getApplicationContext(), LobbyActivity.class));
-                }
-
-
-            }
-        });
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
         /*
         GameServer server = GameServer.getInstance();
 
@@ -85,7 +55,6 @@ public class LoginActivity extends AppCompatActivity {
 
         serverThread.start();
         */
-
 
         GameClient client = GameClient.getInstance();
 
@@ -122,6 +91,36 @@ public class LoginActivity extends AppCompatActivity {
         };
 
         clientThread.start();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        EditText txtNickname = (EditText)findViewById(R.id.txtNickname);
+        Button btnConfirm = (Button)findViewById(R.id.btnConfirm);
+
+        Log.i("loginActivity", "LoginActivity launched");
+
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //to send on server
+                String enteredNickname = txtNickname.getText().toString();
+
+                if(txtNickname.getText().toString().isEmpty()){
+                    showToast("Player's name has not been entered!");
+                }
+                else{
+                    showToast("Player's name: " + enteredNickname);
+                    // TODO: send nickname to server
+                    GameClient.getInstance().sendMessage(new TextMessage(enteredNickname));
+
+                    startActivity(new Intent(getApplicationContext(), LobbyActivity.class));
+                }
+            }
+        });
+
     }
 
 
