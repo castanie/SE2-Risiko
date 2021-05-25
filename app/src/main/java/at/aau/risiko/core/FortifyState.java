@@ -14,7 +14,9 @@ import at.aau.risiko.networking.dto.TurnMessage;
 public class FortifyState extends State {
 
     private Country donor;
+    private Button donorButton;
     private Country recipient;
+    private Button recipientButton;
     Player p = game.getPlayers()[game.getIndex()];
 
     public FortifyState(Game game) {
@@ -47,16 +49,12 @@ public class FortifyState extends State {
         if (occupiedCountries.containsKey(view.getId())) {
             if (donor == null) {
                 donor = clicked;
+                donorButton = (Button) view;
             } else if (recipient == null) {
-                boolean valid = false;
-                for (Country c : clicked.getNeighbors()) {
-                    if (c == donor) {
-                        recipient = clicked;
-                        valid = true;
-                        break;
-                    }
-                }
-                if (valid) {
+                if (clicked.getNeighbors().contains(donor)) {
+                    recipient = clicked;
+                    recipientButton = (Button) view;
+
                     //move one Army from donor to recipient
                     int donorArmys = donor.getArmies() - 1;
                     int recipientArmys = recipient.getArmies() + 1;
@@ -64,22 +62,22 @@ public class FortifyState extends State {
                     donor.setArmies(donorArmys);
                     recipient.setArmies(recipientArmys);
 
-                    Button button = (Button) view;
-                    button.setText(Integer.toString(donorArmys));
+                    donorButton.setText(Integer.toString(donorArmys));
+                    recipientButton.setText(Integer.toString(recipientArmys));
 
                     changeState();
+                } else {
+                    game.showToast("You can only move armies between neighbouring countries!");
                 }
             } else {
                 donor = null;
+                donorButton = null;
                 recipient = null;
+                recipientButton = null;
             }
 
         } else {
-            Context context = game.getContext();
-            CharSequence text = "You can move armys only between your own countries!";
-            int duration = Toast.LENGTH_SHORT;
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
+            game.showToast("You can move armys only between your own countries!");
         }
     }
 

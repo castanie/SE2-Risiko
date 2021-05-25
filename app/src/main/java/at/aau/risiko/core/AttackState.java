@@ -41,18 +41,13 @@ public class AttackState extends State {
         if (attacking == null) {
             attacking = clicked;
         } else if (defending == null) {
-            boolean valid = false;
-            for (Country c : clicked.getNeighbors()) {
-                if (c == attacking) {
-                    defending = clicked;
-                    valid = true;
-                    break;
-                }
-            }
-            if (valid) {
+            if (clicked.getNeighbors().contains(attacking)) {
                 // TODO: SEND MESSAGE TO SERVER AND START DICE STATE
+                defending = clicked;
                 game.sendMessage(new TextMessage("It's " + attacking.getName() + " against " + defending.getName()));
                 changeState();
+            } else {
+                game.showToast("You can only attack neighbouring countries!");
             }
         } else {
             attacking = null;

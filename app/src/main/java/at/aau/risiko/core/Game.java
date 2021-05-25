@@ -3,8 +3,11 @@ package at.aau.risiko.core;
 import android.content.Context;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 import at.aau.risiko.MapActivity;
 import at.aau.risiko.R;
@@ -19,6 +22,9 @@ public class Game {
     private Player[] players;
     private int index;
 
+    private List<Country> availableCountries;
+    private List<Card> availableCards;
+
     HashMap<Integer, Country> buttonMap;
     HashMap<Integer, Player> avatarMap;
 
@@ -27,6 +33,8 @@ public class Game {
         this.state = new SetupState(this);
         this.players = players;
         this.index = 0;
+        this.availableCountries = new LinkedList<>();
+        this.availableCards = new LinkedList<>();
         this.buttonMap = buttonMapping;
         this.context = context;
     }
@@ -48,6 +56,12 @@ public class Game {
     public void setProgress(int progress) {
         ProgressBar bar = ((MapActivity) context).findViewById(R.id.progressBar);
         bar.setProgress(progress);
+    }
+
+    public void showToast(String message) {
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(this.context, message, duration);
+        toast.show();
     }
 
 
@@ -79,6 +93,14 @@ public class Game {
 
     public Player[] getPlayers() {
         return players;
+    }
+
+    public List<Country> getAvailableCountries() {
+        return availableCountries;
+    }
+
+    public List<Card> getAvailableCards() {
+        return availableCards;
     }
 
     public int getIndex() {

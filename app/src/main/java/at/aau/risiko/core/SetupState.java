@@ -8,6 +8,8 @@ import android.widget.Button;
 
 import androidx.annotation.RequiresApi;
 
+import at.aau.risiko.networking.dto.TurnMessage;
+
 public class SetupState extends State {
 
     public SetupState(Game game) {
@@ -30,6 +32,8 @@ public class SetupState extends State {
     @Override
     public void handleInput(View view) {
         // TODO GET RID OF API DEPENDENCY!
+        game.getPlayers()[game.getIndex()].getOccupied().put(view.getId(), game.buttonMap.get(view.getId()));
+        game.getAvailableCountries().remove(game.buttonMap.get(view.getId()));
         Button button = (Button) view;
         button.setBackgroundTintList(ColorStateList.valueOf(game.getPlayers()[game.getIndex()].getColor().toArgb()));
         button.setText("0");
@@ -40,6 +44,7 @@ public class SetupState extends State {
     public void changeState() {
         // TODO Auto-generated method stub
         game.setState(new ObserveState(game));
+        game.sendMessage(new TurnMessage());
     }
 
 

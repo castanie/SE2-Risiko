@@ -25,6 +25,7 @@ import at.aau.risiko.core.Country;
 import at.aau.risiko.core.DraftState;
 import at.aau.risiko.core.Game;
 import at.aau.risiko.core.Player;
+import at.aau.risiko.core.SetupState;
 import at.aau.risiko.networking.Callback;
 import at.aau.risiko.networking.dto.BaseMessage;
 import at.aau.risiko.networking.dto.ReadyMessage;
@@ -47,26 +48,6 @@ public class MapActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
-        // Start game:
-        // TODO: CHANGE PLAYER ARRAY TO REFLECT PLAYERS CONNECTED TO SERVER
-        game = new Game(new Player[]{
-                new Player("Uno", Color.valueOf(0xFFFFCC00)),
-                new Player("Due", Color.valueOf(0xFFFF00CC))},
-                buttonMapping,this);
-
-        GameClient.getInstance().registerCallback(new Callback<BaseMessage>() {
-            @Override
-            public void callback(BaseMessage argument) {
-                if (argument instanceof TextMessage) {
-                    Log.i("SERVER MESSAGE", ((TextMessage) argument).text);
-                } else if (argument instanceof StartMessage) {
-                    // Do nothing.
-                } else if(argument instanceof TurnMessage) {
-                    // TODO: CHANGE TO SETUPSTATE?
-                    game.setState(new DraftState(game));
-                }
-            }
-        });
 
         GameClient.getInstance().sendMessage(new ReadyMessage());
 
@@ -122,6 +103,37 @@ public class MapActivity extends AppCompatActivity {
                 buttonMapping.get(i).addNeighbor(buttonMapping.get(j));
                 // Log.i("REGISTERED NEIGHBOR", buttonMapping.get(i).getName() + " added neighbor " + buttonMapping.get(j).getName());
             }
+        }
+
+
+        // Start game:
+        // TODO: CHANGE PLAYER ARRAY TO REFLECT PLAYERS CONNECTED TO SERVER
+        game = new Game(new Player[]{
+                new Player("Uno", Color.valueOf(0xFFFFCC00)),
+                new Player("Due", Color.valueOf(0xFFFF00CC))},
+                buttonMapping,this);
+
+        GameClient.getInstance().registerCallback(new Callback<BaseMessage>() {
+            @Override
+            public void callback(BaseMessage argument) {
+                if (argument instanceof TextMessage) {
+                    Log.i("SERVER MESSAGE", ((TextMessage) argument).text);
+                } else if (argument instanceof StartMessage) {
+                    // Do nothing.
+                } else if(argument instanceof TurnMessage) {
+                    // TODO: CHANGE TO SETUPSTATE?
+                    if (game.getAvailableCountries().size() > 0) {
+                        game.setState(new SetupState(game));
+                    } else {
+                        game.setState(new DraftState(game));
+                    }
+                }
+            }
+        });
+
+        // Add every country to the list of available countries
+        for (Country country : buttonMapping.values()) {
+            game.getAvailableCountries().add(country);
         }
 
 

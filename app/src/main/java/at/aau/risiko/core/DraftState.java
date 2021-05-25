@@ -27,12 +27,8 @@ public class DraftState extends State {
         Log.i("GAME STATE", "Transitioned into DraftState.");
         
         this.availableStrength = CalculateStrength();
-        Context context = game.getContext();
-        CharSequence text = availableStrength + " armys available to reinforce your countries";
-        int duration = Toast.LENGTH_SHORT;
 
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
+        game.showToast(availableStrength + " armies available to reinforce your countries");
 
         game.setProgress(1);
     }
@@ -41,11 +37,7 @@ public class DraftState extends State {
         int occupiedCountries = p.getOccupied().size();
         int strength = occupiedCountries / 3;
         if (occupiedCountries == 0) {
-            Context context = game.getContext();
-            CharSequence text = "You have lost the game!";
-            int duration = Toast.LENGTH_SHORT;
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
+            game.showToast("You have lost the game!");
             //change State to lost State
         } else {
 
@@ -74,31 +66,22 @@ public class DraftState extends State {
 
         if (occupiedCountries.containsKey(view.getId())) {
 
-            int oldArmys = clicked.getArmies();
-            int newArmys = oldArmys + 1;
-            clicked.setArmies(newArmys);
+            int oldArmies = clicked.getArmies();
+            int newArmies = oldArmies + 1;
+            clicked.setArmies(newArmies);
 
             Button button = (Button) view;
-            button.setText(Integer.toString(newArmys));
+            button.setText(Integer.toString(newArmies));
             p.setAvailable(availableStrength--);
 
-            Context context = game.getContext();
-            CharSequence text = availableStrength + " armys available to reinforce your countries";
-            int duration = Toast.LENGTH_SHORT;
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
-
+            game.showToast(availableStrength + " armies available to reinforce your countries");
 
             if (availableStrength == 0) {
                 changeState();
             }
 
         } else {
-            Context context = view.getContext();
-            CharSequence text = "Choose one of your occupied Countries";
-            int duration = Toast.LENGTH_SHORT;
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
+            game.showToast("Choose one of your occupied Countries");
         }
     }
 
