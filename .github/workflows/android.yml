@@ -28,4 +28,4 @@ jobs:
     - name: Coverage (:server:)
       run: ./gradlew :server:jacocoTestReport
     - name: Scan with Sonar
-      run: ./gradlew sonarqube -Dsonar.login=${{ SONAR_TOKEN }}
+      run: ./gradlew sonarqube -Dsonar.login=${{ secrets.SONAR_TOKEN }}
