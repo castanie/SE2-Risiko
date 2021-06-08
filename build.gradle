@@ -17,7 +17,7 @@ plugins {
 
 sonarqube {
   properties {
-    property "sonar.host.url", "https://sonarcloud.io"
+    property "sonar.host.url", "http://localhost:9000"
     property "sonar.organization", "castanie"
     property "sonar.projectKey", "castanie_SE2-Risiko"
     property "sonar.coverage.jacoco.xmlReportPaths", "${}/*/build/reports/jacoco/test/jacocoTestReport.xml"
