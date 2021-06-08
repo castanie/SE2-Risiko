@@ -75,6 +75,7 @@ public class LoginActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), MapActivity.class);
                     intent.putExtra("names", ((StartMessage) argument).names);
                     intent.putExtra("colors",((StartMessage) argument).colors);
+                    intent.putExtra("setup",((StartMessage) argument).setup);
                     startActivity(intent);
                 }
             }

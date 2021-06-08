@@ -31,7 +31,7 @@ public class SetupState extends State {
         game.getPlayers()[game.getIndex()].getOccupied().add(game.buttonMap.get(view.getId()));
         game.getAvailableCountries().remove(game.buttonMap.get(view.getId()));
         Button button = (Button) view;
-        button.setBackgroundTintList(ColorStateList.valueOf(game.getPlayers()[game.getIndex()].getColor()));
+        //button.setBackgroundTintList(ColorStateList.valueOf(game.getPlayers()[game.getIndex()].getColor()));
         // button.setText("0");
 
         // TODO: CHANGE HARDCODED NAME AND COLOR!
