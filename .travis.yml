@@ -28,7 +28,7 @@ android:
 
 addons:
   sonarcloud:
-    organization: castanie # the key of the org you chose
+    organization: raphilesacher # the key of the org you chose
     token: ${SONAR_TOKEN} # encrypted value of your token
 
 before_install:
