@@ -17,6 +17,7 @@ import java.util.HashMap;
 import at.aau.core.Country;
 import at.aau.core.Player;
 import at.aau.risiko.controller.Game;
+import at.aau.risiko.controller.ObserveState;
 import at.aau.server.dto.BaseMessage;
 import at.aau.server.dto.ReadyMessage;
 import at.aau.server.kryonet.Callback;
@@ -124,7 +125,9 @@ public class MapActivity extends AppCompatActivity {
         // Start game:
         // TODO: CHANGE PLAYER ARRAY TO REFLECT PLAYERS CONNECTED TO SERVER
         game = new Game(players, buttonMapping, avatarMapping, this);
-
+        if (getIntent().getBooleanExtra("setup",false) == false) {
+            game.setState(new ObserveState(game));
+        }
         GameClient.getInstance().registerCallback(new Callback<BaseMessage>() {
             @Override
             public void callback(BaseMessage argument) {

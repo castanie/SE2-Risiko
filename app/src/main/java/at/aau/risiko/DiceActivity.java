@@ -134,7 +134,7 @@ public class DiceActivity extends AppCompatActivity implements SensorEventListen
                 return;
             }
             //cheat function
-            if (accelerationValueDefender > 30) {
+            if (accelerationValueDefender > 10) {
                 dice.setEyeNumber(6);
                 for (int index = 0; index < numDefenders; index++) {
                     setImageViewDefender(6, index + 1);
@@ -176,7 +176,7 @@ public class DiceActivity extends AppCompatActivity implements SensorEventListen
                 return;
             }
             //cheat function
-            if (accelerationValueAttacker > 30) {
+            if (accelerationValueAttacker > 10) {
                 dice.setEyeNumber(6);
                 for (int index = 0; index < numAttackers; index++) {
                     setImageViewAttacker(6, index + 1);

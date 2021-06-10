@@ -66,7 +66,10 @@ public class Main {
                         Integer[] playerColors = new Integer[] {0xFFFFCC00, 0xFFFF00CC, 0xFF00CCFF, 0xFFCCFF00, 0xFF00FFCC};
                         ((StartMessage) object).names = playerNames;
                         ((StartMessage) object).colors = playerColors;
-                        server.sendToAllTCP(object);
+                        ((StartMessage) object).setup = true;
+                        server.sendToTCP(names.keySet().toArray(new Connection[0])[0].getID(),object);
+                        ((StartMessage) object).setup = false;
+                        server.sendToAllExceptTCP(names.keySet().toArray(new Connection[0])[0].getID(),object);
                     } else if (object instanceof ReadyMessage) {
                         System.out.println("ReadyMessage from " + connection.getRemoteAddressTCP().getHostString());
                         ++barrier;
