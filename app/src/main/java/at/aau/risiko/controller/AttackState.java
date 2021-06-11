@@ -6,7 +6,6 @@ import android.view.View;
 
 import at.aau.core.Country;
 import at.aau.risiko.DiceActivity;
-import at.aau.server.dto.TextMessage;
 import at.aau.server.dto.UpdateMessage;
 
 public class AttackState extends State {
@@ -14,15 +13,15 @@ public class AttackState extends State {
     private Country attacking;
     private Country defending;
 
-    public AttackState(Game game) {
-        super(game);
+    public AttackState() {
+        super();
         Log.i("GAME STATE", "Transitioned into AttackState.");
-        game.setCardView("Attack");
-        //TODO Auto-generated constructor stub
+
         attacking = null;
         defending = null;
 
         game.setProgress(2);
+        game.setCard("Attack");
     }
 
     /**
@@ -50,17 +49,15 @@ public class AttackState extends State {
                 // TODO: START DICE STATE!
                 defending = clicked;
 
-                if(attacking.getArmies() > 1)
-                {
+                if (attacking.getArmies() > 1) {
 
-                game.sendMessage(new UpdateMessage(null, game.buttonMap.get(view.getId()).getName(), game.buttonMap.get(view.getId()).getArmies()));
-                game.getContext().startActivity(new Intent(game.getContext(), DiceActivity.class));
-                changeState();
-            }else
-                {
+                    game.sendMessage(new UpdateMessage(null, game.buttonMap.get(view.getId()).getName(), game.buttonMap.get(view.getId()).getArmies()));
+                    game.getContext().startActivity(new Intent(game.getContext(), DiceActivity.class));
+                    changeState();
+                } else {
                     game.showSnackbar("Not enough armies to attack a country!");
                 }
-            }else {
+            } else {
                 game.showSnackbar("You can only attack neighbouring countries!");
             }
         } else {
@@ -71,7 +68,7 @@ public class AttackState extends State {
 
     @Override
     public void changeState() {
-        game.setState(new FortifyState(game));
+        game.setState(new FortifyState());
     }
 
 }

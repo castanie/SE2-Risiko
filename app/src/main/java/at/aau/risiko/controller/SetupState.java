@@ -1,6 +1,5 @@
 package at.aau.risiko.controller;
 
-import android.content.res.ColorStateList;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -12,9 +11,11 @@ import at.aau.server.dto.UpdateMessage;
 public class SetupState extends State {
 
     public SetupState(Game game) {
-        super(game);
+        super();
         Log.i("GAME STATE", "Transitioned into SetupState.");
-        //TODO Auto-generated constructor stub
+
+        game.setProgress(3);
+        game.setCard("Setup");
     }
 
     /**
@@ -27,23 +28,17 @@ public class SetupState extends State {
      */
 
     // Methods:
-
-    public void assignArmys()
-    {
+    public void assignArmys() {
         Player p = game.getPlayers()[game.getIndex()];
-        if(game.getPlayers().length == 5)
-        {
+        if (game.getPlayers().length == 5) {
             p.setAvailable(25);
-        }
-        else if (game.getPlayers().length == 4)
-        {
+        } else if (game.getPlayers().length == 4) {
             p.setAvailable(30);
-        }
-        else if(game.getPlayers().length <= 3)
-        {
+        } else if (game.getPlayers().length <= 3) {
             p.setAvailable(35);
         }
     }
+
     @Override
     public void handleInput(View view) {
         game.getPlayers()[game.getIndex()].getOccupied().add(game.buttonMap.get(view.getId()));
@@ -61,7 +56,7 @@ public class SetupState extends State {
 
     @Override
     public void changeState() {
-        game.setState(new ObserveState(game));
+        game.setState(new ObserveState());
         game.sendMessage(new TurnMessage());
     }
 

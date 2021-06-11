@@ -11,10 +11,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
+import at.aau.server.dto.BaseMessage;
 import at.aau.server.dto.StartMessage;
-import at.aau.server.dto.TextMessage;
+import at.aau.server.kryonet.Callback;
 import at.aau.server.kryonet.GameClient;
-import at.aau.server.kryonet.GameServer;
 
 public class LobbyActivity extends AppCompatActivity {
 
@@ -30,15 +30,21 @@ public class LobbyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lobby);
 
+        GameClient.getInstance().registerCallback(new Callback<BaseMessage>() {
+            @Override
+            public void callback(BaseMessage argument) {
+                if (argument instanceof StartMessage) {
+                    Intent intent = new Intent(getApplicationContext(), MapActivity.class);
+                    intent.putExtra("names", ((StartMessage) argument).names);
+                    intent.putExtra("colors", ((StartMessage) argument).colors);
+                    startActivity(intent);
+                }
+            }
+        });
+
+
         Button btnExit = findViewById(R.id.btnExit);
         playersInLobby = findViewById(R.id.listOfPlayers);
-
-
-        for(String e : userNames){
-            GameServer.getInstance().broadcastMessage(new TextMessage(e));
-            userNames.add(e);
-        }
-
 
         playerNamesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, userNames);
         playersInLobby.setAdapter(playerNamesAdapter);
@@ -47,8 +53,7 @@ public class LobbyActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
-                for(String e : userNames){
-                    GameServer.getInstance().broadcastMessage(new TextMessage(e));
+                for (String e : userNames) {
                     userNames.remove(e);
                 }
                 startActivity(intent);
@@ -59,9 +64,6 @@ public class LobbyActivity extends AppCompatActivity {
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Intent intent = new Intent(getApplicationContext(), MapActivity.class);
-                // startActivity(intent);
-
                 GameClient.getInstance().sendMessage(new StartMessage());
             }
         });

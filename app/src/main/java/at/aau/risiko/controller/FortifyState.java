@@ -4,7 +4,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import java.util.HashMap;
 import java.util.List;
 
 import at.aau.core.Country;
@@ -20,15 +19,15 @@ public class FortifyState extends State {
     private Country recipient;
     private Button recipientButton;
 
-    public FortifyState(Game game) {
-        super(game);
+    public FortifyState() {
+        super();
         Log.i("GAME STATE", "Transitioned into FortifyState.");
-        game.setCardView("Move");
 
         donor = null;
         recipient = null;
 
         game.setProgress(3);
+        game.setCard("Move");
     }
 
     /**
@@ -94,7 +93,7 @@ public class FortifyState extends State {
 
     @Override
     public void changeState() {
-        game.setState(new ObserveState(game));
+        game.setState(new ObserveState());
         game.sendMessage(new TurnMessage());
     }
 

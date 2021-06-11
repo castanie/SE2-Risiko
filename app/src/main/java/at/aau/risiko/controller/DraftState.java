@@ -4,7 +4,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import java.util.HashMap;
 import java.util.List;
 
 import at.aau.core.Country;
@@ -21,21 +20,18 @@ public class DraftState extends State {
     /* The constructor must calculate the armies available to
      the player.*/
 
-    public DraftState(Game game) {
-        super(game);
+    public DraftState() {
+        super();
         Log.i("GAME STATE", "Transitioned into DraftState.");
-        game.setCardView("Strengthen");
 
-        if(p.getAvailable() > 0)
-        {
+        if (p.getAvailable() > 0) {
             this.availableStrength = p.getAvailable() + CalculateStrength();
-        }
-        else
-        {
+        } else {
             this.availableStrength = CalculateStrength();
         }
 
         game.setProgress(1);
+        game.setCard("Strengthen");
     }
 
     private int CalculateStrength() {
@@ -61,7 +57,6 @@ public class DraftState extends State {
      * Transition to AttackState.
      */
 
-    // @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void handleInput(View view) {
 
@@ -79,7 +74,7 @@ public class DraftState extends State {
             button.setText(Integer.toString(newArmies));
             p.setAvailable(availableStrength--);
 
-            game.showSnackbar(availableStrength + " armies available to reinforce your countries");
+            game.showSnackbar(availableStrength + " armies available to reinforce your Countries");
             game.sendMessage(new UpdateMessage("Uno", game.buttonMap.get(view.getId()).getName(), game.buttonMap.get(view.getId()).getArmies()));
 
             if (availableStrength == 0) {
@@ -93,6 +88,6 @@ public class DraftState extends State {
 
     @Override
     public void changeState() {
-        game.setState(new AttackState(game));
+        game.setState(new AttackState());
     }
 }

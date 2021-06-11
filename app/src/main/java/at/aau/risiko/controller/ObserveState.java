@@ -5,13 +5,12 @@ import android.view.View;
 
 public class ObserveState extends State {
 
-    public ObserveState(Game game) {
-        super(game);
+    public ObserveState() {
+        super();
         Log.i("GAME STATE", "Transitioned into ObserveState.");
-        game.setCardView("Waiting...");
-        //TODO Auto-generated constructor stub
 
         game.setProgress(0);
+        game.setCard("Waiting...");
     }
 
     /**

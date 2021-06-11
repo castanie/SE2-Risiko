@@ -37,6 +37,23 @@ public class MapActivity extends AppCompatActivity {
         setContentView(R.layout.activity_map);
 
 
+        // Get player data from intent:
+        String[] playerNames = getIntent().getStringArrayExtra("names");
+        for (String p : playerNames) {
+            Log.i("PLAYER NAME", p);
+        }
+        Integer[] playerColors = (Integer[]) getIntent().getSerializableExtra("colors");
+        for (Integer c : playerColors) {
+            Log.i("PLAYER COLOR", String.valueOf(c));
+        }
+
+        // Create players from that array
+        Player[] players = new Player[playerNames.length];
+        for (int i = 0; i < playerNames.length; ++i) {
+            players[i] = new Player(playerNames[i], playerColors[i]);
+        }
+
+
         // Find all buttons in view and link to countries:
         buttonMapping = new HashMap<Integer, Country>();
         int[] buttons = ((Group) findViewById(R.id.group)).getReferencedIds();
@@ -82,23 +99,7 @@ public class MapActivity extends AppCompatActivity {
         for (int i : neighborMapping.keySet()) {
             for (int j : neighborMapping.get(i)) {
                 buttonMapping.get(i).addNeighbor(buttonMapping.get(j));
-                // Log.i("REGISTERED NEIGHBOR", buttonMapping.get(i).getName() + " added neighbor " + buttonMapping.get(j).getName());
             }
-        }
-
-        // Get player data from intent:
-        String[] playerNames = getIntent().getStringArrayExtra("names");
-        for (String p : playerNames) {
-            Log.i("PLAYER NAME", p);
-        }
-        Integer[] playerColors = (Integer[]) getIntent().getSerializableExtra("colors");
-        for (Integer c : playerColors) {
-            Log.i("PLAYER COLOR", String.valueOf(c));
-        }
-        // Create players from that array
-        Player[] players = new Player[playerNames.length];
-        for (int i = 0; i < playerNames.length; ++i) {
-            players[i] = new Player(playerNames[i], playerColors[i]);
         }
 
         // Add players to side layout
@@ -122,23 +123,19 @@ public class MapActivity extends AppCompatActivity {
         }
 
 
+        // Create countries:
+        Country[] countries = buttonMapping.values().toArray(new Country[0]);
+
+
         // Start game:
-        // TODO: CHANGE PLAYER ARRAY TO REFLECT PLAYERS CONNECTED TO SERVER
-        game = new Game(players, buttonMapping, avatarMapping, this);
-        if (getIntent().getBooleanExtra("setup",false) == false) {
-            game.setState(new ObserveState(game));
-        }
+        game = Game.getInstance(players, countries, buttonMapping, avatarMapping, this);
+
         GameClient.getInstance().registerCallback(new Callback<BaseMessage>() {
             @Override
             public void callback(BaseMessage argument) {
                 game.handleMessage(argument);
             }
         });
-
-        // Add every country to the list of available countries
-        for (Country country : buttonMapping.values()) {
-            game.getAvailableCountries().add(country);
-        }
 
     }
 
