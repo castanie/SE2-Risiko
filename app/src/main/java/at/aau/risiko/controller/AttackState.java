@@ -51,7 +51,7 @@ public class AttackState extends State {
 
                 if (attacking.getArmies() > 1) {
 
-                    game.sendMessage(new UpdateMessage(null, game.buttonMap.get(view.getId()).getName(), game.buttonMap.get(view.getId()).getArmies()));
+                    game.sendMessage(new UpdateMessage(game.buttonMap.get(view.getId()).getName(), game.buttonMap.get(view.getId()).getArmies()));
                     game.getContext().startActivity(new Intent(game.getContext(), DiceActivity.class));
                     changeState();
                 } else {

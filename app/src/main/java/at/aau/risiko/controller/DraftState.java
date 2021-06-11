@@ -15,7 +15,7 @@ public class DraftState extends State {
 
     int availableStrength;
     Country clicked;
-    Player p = game.getPlayers()[game.getIndex()];
+    Player player = game.getCurrentPlayer();
 
     /* The constructor must calculate the armies available to
      the player.*/
@@ -24,18 +24,18 @@ public class DraftState extends State {
         super();
         Log.i("GAME STATE", "Transitioned into DraftState.");
 
-        if (p.getAvailable() > 0) {
-            this.availableStrength = p.getAvailable() + CalculateStrength();
+        if (player.getAvailable() > 0) {
+            this.availableStrength = player.getAvailable() + calculateStrength();
         } else {
-            this.availableStrength = CalculateStrength();
+            this.availableStrength = calculateStrength();
         }
 
         game.setProgress(1);
         game.setCard("Strengthen");
     }
 
-    private int CalculateStrength() {
-        int occupiedCountries = p.getOccupied().size();
+    private int calculateStrength() {
+        int occupiedCountries = player.getOccupied().size();
         int strength = occupiedCountries / 3;
         if (occupiedCountries == 0) {
             // game.showToast("You have lost the game!");
@@ -62,7 +62,7 @@ public class DraftState extends State {
 
         clicked = game.buttonMap.get(view.getId());
 
-        List<Country> occupiedCountries = p.getOccupied();
+        List<Country> occupiedCountries = player.getOccupied();
 
         if (occupiedCountries.contains(game.buttonMap.get(view.getId()))) {
 
@@ -72,10 +72,10 @@ public class DraftState extends State {
 
             Button button = (Button) view;
             button.setText(Integer.toString(newArmies));
-            p.setAvailable(availableStrength--);
+            player.setAvailable(availableStrength--);
 
             game.showSnackbar(availableStrength + " armies available to reinforce your Countries");
-            game.sendMessage(new UpdateMessage("Uno", game.buttonMap.get(view.getId()).getName(), game.buttonMap.get(view.getId()).getArmies()));
+            game.sendMessage(new UpdateMessage(game.buttonMap.get(view.getId()).getName(), game.buttonMap.get(view.getId()).getArmies()));
 
             if (availableStrength == 0) {
                 changeState();

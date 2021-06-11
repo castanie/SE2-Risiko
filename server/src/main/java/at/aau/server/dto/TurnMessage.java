@@ -2,15 +2,13 @@ package at.aau.server.dto;
 
 public class TurnMessage extends BaseMessage {
 
-    public String playerName;
-    public Integer playerIndex;
+    public int playerIndex;
 
     public TurnMessage() {
 
     }
 
-    public TurnMessage(String playerName, Integer playerIndex) {
-        this.playerName = playerName;
+    public TurnMessage(int playerIndex) {
         this.playerIndex = playerIndex;
     }
 

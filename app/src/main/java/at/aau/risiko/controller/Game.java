@@ -2,18 +2,20 @@ package at.aau.risiko.controller;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import at.aau.core.CardList;
 import at.aau.core.Country;
@@ -44,9 +46,9 @@ public class Game {
     HashMap<Integer, Player> avatarMap;
 
 
-    private Game(Player[] players, Country[] countries, HashMap<Integer, Country> buttonMap, HashMap<Integer, Player> avatarMap, Activity activity) {
+    private Game(Player[] players, List<Country> countries, HashMap<Integer, Country> buttonMap, HashMap<Integer, Player> avatarMap, Activity activity) {
         this.players = players;
-        this.availableCountries = Arrays.asList(countries);
+        this.availableCountries = countries;
         this.availableCards = new CardList();
 
         this.currentIndex = 0;
@@ -66,7 +68,7 @@ public class Game {
         return instance;
     }
 
-    public static Game getInstance(Player[] players, Country[] countries, HashMap<Integer, Country> buttonMap, HashMap<Integer, Player> avatarMap, Activity activity) {
+    public static Game getInstance(Player[] players, List<Country> countries, HashMap<Integer, Country> buttonMap, HashMap<Integer, Player> avatarMap, Activity activity) {
         if (instance == null) {
             Log.i("GAME INSTANCING", "A new instance was created.");
 
@@ -140,7 +142,15 @@ public class Game {
         // Wakes Player from sleep and sets UI:
         else if (message instanceof TurnMessage) {
 
-            // TODO: Set appropriate State:
+            // Set current Player:
+            setIndex(((TurnMessage) message).playerIndex);
+
+            // Set appropriate State:
+            if (getCurrentPlayer().getAvailable() > 0) {
+                this.setState(new SetupState());
+            } else {
+                this.setState(new DraftState());
+            }
 
             // TODO: Set Avatar:
 
@@ -149,13 +159,35 @@ public class Game {
         // Updates Country data and sets UI:
         else if (message instanceof UpdateMessage) {
 
-            // TODO: Find Country:
+            // Find Player:
+            Player player = players[((UpdateMessage) message).playerIndex];
 
-            // TODO: Update Model data:
+            // Find Country and Button:
+            Country country = null;
+            Button button = null;
 
-            // TODO: Find Button:
+            for (Map.Entry<Integer, Country> e : buttonMap.entrySet()) {
+                if (e.getValue().getName().equals(((UpdateMessage) message).countryName)) {
+                    country = e.getValue();
+                    button = (Button) activity.findViewById(e.getKey());
+                    break;
+                }
+            }
 
-            // TODO: Update View data:
+            // Update Model data:
+            availableCountries.remove(country);
+            for (Player p : players) {
+                p.getOccupied().remove(country);
+            }
+
+            player.getOccupied().add(country);
+
+            country.setColor(player.getColor());
+            country.setArmies(((UpdateMessage) message).countryArmies);
+
+            // Update View data:
+            button.setBackgroundTintList(ColorStateList.valueOf(country.getColor()));
+            button.setText(String.valueOf(country.getArmies()));
 
         }
 
@@ -163,6 +195,9 @@ public class Game {
         else if (message instanceof DiceMessage) {
 
             // TODO: Enter DiceActivity:
+            Intent intent = new Intent();
+            intent.putExtra("amount", 3);
+            activity.startActivity(intent);
 
         }
     }
@@ -184,6 +219,10 @@ public class Game {
 
     public Player[] getPlayers() {
         return players;
+    }
+
+    public Player getCurrentPlayer() {
+        return players[currentIndex];
     }
 
     public List<Country> getAvailableCountries() {

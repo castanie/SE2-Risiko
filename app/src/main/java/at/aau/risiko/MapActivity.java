@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.Group;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 
 import at.aau.core.Country;
 import at.aau.core.Player;
@@ -124,8 +125,10 @@ public class MapActivity extends AppCompatActivity {
 
 
         // Create countries:
-        Country[] countries = buttonMapping.values().toArray(new Country[0]);
-
+        LinkedList<Country> countries = new LinkedList<Country>();
+        for (Country c : buttonMapping.values()) {
+            countries.add(c);
+        }
 
         // Start game:
         game = Game.getInstance(players, countries, buttonMapping, avatarMapping, this);

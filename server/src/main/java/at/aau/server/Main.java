@@ -43,6 +43,9 @@ public class Main {
             server.start();
             server.registerCallback(new Callback<BaseMessage>() {
 
+                int readyBarrier = 0;
+                int currentTurn = 0;
+
                 @Override
                 public void callback(BaseMessage argument) {
 
@@ -69,6 +72,8 @@ public class Main {
                         ((StartMessage) argument).colors = new Integer[] {0xFFFFCC00, 0xFFFF44CC};
                         server.broadcastMessage(argument);
 
+                        readyBarrier = 0;
+
                     }
 
                     // Message returned by Players after starting game:
@@ -76,9 +81,12 @@ public class Main {
                         System.out.println("ReadyMessage received.");
 
                         // Wait for all players to get ready:
+                        ++readyBarrier;
 
                         // Once all are ready, start first turn:
-
+                        if (readyBarrier == server.getConnections().length) {
+                            server.sendMessage(currentTurn, new TurnMessage());
+                        }
 
                     }
 
@@ -86,8 +94,14 @@ public class Main {
                     else if (argument instanceof TurnMessage) {
                         System.out.println("TurnMessage received.");
 
-                        // 
+                        // Set next turn and possibly wrap around:
+                        currentTurn++;
+                        if (currentTurn >= server.getConnections().length) {
+                            currentTurn = 0;
+                        }
 
+                        // Wake next player:
+                        server.sendMessage(currentTurn, new TurnMessage(currentTurn));
 
                     }
 
@@ -95,8 +109,9 @@ public class Main {
                     else if (argument instanceof UpdateMessage) {
                         System.out.println("UpdateMessage received.");
 
-                        // 
-
+                        // Broadcast update:
+                        ((UpdateMessage) argument).playerIndex = currentTurn;
+                        server.broadcastMessage(argument);
 
                     }
 
