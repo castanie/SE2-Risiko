@@ -1,10 +1,9 @@
 package at.aau.risiko.controller;
 
+import android.app.Activity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-
-import java.util.List;
 
 import at.aau.core.Country;
 import at.aau.core.Player;
@@ -12,10 +11,7 @@ import at.aau.server.dto.UpdateMessage;
 
 public class DraftState extends State {
 
-
-    int availableStrength;
-    Country clicked;
-    Player player = game.getCurrentPlayer();
+    Player player;
 
     /* The constructor must calculate the armies available to
      the player.*/
@@ -24,14 +20,17 @@ public class DraftState extends State {
         super();
         Log.i("GAME STATE", "Transitioned into DraftState.");
 
+        player = game.getCurrentPlayer();
+
         if (player.getAvailable() > 0) {
-            this.availableStrength = player.getAvailable() + calculateStrength();
+             player.setAvailable(player.getAvailable() + calculateStrength());
         } else {
-            this.availableStrength = calculateStrength();
+            player.setAvailable(calculateStrength());
         }
 
         game.setProgress(1);
-        game.setCard("Strengthen");
+        game.setInfo("Strengthen");
+        game.setCards(true);
     }
 
     private int calculateStrength() {
@@ -60,34 +59,38 @@ public class DraftState extends State {
     @Override
     public void handleInput(View view) {
 
-        clicked = game.buttonMap.get(view.getId());
+        Button button = (Button) view;
 
-        List<Country> occupiedCountries = player.getOccupied();
+        Player player = game.getCurrentPlayer();
+        Country country = game.buttonMap.get(view.getId());
 
-        if (occupiedCountries.contains(game.buttonMap.get(view.getId()))) {
+        // If current Player already holds the clicked Country:
+        if (player.getOccupied().contains(country)) {
 
-            int oldArmies = clicked.getArmies();
+            int oldArmies = country.getArmies();
             int newArmies = oldArmies + 1;
-            clicked.setArmies(newArmies);
+            country.setArmies(newArmies);
 
-            Button button = (Button) view;
             button.setText(Integer.toString(newArmies));
-            player.setAvailable(availableStrength--);
+            player.setAvailable(player.getAvailable() - 1);
 
-            game.showSnackbar(availableStrength + " armies available to reinforce your Countries");
-            game.sendMessage(new UpdateMessage(game.buttonMap.get(view.getId()).getName(), game.buttonMap.get(view.getId()).getArmies()));
+            game.showSnackbar(player.getAvailable() + " armies left to place on the board.");
+            game.sendMessage(new UpdateMessage(game.buttonMap.get(button.getId()).getName(), game.buttonMap.get(button.getId()).getArmies()));
 
-            if (availableStrength == 0) {
+            if (player.getAvailable() == 0) {
                 changeState();
             }
+        }
 
-        } else {
-            game.showSnackbar("Choose one of your occupied Countries");
+        // Else the clicked Country belongs to another Player:
+        else {
+            game.showSnackbar("Choose one of your occupied Countries!");
         }
     }
 
     @Override
     public void changeState() {
         game.setState(new AttackState());
+        game.setCards(false);
     }
 }

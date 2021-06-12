@@ -17,7 +17,7 @@ public class SetupState extends State {
         Log.i("GAME STATE", "Transitioned into SetupState.");
 
         game.setProgress(3);
-        game.setCard("Setup");
+        game.setInfo("Setup");
     }
 
     /**

@@ -149,6 +149,18 @@ public class MapActivity extends AppCompatActivity {
         GameClient.getInstance().sendMessage(new ReadyMessage());
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        GameClient.getInstance().registerCallback(new Callback<BaseMessage>() {
+            @Override
+            public void callback(BaseMessage argument) {
+                game.handleMessage(argument);
+            }
+        });
+    }
+
     public void onClick(View view) {
         game.handleInput(view);
     }

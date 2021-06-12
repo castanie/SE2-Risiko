@@ -44,6 +44,12 @@
         <activity
             android:name=".DiceActivity"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".DiceActivityAttacker"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".DiceActivityDefender"
+            android:screenOrientation="landscape" />
 
         <meta-data
             android:name="preloaded_fonts"

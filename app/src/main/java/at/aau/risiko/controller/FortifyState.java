@@ -27,7 +27,7 @@ public class FortifyState extends State {
         recipient = null;
 
         game.setProgress(3);
-        game.setCard("Move");
+        game.setInfo("Move");
     }
 
     /**

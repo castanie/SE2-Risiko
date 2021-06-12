@@ -10,7 +10,7 @@ public class ObserveState extends State {
         Log.i("GAME STATE", "Transitioned into ObserveState.");
 
         game.setProgress(0);
-        game.setCard("Waiting...");
+        game.setInfo("Waiting...");
     }
 
     /**

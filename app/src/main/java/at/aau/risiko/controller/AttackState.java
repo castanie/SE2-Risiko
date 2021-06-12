@@ -5,8 +5,9 @@ import android.util.Log;
 import android.view.View;
 
 import at.aau.core.Country;
-import at.aau.risiko.DiceActivity;
-import at.aau.server.dto.UpdateMessage;
+import at.aau.core.Player;
+import at.aau.risiko.DiceActivityAttacker;
+import at.aau.server.dto.DiceMessage;
 
 public class AttackState extends State {
 
@@ -21,7 +22,7 @@ public class AttackState extends State {
         defending = null;
 
         game.setProgress(2);
-        game.setCard("Attack");
+        game.setInfo("Attack");
     }
 
     /**
@@ -46,19 +47,32 @@ public class AttackState extends State {
             attacking = clicked;
         } else if (defending == null) {
             if (clicked.getNeighbors().contains(attacking)) {
-                // TODO: START DICE STATE!
+
                 defending = clicked;
 
                 if (attacking.getArmies() > 1) {
 
-                    game.sendMessage(new UpdateMessage(game.buttonMap.get(view.getId()).getName(), game.buttonMap.get(view.getId()).getArmies()));
-                    game.getContext().startActivity(new Intent(game.getContext(), DiceActivity.class));
-                    changeState();
+                    // Find index of the defending Player:
+                    int defendingIndex = 0;
+                    for (Player p : game.getPlayers()) {
+                        if (p.getOccupied().contains(defending)) {
+                            break;
+                        }
+                        ++defendingIndex;
+                    }
+
+                    game.sendMessage(new DiceMessage(defendingIndex));
+                    game.getContext().startActivity(new Intent(game.getContext(), DiceActivityAttacker.class));
                 } else {
                     game.showSnackbar("Not enough armies to attack a country!");
+                    attacking = null;
+                    defending = null;
+                    changeState();
                 }
             } else {
                 game.showSnackbar("You can only attack neighbouring countries!");
+                attacking = null;
+                defending = null;
             }
         } else {
             attacking = null;

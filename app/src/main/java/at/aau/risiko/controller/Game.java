@@ -20,6 +20,7 @@ import java.util.Map;
 import at.aau.core.CardList;
 import at.aau.core.Country;
 import at.aau.core.Player;
+import at.aau.risiko.DiceActivityDefender;
 import at.aau.risiko.MapActivity;
 import at.aau.risiko.R;
 import at.aau.server.dto.BaseMessage;
@@ -106,9 +107,14 @@ public class Game {
         bar.setProgress(progress);
     }
 
-    public void setCard(String message) {
+    public void setInfo(String message) {
         TextView card = ((MapActivity) activity).findViewById(R.id.textViewCard);
         card.setText(message);
+    }
+
+    public void setCards(boolean enabled) {
+        Button button = activity.findViewById(R.id.buttonCards);
+        button.setEnabled(enabled);
     }
 
     public void showToast(String message) {
@@ -195,7 +201,7 @@ public class Game {
         else if (message instanceof DiceMessage) {
 
             // TODO: Enter DiceActivity:
-            Intent intent = new Intent();
+            Intent intent = new Intent(activity.getApplicationContext(), DiceActivityDefender.class);
             intent.putExtra("amount", 3);
             activity.startActivity(intent);
 

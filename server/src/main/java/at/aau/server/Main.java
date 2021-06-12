@@ -1,6 +1,8 @@
 package at.aau.server;
 
 import at.aau.server.dto.BaseMessage;
+import at.aau.server.dto.DiceMessage;
+import at.aau.server.dto.EyeNumbersMessage;
 import at.aau.server.dto.LogMessage;
 import at.aau.server.dto.NameMessage;
 import at.aau.server.dto.ReadyMessage;
@@ -39,6 +41,8 @@ public class Main {
             server.registerClass(ReadyMessage.class);
             server.registerClass(TurnMessage.class);
             server.registerClass(UpdateMessage.class);
+            server.registerClass(DiceMessage.class);
+            server.registerClass(EyeNumbersMessage.class);
 
             server.start();
             server.registerCallback(new Callback<BaseMessage>() {
@@ -109,24 +113,25 @@ public class Main {
                     else if (argument instanceof UpdateMessage) {
                         System.out.println("UpdateMessage received.");
 
-                        // Broadcast update:
+                        // TODO: DO NOT SEND MESSAGE BACK TO SENDER; THIS CAUSES VARIOUS PROBLEMS!
+                        // - INCLUDING RANDOM COLOR CHANGES IN FORTIFY STATE
                         ((UpdateMessage) argument).playerIndex = currentTurn;
                         server.broadcastMessage(argument);
 
                     }
 
-                    // TODO: Dice request
-                    else if (false) {
-                        System.out.println("UpdateMessage received.");
+                    // Message sent from Map requesting to start attack:
+                    else if (argument instanceof DiceMessage) {
+                        System.out.println("DiceMessage received.");
 
-                        //
-
+                        // Order Defender to roll dice:
+                        server.sendMessage(((DiceMessage) argument).playerIndex, argument);
 
                     }
 
                     // TODO: Dice response
-                    else if (false) {
-                        System.out.println("UpdateMessage received.");
+                    else if (argument instanceof EyeNumbersMessage) {
+                        System.out.println("EyeNumbersMessage received.");
 
                         //
 
