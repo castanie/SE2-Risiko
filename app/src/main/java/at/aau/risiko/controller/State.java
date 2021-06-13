@@ -6,8 +6,8 @@ public abstract class State {
 
     Game game;
 
-    public State() {
-        this.game = Game.getInstance();
+    public State(Game game) {
+        this.game = game;
     }
 
 

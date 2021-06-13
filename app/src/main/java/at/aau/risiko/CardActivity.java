@@ -13,6 +13,8 @@ import java.util.ArrayList;
 
 import at.aau.core.CardList;
 import at.aau.core.HandDeck;
+import at.aau.server.dto.ExchangeMessage;
+import at.aau.server.kryonet.GameClient;
 
 
 public class CardActivity extends AppCompatActivity {
@@ -42,7 +44,7 @@ public class CardActivity extends AppCompatActivity {
         handDeck = new HandDeck();
         cardDeck.fillUpCardlistForStart();
 
-        drawCards();
+        // drawCards();
         updateDataForShowingHandDeck();
         showHandDeck();
 
@@ -394,6 +396,9 @@ public class CardActivity extends AppCompatActivity {
 
         //correct combination - selection will be exchangend
         if (handDeck.sizeOfSelection() == 3 && cardDeck.checkIfCombinationOfCardsCanBeExchanged(handDeck.getCardFromSelection(0), handDeck.getCardFromSelection(1), handDeck.getCardFromSelection(2))) {
+
+            // Send Server message:
+            GameClient.getInstance().sendMessage(new ExchangeMessage(handDeck.getCardFromSelection(0), handDeck.getCardFromSelection(1), handDeck.getCardFromSelection(2)));
 
             //exchange cards
             cardDeck.exchangeCards(handDeck.getCardFromSelection(0), handDeck.getCardFromSelection(1), handDeck.getCardFromSelection(2));

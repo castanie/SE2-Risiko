@@ -12,8 +12,8 @@ import at.aau.server.dto.UpdateMessage;
 
 public class SetupState extends State {
 
-    public SetupState() {
-        super();
+    public SetupState(Game game) {
+        super(game);
         Log.i("GAME STATE", "Transitioned into SetupState.");
 
         game.setProgress(3);
@@ -85,7 +85,7 @@ public class SetupState extends State {
 
     @Override
     public void changeState() {
-        game.setState(new ObserveState());
+        game.setState(new ObserveState(game));
         game.sendMessage(new TurnMessage());
     }
 

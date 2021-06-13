@@ -16,8 +16,8 @@ public class DraftState extends State {
     /* The constructor must calculate the armies available to
      the player.*/
 
-    public DraftState() {
-        super();
+    public DraftState(Game game) {
+        super(game);
         Log.i("GAME STATE", "Transitioned into DraftState.");
 
         player = game.getCurrentPlayer();
@@ -90,7 +90,7 @@ public class DraftState extends State {
 
     @Override
     public void changeState() {
-        game.setState(new AttackState());
+        game.setState(new AttackState(game));
         game.setCards(false);
     }
 }

@@ -89,7 +89,7 @@ public class Main {
 
                         // Once all are ready, start first turn:
                         if (readyBarrier == server.getConnections().length) {
-                            server.sendMessage(currentTurn, new TurnMessage());
+                            server.sendMessage(currentTurn, new TurnMessage(currentTurn, true));
                         }
 
                     }
@@ -104,8 +104,11 @@ public class Main {
                             currentTurn = 0;
                         }
 
+                        // Order Players to set Avatar:
+                        server.broadcastMessage(new TurnMessage(currentTurn, false));
+
                         // Wake next player:
-                        server.sendMessage(currentTurn, new TurnMessage(currentTurn));
+                        server.sendMessage(currentTurn, new TurnMessage(currentTurn, true));
 
                     }
 

@@ -19,8 +19,8 @@ public class FortifyState extends State {
     private Country recipient;
     private Button recipientButton;
 
-    public FortifyState() {
-        super();
+    public FortifyState(Game game) {
+        super(game);
         Log.i("GAME STATE", "Transitioned into FortifyState.");
 
         donor = null;
@@ -93,7 +93,7 @@ public class FortifyState extends State {
 
     @Override
     public void changeState() {
-        game.setState(new ObserveState());
+        game.setState(new ObserveState(game));
         game.sendMessage(new TurnMessage());
     }
 

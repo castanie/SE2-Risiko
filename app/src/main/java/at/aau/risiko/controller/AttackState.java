@@ -14,8 +14,8 @@ public class AttackState extends State {
     private Country attacking;
     private Country defending;
 
-    public AttackState() {
-        super();
+    public AttackState(Game game) {
+        super(game);
         Log.i("GAME STATE", "Transitioned into AttackState.");
 
         attacking = null;
@@ -82,7 +82,7 @@ public class AttackState extends State {
 
     @Override
     public void changeState() {
-        game.setState(new FortifyState());
+        game.setState(new FortifyState(game));
     }
 
 }

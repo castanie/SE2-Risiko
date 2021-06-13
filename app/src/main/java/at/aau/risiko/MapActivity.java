@@ -110,15 +110,16 @@ public class MapActivity extends AppCompatActivity {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
-        params.setMargins(0, 8, 32, 8);
+        params.setMargins(0, 4, 24, 4);
         for (Player player : players) {
             ImageView avatar = new ImageView(this);
             avatar.setId(View.generateViewId());
-            avatar.setImageResource(R.drawable.ic_army_counter);
+            avatar.setImageResource(R.drawable.ic_player_avatar);
             avatar.setLayoutParams(params);
+            avatar.setAdjustViewBounds(true);
             avatar.setImageTintList(ColorStateList.valueOf(player.getColor()));
             avatar.setImageTintMode(PorterDuff.Mode.MULTIPLY);
-            layout.addView(avatar, LinearLayout.LayoutParams.WRAP_CONTENT);
+            layout.addView(avatar, LinearLayout.LayoutParams.MATCH_PARENT);
 
             avatarMapping.put(avatar.getId(), player);
         }
@@ -131,7 +132,7 @@ public class MapActivity extends AppCompatActivity {
         }
 
         // Start game:
-        game = Game.getInstance(players, countries, buttonMapping, avatarMapping, this);
+        game = new Game(players, countries, buttonMapping, avatarMapping, this);
 
         GameClient.getInstance().registerCallback(new Callback<BaseMessage>() {
             @Override

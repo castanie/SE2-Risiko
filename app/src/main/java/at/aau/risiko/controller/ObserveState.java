@@ -5,8 +5,8 @@ import android.view.View;
 
 public class ObserveState extends State {
 
-    public ObserveState() {
-        super();
+    public ObserveState(Game game) {
+        super(game);
         Log.i("GAME STATE", "Transitioned into ObserveState.");
 
         game.setProgress(0);
