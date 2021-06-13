@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.Group;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 
 import at.aau.core.Country;
 import at.aau.core.Player;
@@ -35,6 +36,23 @@ public class MapActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
+
+        // Get player data from intent:
+        String[] playerNames = getIntent().getStringArrayExtra("names");
+        for (String p : playerNames) {
+            Log.i("PLAYER NAME", p);
+        }
+        Integer[] playerColors = (Integer[]) getIntent().getSerializableExtra("colors");
+        for (Integer c : playerColors) {
+            Log.i("PLAYER COLOR", String.valueOf(c));
+        }
+
+        // Create players from that array
+        Player[] players = new Player[playerNames.length];
+        for (int i = 0; i < playerNames.length; ++i) {
+            players[i] = new Player(playerNames[i], playerColors[i]);
+        }
 
 
         // Find all buttons in view and link to countries:
@@ -82,23 +100,7 @@ public class MapActivity extends AppCompatActivity {
         for (int i : neighborMapping.keySet()) {
             for (int j : neighborMapping.get(i)) {
                 buttonMapping.get(i).addNeighbor(buttonMapping.get(j));
-                // Log.i("REGISTERED NEIGHBOR", buttonMapping.get(i).getName() + " added neighbor " + buttonMapping.get(j).getName());
             }
-        }
-
-        // Get player data from intent:
-        String[] playerNames = getIntent().getStringArrayExtra("names");
-        for (String p : playerNames) {
-            Log.i("PLAYER NAME", p);
-        }
-        Integer[] playerColors = (Integer[]) getIntent().getSerializableExtra("colors");
-        for (Integer c : playerColors) {
-            Log.i("PLAYER COLOR", String.valueOf(c));
-        }
-        // Create players from that array
-        Player[] players = new Player[playerNames.length];
-        for (int i = 0; i < playerNames.length; ++i) {
-            players[i] = new Player(playerNames[i], playerColors[i]);
         }
 
         // Add players to side layout
@@ -108,37 +110,36 @@ public class MapActivity extends AppCompatActivity {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
-        params.setMargins(0, 8, 32, 8);
+        params.setMargins(0, 4, 24, 4);
         for (Player player : players) {
             ImageView avatar = new ImageView(this);
             avatar.setId(View.generateViewId());
-            avatar.setImageResource(R.drawable.ic_army_counter);
+            avatar.setImageResource(R.drawable.ic_player_avatar);
             avatar.setLayoutParams(params);
+            avatar.setAdjustViewBounds(true);
             avatar.setImageTintList(ColorStateList.valueOf(player.getColor()));
             avatar.setImageTintMode(PorterDuff.Mode.MULTIPLY);
-            layout.addView(avatar, LinearLayout.LayoutParams.WRAP_CONTENT);
+            layout.addView(avatar, LinearLayout.LayoutParams.MATCH_PARENT);
 
             avatarMapping.put(avatar.getId(), player);
         }
 
 
-        // Start game:
-        // TODO: CHANGE PLAYER ARRAY TO REFLECT PLAYERS CONNECTED TO SERVER
-        game = new Game(players, buttonMapping, avatarMapping, this);
-        if (getIntent().getBooleanExtra("setup",false) == false) {
-            game.setState(new ObserveState(game));
+        // Create countries:
+        LinkedList<Country> countries = new LinkedList<Country>();
+        for (Country c : buttonMapping.values()) {
+            countries.add(c);
         }
+
+        // Start game:
+        game = new Game(players, countries, buttonMapping, avatarMapping, this);
+
         GameClient.getInstance().registerCallback(new Callback<BaseMessage>() {
             @Override
             public void callback(BaseMessage argument) {
                 game.handleMessage(argument);
             }
         });
-
-        // Add every country to the list of available countries
-        for (Country country : buttonMapping.values()) {
-            game.getAvailableCountries().add(country);
-        }
 
     }
 
@@ -147,6 +148,18 @@ public class MapActivity extends AppCompatActivity {
         super.onStart();
 
         GameClient.getInstance().sendMessage(new ReadyMessage());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        GameClient.getInstance().registerCallback(new Callback<BaseMessage>() {
+            @Override
+            public void callback(BaseMessage argument) {
+                game.handleMessage(argument);
+            }
+        });
     }
 
     public void onClick(View view) {

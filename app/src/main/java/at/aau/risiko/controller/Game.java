@@ -2,34 +2,33 @@ package at.aau.risiko.controller;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.cardview.widget.CardView;
-
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import at.aau.core.CardList;
 import at.aau.core.Country;
 import at.aau.core.Player;
+import at.aau.risiko.DiceActivityDefender;
 import at.aau.risiko.MapActivity;
 import at.aau.risiko.R;
 import at.aau.server.dto.BaseMessage;
+import at.aau.server.dto.CardMessage;
+import at.aau.server.dto.DiceMessage;
+import at.aau.server.dto.ExchangeMessage;
 import at.aau.server.dto.StartMessage;
-import at.aau.server.dto.TextMessage;
 import at.aau.server.dto.TurnMessage;
 import at.aau.server.dto.UpdateMessage;
 import at.aau.server.kryonet.GameClient;
@@ -38,21 +37,23 @@ public class Game {
 
     // Game is the local instance of the controller.
     private State state;
-    private Player[] players;
-    private List<Country> availableCountries;
-    private CardList cardDeck;
+    private final Player[] players;
+    private final List<Country> availableCountries;
+    private static CardList availableCards;
+
     private int currentIndex;
 
-    private Activity activity;
+    private final Activity activity;
     HashMap<Integer, Country> buttonMap;
     HashMap<Integer, Player> avatarMap;
 
 
-    public Game(Player[] players, HashMap<Integer, Country> buttonMap, HashMap<Integer, Player> avatarMap, Activity activity) {
-        this.state = new SetupState(this);
+    public Game(Player[] players, List<Country> countries, HashMap<Integer, Country> buttonMap, HashMap<Integer, Player> avatarMap, Activity activity) {
         this.players = players;
-        this.availableCountries = new LinkedList<>();
-        this.cardDeck = new CardList();
+        this.availableCountries = countries;
+        this.availableCards = new CardList();
+        this.availableCards.fillUpCardlistForStart();
+
         this.currentIndex = 0;
 
         this.activity = activity;
@@ -61,7 +62,9 @@ public class Game {
     }
 
 
-    // Methods:
+    ///////////////////////
+    // Delegate methods: //
+    ///////////////////////
 
     public void handleInput(View view) {
         state.handleInput(view);
@@ -72,112 +75,189 @@ public class Game {
     }
 
 
-    // UI updates:
+    /////////////////
+    // UI updates: //
+    /////////////////
 
-    public void setProgress(int progress) {
-        ProgressBar bar = ((MapActivity) activity).findViewById(R.id.progressBar);
-        bar.setProgress(progress);
+    public void setAvatar() {
+
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // TODO: Reset Avatars to default size:
+                for (Integer i : avatarMap.keySet()) {
+                    ImageView avatar = (ImageView) activity.findViewById(i);
+                    avatar.setScaleX(0.8f);
+                    avatar.setScaleY(0.8f);
+                }
+
+                // TODO: Set Avatar for current Player:
+                for (Map.Entry<Integer, Player> e : avatarMap.entrySet()) {
+                    if (e.getValue().equals(getCurrentPlayer())) {
+                        ImageView avatar = (ImageView) activity.findViewById(e.getKey());
+                        avatar.setScaleX(1.0f);
+                        avatar.setScaleY(1.0f);
+                    }
+                }
+            }
+        });
+
     }
 
+    // Set the ProgressBar on top of the CardView:
+    public void setProgress(int progress) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ProgressBar bar = ((MapActivity) activity).findViewById(R.id.progressBar);
+                bar.setProgress(progress);
+            }
+        });
+    }
+
+    // Set the TextView inside the CardView:
+    public void setInfo(String message) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                TextView card = ((MapActivity) activity).findViewById(R.id.textViewCard);
+                card.setText(message);
+            }
+        });
+    }
+
+    // Enable or disable the button leading to CardActivity:
+    public void setCards(boolean enabled) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Button button = activity.findViewById(R.id.buttonCards);
+                button.setEnabled(enabled);
+            }
+        });
+    }
+
+    // Show a Toast in the MapActivity:
     public void showToast(String message) {
-        int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(this.activity, message, duration);
+        Toast toast = Toast.makeText(this.activity, message, Toast.LENGTH_SHORT);
         toast.show();
     }
 
-    public void setCardView(String message) {
-        TextView card = ((MapActivity) activity).findViewById(R.id.textViewCard);
-        card.setText(message);
-
+    // Show a Snackbar in the MapActivity:
+    public void showSnackbar(String message) {
+        Snackbar snackbar = Snackbar.make(this.activity.findViewById(R.id.linearLayout), message, Snackbar.LENGTH_SHORT);
+        snackbar.show();
     }
 
 
-    public void showSnackbar(String message)
-    {
-        int duration = 1;
-        CharSequence cs = message;
-        Snackbar s = Snackbar.make(this.activity.findViewById(R.id.linearLayout),cs,1500);
-        s.show();
-    }
-
-    // Update server:
+    ////////////////////
+    // Update server: //
+    ////////////////////
 
     public void sendMessage(BaseMessage message) {
-        // Send request to server.
+        // Send message to server.
         GameClient.getInstance().sendMessage(message);
     }
 
 
-    // Update client:
+    ////////////////////
+    // Update client: //
+    ////////////////////
 
     public void handleMessage(BaseMessage message) {
-        if (message instanceof TextMessage) {
-            Log.i("SERVER MESSAGE", ((TextMessage) message).text);
-        } else if (message instanceof StartMessage) {
-            // Do nothing.
-        } else if (message instanceof TurnMessage) {
-            TurnMessage update = (TurnMessage) message;
+        // Should not be handled during a game:
+        if (message instanceof StartMessage) {
 
-            // Set current player:
-            this.currentIndex = update.playerIndex;
-            //TODO: CHANGE TO FIND PLAYER BY INDEX!
-            for (Map.Entry<Integer, Player> e : avatarMap.entrySet()) {
-                if (e.getValue().getName().equals(update.playerName)) {
-                    // TODO: FIX THREAD ACCESS PROBLEMS!
-                    // ((ImageView)activity.findViewById(e.getKey())).setMinimumWidth(120);
-                    // ((ImageView)activity.findViewById(e.getKey())).setMinimumHeight(160);
+            // Do nothing.
+
+        }
+
+        // Wakes Player from sleep and sets UI:
+        else if (message instanceof TurnMessage) {
+
+            // Set current Player:
+            setIndex(((TurnMessage) message).playerIndex);
+
+            // Set appropriate State:
+            if (((TurnMessage) message).isCurrentPlayer) {
+                if (getCurrentPlayer().getAvailable() > 0) {
+                    this.setState(new SetupState(this));
+                } else {
+                    this.setState(new DraftState(this));
                 }
             }
 
-            // Start new turn:
-            if (this.getAvailableCountries().size() > 0) {
-                this.setState(new SetupState(this));
-            } else {
-                this.setState(new DraftState(this));
-            }
-        } else if (message instanceof UpdateMessage) {
-            // game.sendMessage(new UpdateMessage(null, ?.getName(), ?.getArmies()));
-            UpdateMessage update = (UpdateMessage) message;
+            // Set Avatar:
+            setAvatar();
 
-            // Find country by name:
-            Button button = null;
+        }
+
+        // Updates Country data and sets UI:
+        else if (message instanceof UpdateMessage) {
+
+            // Find Player:
+            Player player = players[((UpdateMessage) message).playerIndex];
+
+            // Find Country and Button:
             Country country = null;
+            Button button = null;
+
             for (Map.Entry<Integer, Country> e : buttonMap.entrySet()) {
-                if (e.getValue().getName().equals(update.countryName)) {
-                    button = (Button) activity.findViewById(e.getKey());
+                if (e.getValue().getName().equals(((UpdateMessage) message).countryName)) {
                     country = e.getValue();
+                    button = (Button) activity.findViewById(e.getKey());
                     break;
                 }
             }
 
-            // TODO: CHANGE TO FIND PLAYER BY INDEX!
-            // Find player by name:
-            Player player;
-            for (Map.Entry<Integer, Player> e : avatarMap.entrySet()) {
-                if (e.getValue().getOccupied().contains(country)) {
-                    e.getValue().getOccupied().remove(country);
-                }
-                if (e.getValue().getName().equals(update.playerName)) {
-                    player = e.getValue();
-                    player.getOccupied().add(country);
-                    availableCountries.remove(country);
-                    country.setColor(player.getColor());
-                }
+            // Update Model data:
+            availableCountries.remove(country);
+            for (Player p : players) {
+                p.getOccupied().remove(country);
             }
 
-            Log.i("UPDATE MESSAGE BEFORE", String.valueOf(country.getArmies()));
+            player.getOccupied().add(country);
 
-            country.setArmies(update.armies);
+            country.setColor(player.getColor());
+            country.setArmies(((UpdateMessage) message).countryArmies);
+
+            // Update View data:
             button.setBackgroundTintList(ColorStateList.valueOf(country.getColor()));
             button.setText(String.valueOf(country.getArmies()));
 
-            Log.i("UPDATE MESSAGE AFTER", String.valueOf(country.getArmies()));
+        }
+
+        // Starts DiceActivity for defending Player:
+        else if (message instanceof DiceMessage) {
+
+            // TODO: Enter DiceActivity:
+            Intent intent = new Intent(activity.getApplicationContext(), DiceActivityDefender.class);
+            intent.putExtra("amount", 3);
+            activity.startActivity(intent);
+
+        }
+
+        // Starts DiceActivity for defending Player:
+        else if (message instanceof CardMessage) {
+
+            // TODO: Draw Card:
+
+
+        }
+
+        // Starts DiceActivity for defending Player:
+        else if (message instanceof ExchangeMessage) {
+
+            // TODO: Exchange Cards:
+
 
         }
     }
 
 
-    // Getters & Setters:
+    ////////////////////////
+    // Getters & Setters: //
+    ////////////////////////
 
     public State getState() {
         return state;
@@ -195,6 +275,10 @@ public class Game {
         return players;
     }
 
+    public Player getCurrentPlayer() {
+        return players[currentIndex];
+    }
+
     public List<Country> getAvailableCountries() {
         return availableCountries;
     }
@@ -208,10 +292,10 @@ public class Game {
     }
 
     public CardList getCardDeck() {
-        return cardDeck;
+        return availableCards;
     }
 
-    public void setCardDeck(){
-        this.cardDeck.fillUpCardlistForStart();
+    public void setCardDeck() {
+        this.availableCards.fillUpCardlistForStart();
     }
 }

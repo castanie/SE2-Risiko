@@ -16,7 +16,7 @@ public class Player {
     public Player(String name, Integer color) {
         this.name = name;
         this.color = color;
-        this.available = 0;
+        this.available = 20;
         this.occupied = new LinkedList<>();
         this.handDeck = new HandDeck();
     }

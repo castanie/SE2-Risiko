@@ -24,11 +24,9 @@ public class GameServer implements NetworkServer, KryoNetComponent {
         return instance;
     }
 
-    /*
     public Connection[] getConnections() {
         return this.server.getConnections();
     }
-    */
 
     public void registerClass(Class c) {
         server.getKryo().register(c);
@@ -48,6 +46,10 @@ public class GameServer implements NetworkServer, KryoNetComponent {
 
     public void registerCallback(Callback<BaseMessage> callback) {
         this.messageCallback = callback;
+    }
+
+    public void sendMessage(int playerIndex, BaseMessage message) {
+        server.getConnections()[playerIndex].sendTCP(message);
     }
 
     public void broadcastMessage(BaseMessage message) {

@@ -2,18 +2,17 @@ package at.aau.server.dto;
 
 public class UpdateMessage extends BaseMessage{
 
-    public String playerName;
+    public Integer playerIndex;
     public String countryName;
-    public Integer armies;
+    public Integer countryArmies;
 
     public UpdateMessage() {
 
     }
 
-    public UpdateMessage(String playerName, String countryName, Integer armies) {
-        this.playerName = playerName;
+    public UpdateMessage(String countryName, Integer countryArmies) {
         this.countryName = countryName;
-        this.armies = armies;
+        this.countryArmies = countryArmies;
     }
 
 }

@@ -1,13 +1,13 @@
 package at.aau.server.dto;
 
-public class TextMessage extends BaseMessage {
+public class LogMessage extends BaseMessage {
 
     public String text;
 
-    public TextMessage() {
+    public LogMessage() {
     }
 
-    public TextMessage(String text) {
+    public LogMessage(String text) {
         this.text = text;
     }
 

@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 
 import at.aau.server.dto.BaseMessage;
-import at.aau.server.dto.TextMessage;
+import at.aau.server.dto.LogMessage;
 import at.aau.server.kryonet.Callback;
 import at.aau.server.kryonet.GameClient;
 import at.aau.server.kryonet.GameServer;
@@ -21,23 +21,23 @@ public class TestServer {
     // TODO: SPLIT INTO MULTIPLE TESTS!
     @Test
     public void testConnection() {
-        TextMessage request = new TextMessage("Marco!");
-        TextMessage response = new TextMessage("Polo!");
+        LogMessage request = new LogMessage("Marco!");
+        LogMessage response = new LogMessage("Polo!");
 
-        server.registerClass(TextMessage.class);
-        client.registerClass(TextMessage.class);
+        server.registerClass(LogMessage.class);
+        client.registerClass(LogMessage.class);
 
         server.registerCallback(new Callback<BaseMessage>() {
             @Override
             public void callback(BaseMessage argument) {
-                assertEquals("Marco!", ((TextMessage) argument).text);
+                assertEquals("Marco!", ((LogMessage) argument).text);
                 server.broadcastMessage(response);
             }
         });
         client.registerCallback(new Callback<BaseMessage>() {
             @Override
             public void callback(BaseMessage argument) {
-                assertEquals("Polo!", ((TextMessage) argument).text);
+                assertEquals("Polo!", ((LogMessage) argument).text);
             }
         });
 
