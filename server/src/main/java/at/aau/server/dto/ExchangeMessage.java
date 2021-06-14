@@ -23,4 +23,45 @@ public class ExchangeMessage extends BaseMessage {
         this.bonusArmies = bonusArmies;
     }
 
+    //getter and setter methods
+    public String getCardOne() {
+        return cardOne;
+    }
+
+    public void setCardOne(String cardOne) {
+        this.cardOne = cardOne;
+    }
+
+    public String getCardTwo() {
+        return cardTwo;
+    }
+
+    public void setCardTwo(String cardTwo) {
+        this.cardTwo = cardTwo;
+    }
+
+    public String getCardThree() {
+        return cardThree;
+    }
+
+    public void setCardThree(String cardThree) {
+        this.cardThree = cardThree;
+    }
+
+    public Integer getPlayerIndex() {
+        return playerIndex;
+    }
+
+    public void setPlayerIndex(Integer playerIndex) {
+        this.playerIndex = playerIndex;
+    }
+
+    public Integer getBonusArmies() {
+        return bonusArmies;
+    }
+
+    public void setBonusArmies(Integer bonusArmies) {
+        this.bonusArmies = bonusArmies;
+    }
+
 }
