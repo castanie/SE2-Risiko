@@ -157,10 +157,9 @@ public class Main {
                     else if (argument instanceof ExchangeMessage) {
                         System.out.println("ExchangeMessage received.");
 
-                        // TODO: Possiby delete, as Players don't need to know about eachother.
                         // Simply broadcast which cards were exchanged:
-                        // ((ExchangeMessage) argument).playerIndex = currentTurn;
-                        // server.broadcastMessage(argument);
+                        ((ExchangeMessage) argument).playerIndex = currentTurn;
+                        server.broadcastMessage(argument);
 
                     }
 

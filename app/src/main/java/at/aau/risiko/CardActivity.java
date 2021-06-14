@@ -22,9 +22,7 @@ import at.aau.server.kryonet.GameClient;
 public class CardActivity extends AppCompatActivity {
 
 
-    //initialization of necessary variables
-    CardList cardDeck;
-    HandDeck handDeck;
+    // Initialization of necessary variables
     ArrayList<Integer> imgIdsHandDeck;
     ArrayList<Integer> imgIdsSelection;
 
@@ -42,14 +40,9 @@ public class CardActivity extends AppCompatActivity {
             }
         });
 
-        cardDeck = Game.availableCards;
-        handDeck = Game.drawnCards;
-        cardDeck.fillUpCardlistForStart();
-
         drawCards();
         updateDataForShowingHandDeck();
         showHandDeck();
-
 
     }
 
@@ -57,23 +50,23 @@ public class CardActivity extends AppCompatActivity {
 
         GameClient client = GameClient.getInstance();
 
-        handDeck.addCardToHandDeck(cardDeck.drawCardFromCardList());
-        handDeck.addCardToHandDeck(cardDeck.drawCardFromCardList());
-        handDeck.addCardToHandDeck(cardDeck.drawCardFromCardList());
+        Game.drawnCards.addCardToHandDeck(Game.availableCards.drawCardFromCardList());
+        Game.drawnCards.addCardToHandDeck(Game.availableCards.drawCardFromCardList());
+        Game.drawnCards.addCardToHandDeck(Game.availableCards.drawCardFromCardList());
 
-        for (String s : handDeck.getCardNames()) {
+        for (String s : Game.drawnCards.getCardNames()) {
             client.sendMessage(new CardMessage(s));
         }
 
     }
 
 
-    //updates the necessary data for showing the handdeck
+    // Updates the necessary data for showing the handdeck
     public void updateDataForShowingHandDeck() {
         imgIdsHandDeck = new ArrayList<>();
 
-        for (int i = 0; i < handDeck.size(); i++) {
-            String card = handDeck.getCardFromHandDeck(i);
+        for (int i = 0; i < Game.drawnCards.size(); i++) {
+            String card = Game.drawnCards.getCardFromHandDeck(i);
 
             if (card.equals("Alaska")) {
                 imgIdsHandDeck.add(R.drawable.ca_alaska);
@@ -164,7 +157,7 @@ public class CardActivity extends AppCompatActivity {
 
     }
 
-    //shows the cards from Handdeck
+    // shows the cards from Handdeck
     public void showHandDeck() {
         setHanddeckPicturesToNoCard();
 
@@ -225,7 +218,7 @@ public class CardActivity extends AppCompatActivity {
 
     }
 
-    //sets the pictures of the handDeck to no_card
+    // sets the pictures of the handDeck to no_card
     public void setHanddeckPicturesToNoCard() {
 
         ImageView img0 = findViewById(R.id.id_handdeck_card_0);
@@ -261,13 +254,13 @@ public class CardActivity extends AppCompatActivity {
 
     }
 
-    //updates the necessary data for showing the selected cards
+    // updates the necessary data for showing the selected cards
     public void updateDataForShowingSelection() {
         imgIdsSelection = new ArrayList<>();
 
 
-        for (int i = 0; i < handDeck.sizeOfSelection(); i++) {
-            String card = handDeck.getCardFromSelection(i);
+        for (int i = 0; i < Game.drawnCards.sizeOfSelection(); i++) {
+            String card = Game.drawnCards.getCardFromSelection(i);
 
             if (card.equals("Alaska")) {
                 imgIdsSelection.add(R.drawable.ca_alaska);
@@ -357,7 +350,7 @@ public class CardActivity extends AppCompatActivity {
 
     }
 
-    //shows the selected cards
+    // shows the selected cards
     public void showSelection() {
         for (int i = 0; i < imgIdsSelection.size(); i++) {
             if (i == 0) {
@@ -380,9 +373,9 @@ public class CardActivity extends AppCompatActivity {
     }
 
 
-    //clean selection when clicking on clean-button
+    // clean selection when clicking on clean-button
     public void cleanSelection(View view) {
-        handDeck.deleteAllCardsFromSelection();
+        Game.drawnCards.deleteAllCardsFromSelection();
 
         ImageView img1 = findViewById(R.id.id_selected_card_1);
         img1.setImageResource(R.drawable.ca_no_card);
@@ -395,25 +388,25 @@ public class CardActivity extends AppCompatActivity {
 
     }
 
-    //exchanging cards if possible when clicking on exchange-button
+    // exchanging cards if possible when clicking on exchange-button
     public void exchangeCards(View view) {
 
-        //correct combination - selection will be exchangend
-        if (handDeck.sizeOfSelection() == 3 && cardDeck.checkIfCombinationOfCardsCanBeExchanged(handDeck.getCardFromSelection(0), handDeck.getCardFromSelection(1), handDeck.getCardFromSelection(2))) {
+        // correct combination - selection will be exchangend
+        if (Game.drawnCards.sizeOfSelection() == 3 && Game.availableCards.checkIfCombinationOfCardsCanBeExchanged(Game.drawnCards.getCardFromSelection(0), Game.drawnCards.getCardFromSelection(1), Game.drawnCards.getCardFromSelection(2))) {
 
             // Send Server message:
-            GameClient.getInstance().sendMessage(new ExchangeMessage(handDeck.getCardFromSelection(0), handDeck.getCardFromSelection(1), handDeck.getCardFromSelection(2), 5));
+            GameClient.getInstance().sendMessage(new ExchangeMessage(Game.drawnCards.getCardFromSelection(0), Game.drawnCards.getCardFromSelection(1), Game.drawnCards.getCardFromSelection(2), 5));
 
-            //exchange cards
-            cardDeck.exchangeCards(handDeck.getCardFromSelection(0), handDeck.getCardFromSelection(1), handDeck.getCardFromSelection(2));
+            // exchange cards
+            Game.availableCards.exchangeCards(Game.drawnCards.getCardFromSelection(0), Game.drawnCards.getCardFromSelection(1), Game.drawnCards.getCardFromSelection(2));
 
-            //delete cards from Handdeck
-            handDeck.deleteCardFromHandDeck(handDeck.getCardFromSelection(0));
-            handDeck.deleteCardFromHandDeck(handDeck.getCardFromSelection(1));
-            handDeck.deleteCardFromHandDeck(handDeck.getCardFromSelection(2));
+            // delete cards from Handdeck
+            Game.drawnCards.deleteCardFromHandDeck(Game.drawnCards.getCardFromSelection(0));
+            Game.drawnCards.deleteCardFromHandDeck(Game.drawnCards.getCardFromSelection(1));
+            Game.drawnCards.deleteCardFromHandDeck(Game.drawnCards.getCardFromSelection(2));
 
-            //delete all cards from selection
-            handDeck.deleteAllCardsFromSelection();
+            // delete all cards from selection
+            Game.drawnCards.deleteAllCardsFromSelection();
 
             ImageView img1 = findViewById(R.id.id_selected_card_1);
             img1.setImageResource(R.drawable.ca_no_card);
@@ -444,11 +437,11 @@ public class CardActivity extends AppCompatActivity {
         }
 
 
-        //wrong combination
-        else if (handDeck.sizeOfSelection() == 3 && !cardDeck.checkIfCombinationOfCardsCanBeExchanged(handDeck.getCardFromSelection(0), handDeck.getCardFromSelection(1), handDeck.getCardFromSelection(2))) {
+        // wrong combination
+        else if (Game.drawnCards.sizeOfSelection() == 3 && !Game.availableCards.checkIfCombinationOfCardsCanBeExchanged(Game.drawnCards.getCardFromSelection(0), Game.drawnCards.getCardFromSelection(1), Game.drawnCards.getCardFromSelection(2))) {
 
-            //delete all cards from selection
-            handDeck.deleteAllCardsFromSelection();
+            // delete all cards from selection
+            Game.drawnCards.deleteAllCardsFromSelection();
 
             ImageView img1 = findViewById(R.id.id_selected_card_1);
             img1.setImageResource(R.drawable.ca_no_card);
@@ -480,7 +473,7 @@ public class CardActivity extends AppCompatActivity {
 
 
         // show message that at least another card is needed
-        else if (handDeck.sizeOfSelection() < 3) {
+        else if (Game.drawnCards.sizeOfSelection() < 3) {
             // Richtigen Context zuweisen
             Context context = getApplicationContext();
 
@@ -499,13 +492,13 @@ public class CardActivity extends AppCompatActivity {
 
     }
 
-    //adding Cards to Selection
+    // adding Cards to Selection
     public void addCard0ToSelection(View view) {
 
-        if (handDeck.size() > 0) {
+        if (Game.drawnCards.size() > 0) {
 
 
-            handDeck.addCardToSelection(handDeck.getCardFromHandDeck(0));
+            Game.drawnCards.addCardToSelection(Game.drawnCards.getCardFromHandDeck(0));
             updateDataForShowingSelection();
             showSelection();
 
@@ -514,7 +507,7 @@ public class CardActivity extends AppCompatActivity {
             Context context = getApplicationContext();
 
             // CharSequence mit Text für den Toast erstellen
-            CharSequence toastText = handDeck.getCardFromHandDeck(0) + " was added to selection";
+            CharSequence toastText = Game.drawnCards.getCardFromHandDeck(0) + " was added to selection";
 
             // Anzeigedauer festlegen: LENGTH_SHORT oder LENGTH_LONG
             int dauer = Toast.LENGTH_SHORT;
@@ -529,8 +522,8 @@ public class CardActivity extends AppCompatActivity {
 
     public void addCard1ToSelection(View view) {
 
-        if (handDeck.size() > 1) {
-            handDeck.addCardToSelection(handDeck.getCardFromHandDeck(1));
+        if (Game.drawnCards.size() > 1) {
+            Game.drawnCards.addCardToSelection(Game.drawnCards.getCardFromHandDeck(1));
             updateDataForShowingSelection();
             showSelection();
 
@@ -539,7 +532,7 @@ public class CardActivity extends AppCompatActivity {
             Context context = getApplicationContext();
 
             // CharSequence mit Text für den Toast erstellen
-            CharSequence toastText = handDeck.getCardFromHandDeck(1) + " was added to selection";
+            CharSequence toastText = Game.drawnCards.getCardFromHandDeck(1) + " was added to selection";
 
             // Anzeigedauer festlegen: LENGTH_SHORT oder LENGTH_LONG
             int dauer = Toast.LENGTH_SHORT;
@@ -554,9 +547,9 @@ public class CardActivity extends AppCompatActivity {
 
     public void addCard2ToSelection(View view) {
 
-        if (handDeck.size() > 2) {
+        if (Game.drawnCards.size() > 2) {
 
-            handDeck.addCardToSelection(handDeck.getCardFromHandDeck(2));
+            Game.drawnCards.addCardToSelection(Game.drawnCards.getCardFromHandDeck(2));
             updateDataForShowingSelection();
             showSelection();
 
@@ -565,7 +558,7 @@ public class CardActivity extends AppCompatActivity {
             Context context = getApplicationContext();
 
             // CharSequence mit Text für den Toast erstellen
-            CharSequence toastText = handDeck.getCardFromHandDeck(2) + " was added to selection";
+            CharSequence toastText = Game.drawnCards.getCardFromHandDeck(2) + " was added to selection";
 
             // Anzeigedauer festlegen: LENGTH_SHORT oder LENGTH_LONG
             int dauer = Toast.LENGTH_SHORT;
@@ -578,9 +571,9 @@ public class CardActivity extends AppCompatActivity {
 
     public void addCard3ToSelection(View view) {
 
-        if (handDeck.size() > 3) {
+        if (Game.drawnCards.size() > 3) {
 
-            handDeck.addCardToSelection(handDeck.getCardFromHandDeck(3));
+            Game.drawnCards.addCardToSelection(Game.drawnCards.getCardFromHandDeck(3));
             updateDataForShowingSelection();
             showSelection();
 
@@ -589,7 +582,7 @@ public class CardActivity extends AppCompatActivity {
             Context context = getApplicationContext();
 
             // CharSequence mit Text für den Toast erstellen
-            CharSequence toastText = handDeck.getCardFromHandDeck(3) + " was added to selection";
+            CharSequence toastText = Game.drawnCards.getCardFromHandDeck(3) + " was added to selection";
 
             // Anzeigedauer festlegen: LENGTH_SHORT oder LENGTH_LONG
             int dauer = Toast.LENGTH_SHORT;
@@ -602,8 +595,8 @@ public class CardActivity extends AppCompatActivity {
 
     public void addCard4ToSelection(View view) {
 
-        if (handDeck.size() > 4) {
-            handDeck.addCardToSelection(handDeck.getCardFromHandDeck(4));
+        if (Game.drawnCards.size() > 4) {
+            Game.drawnCards.addCardToSelection(Game.drawnCards.getCardFromHandDeck(4));
             updateDataForShowingSelection();
             showSelection();
 
@@ -612,7 +605,7 @@ public class CardActivity extends AppCompatActivity {
             Context context = getApplicationContext();
 
             // CharSequence mit Text für den Toast erstellen
-            CharSequence toastText = handDeck.getCardFromHandDeck(4) + " was added to selection";
+            CharSequence toastText = Game.drawnCards.getCardFromHandDeck(4) + " was added to selection";
 
             // Anzeigedauer festlegen: LENGTH_SHORT oder LENGTH_LONG
             int dauer = Toast.LENGTH_SHORT;
@@ -625,8 +618,8 @@ public class CardActivity extends AppCompatActivity {
 
     public void addCard5ToSelection(View view) {
 
-        if (handDeck.size() > 5) {
-            handDeck.addCardToSelection(handDeck.getCardFromHandDeck(5));
+        if (Game.drawnCards.size() > 5) {
+            Game.drawnCards.addCardToSelection(Game.drawnCards.getCardFromHandDeck(5));
             updateDataForShowingSelection();
             showSelection();
 
@@ -635,7 +628,7 @@ public class CardActivity extends AppCompatActivity {
             Context context = getApplicationContext();
 
             // CharSequence mit Text für den Toast erstellen
-            CharSequence toastText = handDeck.getCardFromHandDeck(5) + " was added to selection";
+            CharSequence toastText = Game.drawnCards.getCardFromHandDeck(5) + " was added to selection";
 
             // Anzeigedauer festlegen: LENGTH_SHORT oder LENGTH_LONG
             int dauer = Toast.LENGTH_SHORT;
@@ -648,8 +641,8 @@ public class CardActivity extends AppCompatActivity {
 
     public void addCard6ToSelection(View view) {
 
-        if (handDeck.size() > 6) {
-            handDeck.addCardToSelection(handDeck.getCardFromHandDeck(6));
+        if (Game.drawnCards.size() > 6) {
+            Game.drawnCards.addCardToSelection(Game.drawnCards.getCardFromHandDeck(6));
             updateDataForShowingSelection();
             showSelection();
 
@@ -658,7 +651,7 @@ public class CardActivity extends AppCompatActivity {
             Context context = getApplicationContext();
 
             // CharSequence mit Text für den Toast erstellen
-            CharSequence toastText = handDeck.getCardFromHandDeck(6) + " was added to selection";
+            CharSequence toastText = Game.drawnCards.getCardFromHandDeck(6) + " was added to selection";
 
             // Anzeigedauer festlegen: LENGTH_SHORT oder LENGTH_LONG
             int dauer = Toast.LENGTH_SHORT;
@@ -671,8 +664,8 @@ public class CardActivity extends AppCompatActivity {
 
     public void addCard7ToSelection(View view) {
 
-        if (handDeck.size() > 7) {
-            handDeck.addCardToSelection(handDeck.getCardFromHandDeck(7));
+        if (Game.drawnCards.size() > 7) {
+            Game.drawnCards.addCardToSelection(Game.drawnCards.getCardFromHandDeck(7));
             updateDataForShowingSelection();
             showSelection();
 
@@ -681,7 +674,7 @@ public class CardActivity extends AppCompatActivity {
             Context context = getApplicationContext();
 
             // CharSequence mit Text für den Toast erstellen
-            CharSequence toastText = handDeck.getCardFromHandDeck(7) + " was added to selection";
+            CharSequence toastText = Game.drawnCards.getCardFromHandDeck(7) + " was added to selection";
 
             // Anzeigedauer festlegen: LENGTH_SHORT oder LENGTH_LONG
             int dauer = Toast.LENGTH_SHORT;
@@ -694,8 +687,8 @@ public class CardActivity extends AppCompatActivity {
 
     public void addCard8ToSelection(View view) {
 
-        if (handDeck.size() > 8) {
-            handDeck.addCardToSelection(handDeck.getCardFromHandDeck(8));
+        if (Game.drawnCards.size() > 8) {
+            Game.drawnCards.addCardToSelection(Game.drawnCards.getCardFromHandDeck(8));
             updateDataForShowingSelection();
             showSelection();
 
@@ -704,7 +697,7 @@ public class CardActivity extends AppCompatActivity {
             Context context = getApplicationContext();
 
             // CharSequence mit Text für den Toast erstellen
-            CharSequence toastText = handDeck.getCardFromHandDeck(8) + " was added to selection";
+            CharSequence toastText = Game.drawnCards.getCardFromHandDeck(8) + " was added to selection";
 
             // Anzeigedauer festlegen: LENGTH_SHORT oder LENGTH_LONG
             int dauer = Toast.LENGTH_SHORT;
@@ -717,8 +710,8 @@ public class CardActivity extends AppCompatActivity {
 
     public void addCard9ToSelection(View view) {
 
-        if (handDeck.size() > 9) {
-            handDeck.addCardToSelection(handDeck.getCardFromHandDeck(9));
+        if (Game.drawnCards.size() > 9) {
+            Game.drawnCards.addCardToSelection(Game.drawnCards.getCardFromHandDeck(9));
             updateDataForShowingSelection();
             showSelection();
 
@@ -727,7 +720,7 @@ public class CardActivity extends AppCompatActivity {
             Context context = getApplicationContext();
 
             // CharSequence mit Text für den Toast erstellen
-            CharSequence toastText = handDeck.getCardFromHandDeck(9) + " was added to selection";
+            CharSequence toastText = Game.drawnCards.getCardFromHandDeck(9) + " was added to selection";
 
             // Anzeigedauer festlegen: LENGTH_SHORT oder LENGTH_LONG
             int dauer = Toast.LENGTH_SHORT;
