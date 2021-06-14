@@ -660,12 +660,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="12dp"
-        android:backgroundTint="#3B3F41"
+
         android:enabled="false"
         android:fontFamily="@font/erica_one"
         android:onClick="openCardActivity"
         android:text="Cards"
         android:textColor="#B6B2B2"
+        android:backgroundTint="#3B3F41"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

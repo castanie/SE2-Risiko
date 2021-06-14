@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/menu_bg"
+    android:background="@drawable/menu_bg_risky_risk"
     tools:context=".MenuActivity">
 
     <Button
@@ -17,6 +17,8 @@
         android:layout_marginEnd="339dp"
         android:fontFamily="@font/erica_one"
         android:text="Play"
+        android:textColor="#B6B2B2"
+        android:backgroundTint="#3B3F41"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,6 +32,8 @@
         android:layout_marginEnd="339dp"
         android:fontFamily="@font/erica_one"
         android:text="Settings"
+        android:textColor="#B6B2B2"
+        android:backgroundTint="#3B3F41"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnPlay" />
@@ -43,6 +47,8 @@
         android:layout_marginEnd="339dp"
         android:fontFamily="@font/erica_one"
         android:text="Rules"
+        android:textColor="#B6B2B2"
+        android:backgroundTint="#3B3F41"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnSettings" />
