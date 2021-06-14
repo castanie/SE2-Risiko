@@ -7,7 +7,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import at.aau.server.dto.TextMessage;
+import at.aau.server.dto.LogMessage;
 import at.aau.server.kryonet.KryoNetComponent;
 import at.aau.server.kryonet.GameServer;
 import at.aau.server.kryonet.GameClient;
@@ -63,19 +63,19 @@ public class NetworkingTest {
                         first.set(false);
 
                         // check correct polymorphism
-                        Assert.assertNotSame(argument.getClass(), TextMessage.class);
-                        Assert.assertTrue(argument instanceof TextMessageSubClass);
+                        Assert.assertNotSame(argument.getClass(), LogMessage.class);
+                        Assert.assertTrue(argument instanceof LogMessageSubClass);
                         request1Handled.set(true);
                     } else {
 
                         // check correct polymorphism
-                        Assert.assertFalse(argument instanceof TextMessageSubClass);
-                        Assert.assertTrue(argument instanceof TextMessage);
+                        Assert.assertFalse(argument instanceof LogMessageSubClass);
+                        Assert.assertTrue(argument instanceof LogMessage);
 
-                        Assert.assertEquals(REQUEST_TEST, ((TextMessage) argument).text);
+                        Assert.assertEquals(REQUEST_TEST, ((LogMessage) argument).text);
                         request2Handled.set(true);
 
-                        server.broadcastMessage(new TextMessage(RESPONSE_TEST));
+                        server.broadcastMessage(new LogMessage(RESPONSE_TEST));
                     }
                 }
         );
@@ -90,18 +90,18 @@ public class NetworkingTest {
                 {
                     System.out.printf("Client Thread ID: %d%n", Thread.currentThread().getId());
 
-                    Assert.assertTrue(argument instanceof TextMessage);
-                    Assert.assertEquals(RESPONSE_TEST, ((TextMessage) argument).text);
+                    Assert.assertTrue(argument instanceof LogMessage);
+                    Assert.assertEquals(RESPONSE_TEST, ((LogMessage) argument).text);
                     responseHandled.set(true);
                 }
         );
 
-        client.sendMessage(new TextMessageSubClass());
-        client.sendMessage(new TextMessage(REQUEST_TEST));
+        client.sendMessage(new LogMessageSubClass());
+        client.sendMessage(new LogMessage(REQUEST_TEST));
     }
 
     private void registerClassesForComponent(KryoNetComponent component) {
-        component.registerClass(TextMessageSubClass.class);
-        component.registerClass(TextMessage.class);
+        component.registerClass(LogMessageSubClass.class);
+        component.registerClass(LogMessage.class);
     }
 }
