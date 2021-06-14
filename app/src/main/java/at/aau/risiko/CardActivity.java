@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.ArrayList;
 
 import at.aau.core.CardList;
@@ -421,18 +423,13 @@ public class CardActivity extends AppCompatActivity {
             showHandDeck();
 
 
-            // Richtigen Context zuweisen
-            Context context = getApplicationContext();
+            // show text in snackbar
+            CharSequence snackText = "Selection was exchangend - you've got 5 soldiers";
 
-            // CharSequence mit Text für den Toast erstellen
-            CharSequence toastText = "Selection was exchangend - you've got 4 soldiers";
+            View layout = findViewById(R.id.cardscroller);
 
-            // Anzeigedauer festlegen: LENGTH_SHORT oder LENGTH_LONG
-            int dauer = Toast.LENGTH_SHORT;
-
-            // Toast erstellen und anzeigen
-            Toast toast = Toast.makeText(context, toastText, dauer);
-            toast.show();
+            Snackbar snackbar = Snackbar.make(layout, snackText, Snackbar.LENGTH_LONG);
+            snackbar.show();
 
         }
 
@@ -456,36 +453,27 @@ public class CardActivity extends AppCompatActivity {
             showHandDeck();
 
 
-            // Richtigen Context zuweisen
-            Context context = getApplicationContext();
+            // show text in snackbar
+            CharSequence snackText = "Selection can't be exchangend - try another combination";
 
-            // CharSequence mit Text für den Toast erstellen
-            CharSequence toastText = "Selection can't be exchangend - try another combination";
+            View layout = findViewById(R.id.cardscroller);
 
-            // Anzeigedauer festlegen: LENGTH_SHORT oder LENGTH_LONG
-            int dauer = Toast.LENGTH_SHORT;
-
-            // Toast erstellen und anzeigen
-            Toast toast = Toast.makeText(context, toastText, dauer);
-            toast.show();
+            Snackbar snackbar = Snackbar.make(layout, snackText, Snackbar.LENGTH_LONG);
+            snackbar.show();
 
         }
 
 
         // show message that at least another card is needed
         else if (Game.drawnCards.sizeOfSelection() < 3) {
-            // Richtigen Context zuweisen
-            Context context = getApplicationContext();
 
-            // CharSequence mit Text für den Toast erstellen
-            CharSequence toastText = "Select another Card";
+            // show text in snackbar
+            CharSequence snackText = "Another card is needed";
 
-            // Anzeigedauer festlegen: LENGTH_SHORT oder LENGTH_LONG
-            int dauer = Toast.LENGTH_SHORT;
+            View layout = findViewById(R.id.cardscroller);
 
-            // Toast erstellen und anzeigen
-            Toast toast = Toast.makeText(context, toastText, dauer);
-            toast.show();
+            Snackbar snackbar = Snackbar.make(layout, snackText, Snackbar.LENGTH_LONG);
+            snackbar.show();
 
         }
 
@@ -503,18 +491,13 @@ public class CardActivity extends AppCompatActivity {
             showSelection();
 
 
-            // Richtigen Context zuweisen
-            Context context = getApplicationContext();
+            // show text in snackbar
+            CharSequence snackText = Game.drawnCards.getCardFromHandDeck(0) + " was added to selection";
 
-            // CharSequence mit Text für den Toast erstellen
-            CharSequence toastText = Game.drawnCards.getCardFromHandDeck(0) + " was added to selection";
+            View layout = findViewById(R.id.cardscroller);
 
-            // Anzeigedauer festlegen: LENGTH_SHORT oder LENGTH_LONG
-            int dauer = Toast.LENGTH_SHORT;
-
-            // Toast erstellen und anzeigen
-            Toast toast = Toast.makeText(context, toastText, dauer);
-            toast.show();
+            Snackbar snackbar = Snackbar.make(layout, snackText, Snackbar.LENGTH_LONG);
+            snackbar.show();
         }
 
 
@@ -528,18 +511,13 @@ public class CardActivity extends AppCompatActivity {
             showSelection();
 
 
-            // Richtigen Context zuweisen
-            Context context = getApplicationContext();
+            // snackbar
+            CharSequence snackText = Game.drawnCards.getCardFromHandDeck(1) + " was added to selection";
 
-            // CharSequence mit Text für den Toast erstellen
-            CharSequence toastText = Game.drawnCards.getCardFromHandDeck(1) + " was added to selection";
+            View layout = findViewById(R.id.cardscroller);
 
-            // Anzeigedauer festlegen: LENGTH_SHORT oder LENGTH_LONG
-            int dauer = Toast.LENGTH_SHORT;
-
-            // Toast erstellen und anzeigen
-            Toast toast = Toast.makeText(context, toastText, dauer);
-            toast.show();
+            Snackbar snackbar = Snackbar.make(layout, snackText, Snackbar.LENGTH_LONG);
+            snackbar.show();
         }
 
 
@@ -554,18 +532,13 @@ public class CardActivity extends AppCompatActivity {
             showSelection();
 
 
-            // Richtigen Context zuweisen
-            Context context = getApplicationContext();
+            // snackbar
+            CharSequence snackText = Game.drawnCards.getCardFromHandDeck(2) + " was added to selection";
 
-            // CharSequence mit Text für den Toast erstellen
-            CharSequence toastText = Game.drawnCards.getCardFromHandDeck(2) + " was added to selection";
+            View layout = findViewById(R.id.cardscroller);
 
-            // Anzeigedauer festlegen: LENGTH_SHORT oder LENGTH_LONG
-            int dauer = Toast.LENGTH_SHORT;
-
-            // Toast erstellen und anzeigen
-            Toast toast = Toast.makeText(context, toastText, dauer);
-            toast.show();
+            Snackbar snackbar = Snackbar.make(layout, snackText, Snackbar.LENGTH_LONG);
+            snackbar.show();
         }
     }
 
@@ -578,18 +551,13 @@ public class CardActivity extends AppCompatActivity {
             showSelection();
 
 
-            // Richtigen Context zuweisen
-            Context context = getApplicationContext();
+            // snackbar
+            CharSequence snackText = Game.drawnCards.getCardFromHandDeck(3) + " was added to selection";
 
-            // CharSequence mit Text für den Toast erstellen
-            CharSequence toastText = Game.drawnCards.getCardFromHandDeck(3) + " was added to selection";
+            View layout = findViewById(R.id.cardscroller);
 
-            // Anzeigedauer festlegen: LENGTH_SHORT oder LENGTH_LONG
-            int dauer = Toast.LENGTH_SHORT;
-
-            // Toast erstellen und anzeigen
-            Toast toast = Toast.makeText(context, toastText, dauer);
-            toast.show();
+            Snackbar snackbar = Snackbar.make(layout, snackText, Snackbar.LENGTH_LONG);
+            snackbar.show();
         }
     }
 
@@ -601,18 +569,13 @@ public class CardActivity extends AppCompatActivity {
             showSelection();
 
 
-            // Richtigen Context zuweisen
-            Context context = getApplicationContext();
+            // snackbar
+            CharSequence snackText = Game.drawnCards.getCardFromHandDeck(4) + " was added to selection";
 
-            // CharSequence mit Text für den Toast erstellen
-            CharSequence toastText = Game.drawnCards.getCardFromHandDeck(4) + " was added to selection";
+            View layout = findViewById(R.id.cardscroller);
 
-            // Anzeigedauer festlegen: LENGTH_SHORT oder LENGTH_LONG
-            int dauer = Toast.LENGTH_SHORT;
-
-            // Toast erstellen und anzeigen
-            Toast toast = Toast.makeText(context, toastText, dauer);
-            toast.show();
+            Snackbar snackbar = Snackbar.make(layout, snackText, Snackbar.LENGTH_LONG);
+            snackbar.show();
         }
     }
 
@@ -624,18 +587,13 @@ public class CardActivity extends AppCompatActivity {
             showSelection();
 
 
-            // Richtigen Context zuweisen
-            Context context = getApplicationContext();
+            // snackbar
+            CharSequence snackText = Game.drawnCards.getCardFromHandDeck(5) + " was added to selection";
 
-            // CharSequence mit Text für den Toast erstellen
-            CharSequence toastText = Game.drawnCards.getCardFromHandDeck(5) + " was added to selection";
+            View layout = findViewById(R.id.cardscroller);
 
-            // Anzeigedauer festlegen: LENGTH_SHORT oder LENGTH_LONG
-            int dauer = Toast.LENGTH_SHORT;
-
-            // Toast erstellen und anzeigen
-            Toast toast = Toast.makeText(context, toastText, dauer);
-            toast.show();
+            Snackbar snackbar = Snackbar.make(layout, snackText, Snackbar.LENGTH_LONG);
+            snackbar.show();
         }
     }
 
@@ -647,18 +605,13 @@ public class CardActivity extends AppCompatActivity {
             showSelection();
 
 
-            // Richtigen Context zuweisen
-            Context context = getApplicationContext();
+            // snackbar
+            CharSequence snackText = Game.drawnCards.getCardFromHandDeck(6) + " was added to selection";
 
-            // CharSequence mit Text für den Toast erstellen
-            CharSequence toastText = Game.drawnCards.getCardFromHandDeck(6) + " was added to selection";
+            View layout = findViewById(R.id.cardscroller);
 
-            // Anzeigedauer festlegen: LENGTH_SHORT oder LENGTH_LONG
-            int dauer = Toast.LENGTH_SHORT;
-
-            // Toast erstellen und anzeigen
-            Toast toast = Toast.makeText(context, toastText, dauer);
-            toast.show();
+            Snackbar snackbar = Snackbar.make(layout, snackText, Snackbar.LENGTH_LONG);
+            snackbar.show();
         }
     }
 
@@ -670,18 +623,13 @@ public class CardActivity extends AppCompatActivity {
             showSelection();
 
 
-            // Richtigen Context zuweisen
-            Context context = getApplicationContext();
+            // snackbar
+            CharSequence snackText = Game.drawnCards.getCardFromHandDeck(7) + " was added to selection";
 
-            // CharSequence mit Text für den Toast erstellen
-            CharSequence toastText = Game.drawnCards.getCardFromHandDeck(7) + " was added to selection";
+            View layout = findViewById(R.id.cardscroller);
 
-            // Anzeigedauer festlegen: LENGTH_SHORT oder LENGTH_LONG
-            int dauer = Toast.LENGTH_SHORT;
-
-            // Toast erstellen und anzeigen
-            Toast toast = Toast.makeText(context, toastText, dauer);
-            toast.show();
+            Snackbar snackbar = Snackbar.make(layout, snackText, Snackbar.LENGTH_LONG);
+            snackbar.show();
         }
     }
 
@@ -693,18 +641,13 @@ public class CardActivity extends AppCompatActivity {
             showSelection();
 
 
-            // Richtigen Context zuweisen
-            Context context = getApplicationContext();
+            // snackbar
+            CharSequence snackText = Game.drawnCards.getCardFromHandDeck(8) + " was added to selection";
 
-            // CharSequence mit Text für den Toast erstellen
-            CharSequence toastText = Game.drawnCards.getCardFromHandDeck(8) + " was added to selection";
+            View layout = findViewById(R.id.cardscroller);
 
-            // Anzeigedauer festlegen: LENGTH_SHORT oder LENGTH_LONG
-            int dauer = Toast.LENGTH_SHORT;
-
-            // Toast erstellen und anzeigen
-            Toast toast = Toast.makeText(context, toastText, dauer);
-            toast.show();
+            Snackbar snackbar = Snackbar.make(layout, snackText, Snackbar.LENGTH_LONG);
+            snackbar.show();
         }
     }
 
@@ -716,18 +659,13 @@ public class CardActivity extends AppCompatActivity {
             showSelection();
 
 
-            // Richtigen Context zuweisen
-            Context context = getApplicationContext();
+            // snackbar
+            CharSequence snackText = Game.drawnCards.getCardFromHandDeck(9) + " was added to selection";
 
-            // CharSequence mit Text für den Toast erstellen
-            CharSequence toastText = Game.drawnCards.getCardFromHandDeck(9) + " was added to selection";
+            View layout = findViewById(R.id.cardscroller);
 
-            // Anzeigedauer festlegen: LENGTH_SHORT oder LENGTH_LONG
-            int dauer = Toast.LENGTH_SHORT;
-
-            // Toast erstellen und anzeigen
-            Toast toast = Toast.makeText(context, toastText, dauer);
-            toast.show();
+            Snackbar snackbar = Snackbar.make(layout, snackText, Snackbar.LENGTH_LONG);
+            snackbar.show();
         }
     }
 
