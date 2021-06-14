@@ -18,13 +18,13 @@ public class CardList {
         Card alaska = new Card("Alaska", "infantry", false, false);
         Card greenland = new Card("Greenland", "cavalry", false, false);
         Card canada = new Card("Canada", "artillery", false, false);
-        Card centralAmerika = new Card("Central America", "infantry", false, false);
+        Card centralAmerica = new Card("Central America", "infantry", false, false);
         Card venezuela = new Card("Venezuela", "cavalry", false, false);
         Card peru = new Card("Peru", "artillery", false, false);
         Card brazil = new Card("Brazil", "infantry", false, false);
         Card argentina = new Card("Argentina", "cavalry", false, false);
         Card northAfrica = new Card("North Africa", "artillery", false, false);
-        Card eastAfrika = new Card("East Africa", "infantry", false, false);
+        Card eastAfrica = new Card("East Africa", "infantry", false, false);
         Card congo = new Card("Congo", "cavalry", false, false);
         Card southAfrica = new Card("South Africa", "artillery", false, false);
         Card scandinavia = new Card("Scandinavia", "infantry", false, false);
@@ -50,13 +50,13 @@ public class CardList {
         this.cardList.add(alaska);
         this.cardList.add(greenland);
         this.cardList.add(canada);
-        this.cardList.add(centralAmerika);
+        this.cardList.add(centralAmerica);
         this.cardList.add(venezuela);
         this.cardList.add(peru);
         this.cardList.add(brazil);
         this.cardList.add(argentina);
         this.cardList.add(northAfrica);
-        this.cardList.add(eastAfrika);
+        this.cardList.add(eastAfrica);
         this.cardList.add(congo);
         this.cardList.add(southAfrica);
         this.cardList.add(scandinavia);
@@ -120,6 +120,20 @@ public class CardList {
         //-----------------------------
 
         return drawnCard;
+    }
+
+    /**
+     * This method sets a card in the list as drawn; it does not actually remove the card data.
+     * @param cardName
+     */
+    public void removeCardFromCardsList(String cardName) {
+        // this.cardList.get(cardIndex).setCardIsdrawn(true);
+        for (Card c : cardList) {
+            if (c.getCardName().equals(cardName)) {
+                c.setCardIsdrawn(true);
+                break;
+            }
+        }
     }
 
     public String returnCardTypeFoundByName(String s) {

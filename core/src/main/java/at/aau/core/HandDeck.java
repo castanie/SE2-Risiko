@@ -8,8 +8,21 @@ public class HandDeck {
     private ArrayList<String> selectionForExchange = new ArrayList<>();
 
     public HandDeck() {
-        this.handDeck = handDeck;
-        this.selectionForExchange = selectionForExchange;
+        // this.handDeck = handDeck;
+        // this.selectionForExchange = selectionForExchange;
+    }
+
+    public HandDeck(String[] cardNames) {
+        for (String s : cardNames) {
+            this.handDeck.add(s);
+        }
+        // this.selectionForExchange = selectionForExchange;
+    }
+
+
+    // Get String[] for passing from MapActivity to CardActivity:
+    public String[] getCardNames() {
+        return handDeck.toArray(new String[0]);
     }
 
 

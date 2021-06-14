@@ -30,7 +30,7 @@ public class DraftState extends State {
 
         game.setProgress(1);
         game.setInfo("Strengthen");
-        game.setCards(true);
+        game.setCardsButtonClickable(true);
     }
 
     private int calculateStrength() {
@@ -91,6 +91,6 @@ public class DraftState extends State {
     @Override
     public void changeState() {
         game.setState(new AttackState(game));
-        game.setCards(false);
+        game.setCardsButtonClickable(false);
     }
 }

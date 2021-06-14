@@ -8,15 +8,19 @@ public class ExchangeMessage extends BaseMessage {
     public String cardThree;
     // Identifier of the player
     public Integer playerIndex;
+    // Armies received:
+    public Integer bonusArmies;
 
     public ExchangeMessage() {
 
     }
 
-    public ExchangeMessage(String cardOne, String cardTwo, String cardThree) {
+    public ExchangeMessage(String cardOne, String cardTwo, String cardThree, Integer bonusArmies) {
         this.cardOne = cardOne;
         this.cardTwo = cardTwo;
         this.cardThree = cardThree;
+
+        this.bonusArmies = bonusArmies;
     }
 
 }
