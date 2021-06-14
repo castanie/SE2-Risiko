@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -20,6 +23,7 @@ import java.util.Map;
 
 import at.aau.core.CardList;
 import at.aau.core.Country;
+import at.aau.core.HandDeck;
 import at.aau.core.Player;
 import at.aau.risiko.DiceActivityDefender;
 import at.aau.risiko.MapActivity;
@@ -28,6 +32,7 @@ import at.aau.server.dto.BaseMessage;
 import at.aau.server.dto.CardMessage;
 import at.aau.server.dto.DiceMessage;
 import at.aau.server.dto.ExchangeMessage;
+import at.aau.server.dto.ReadyMessage;
 import at.aau.server.dto.StartMessage;
 import at.aau.server.dto.TurnMessage;
 import at.aau.server.dto.UpdateMessage;
@@ -39,7 +44,12 @@ public class Game {
     private State state;
     private final Player[] players;
     private final List<Country> availableCountries;
-    private static CardList availableCards;
+
+    // TODO: Revise, these might be dangerous.
+    // These are the remaining Cards in the staple:
+    public static CardList availableCards;
+    // These are the Cards drawn by THIS Player:
+    public static HandDeck drawnCards;
 
     private int currentIndex;
 
@@ -51,8 +61,10 @@ public class Game {
     public Game(Player[] players, List<Country> countries, HashMap<Integer, Country> buttonMap, HashMap<Integer, Player> avatarMap, Activity activity) {
         this.players = players;
         this.availableCountries = countries;
-        this.availableCards = new CardList();
-        this.availableCards.fillUpCardlistForStart();
+
+        availableCards = new CardList();
+        availableCards.fillUpCardlistForStart();
+        drawnCards = new HandDeck();
 
         this.currentIndex = 0;
 
@@ -109,7 +121,7 @@ public class Game {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                ProgressBar bar = ((MapActivity) activity).findViewById(R.id.progressBar);
+                ProgressBar bar = activity.findViewById(R.id.progressBar);
                 bar.setProgress(progress);
             }
         });
@@ -120,14 +132,14 @@ public class Game {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                TextView card = ((MapActivity) activity).findViewById(R.id.textViewCard);
+                TextView card = activity.findViewById(R.id.textViewCard);
                 card.setText(message);
             }
         });
     }
 
     // Enable or disable the button leading to CardActivity:
-    public void setCards(boolean enabled) {
+    public void setCardsButtonClickable(boolean enabled) {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -137,16 +149,53 @@ public class Game {
         });
     }
 
+    public void setCountryButtonHighlight(View view) {
+        // Turn on animation for given Country button:
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                    Animation blinkAnimation = AnimationUtils.loadAnimation(activity, R.anim.blink);
+                    blinkAnimation.setRepeatCount(Animation.INFINITE);
+                    blinkAnimation.setRepeatMode(Animation.REVERSE);
+                    blinkAnimation.setDuration(1000);
+
+                    view.startAnimation(blinkAnimation);
+            }
+        });
+    }
+
+    public void resetCountryButtonHighlight() {
+        // Reset all Country button animations:
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                for (Integer i : buttonMap.keySet()) {
+                    activity.findViewById(i).clearAnimation();
+                }
+            }
+        });
+    }
+
     // Show a Toast in the MapActivity:
     public void showToast(String message) {
-        Toast toast = Toast.makeText(this.activity, message, Toast.LENGTH_SHORT);
-        toast.show();
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast toast = Toast.makeText(activity, message, Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
     }
 
     // Show a Snackbar in the MapActivity:
     public void showSnackbar(String message) {
-        Snackbar snackbar = Snackbar.make(this.activity.findViewById(R.id.linearLayout), message, Snackbar.LENGTH_SHORT);
-        snackbar.show();
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Snackbar snackbar = Snackbar.make(activity.findViewById(R.id.linearLayout), message, Snackbar.LENGTH_SHORT);
+                snackbar.show();
+            }
+        });
     }
 
 
@@ -172,13 +221,22 @@ public class Game {
 
         }
 
+        // Should not be handled during a game:
+        if (message instanceof ReadyMessage) {
+
+            // Do nothing.
+
+        }
+
         // Wakes Player from sleep and sets UI:
         else if (message instanceof TurnMessage) {
+            // TODO: IMPORTANT! Debug random color changes after new Turn!
+            Log.i("TURN MESSAGE", "Old: " + getIndex() + ", New: " + ((TurnMessage) message).playerIndex);
 
             // Set current Player:
             setIndex(((TurnMessage) message).playerIndex);
 
-            // Set appropriate State:
+            // Set appropriate State (if it's this Player's turn):
             if (((TurnMessage) message).isCurrentPlayer) {
                 if (getCurrentPlayer().getAvailable() > 0) {
                     this.setState(new SetupState(this));
@@ -194,6 +252,12 @@ public class Game {
 
         // Updates Country data and sets UI:
         else if (message instanceof UpdateMessage) {
+
+            // TODO: IMPORTANT! Debug random color changes after new Turn!
+            Integer playerIndex = ((UpdateMessage) message).playerIndex;
+            String countryName = ((UpdateMessage) message).countryName;
+            Integer countryArmies = ((UpdateMessage) message).countryArmies;
+            Log.i("UPDATE MESSAGE", "From: " + playerIndex + " [" + countryName + " - " + countryArmies + "] To: " + getIndex());
 
             // Find Player:
             Player player = players[((UpdateMessage) message).playerIndex];
@@ -230,26 +294,38 @@ public class Game {
         // Starts DiceActivity for defending Player:
         else if (message instanceof DiceMessage) {
 
-            // TODO: Enter DiceActivity:
+            // Enter DiceActivity:
             Intent intent = new Intent(activity.getApplicationContext(), DiceActivityDefender.class);
             intent.putExtra("amount", 3);
             activity.startActivity(intent);
 
         }
 
-        // Starts DiceActivity for defending Player:
+        // Updates CardList data and sets UI:
         else if (message instanceof CardMessage) {
 
-            // TODO: Draw Card:
-
+            // Set Card as drawn:
+            Player player = players[((CardMessage) message).playerIndex];
+            player.getHandDeck().addCardToHandDeck(((CardMessage) message).cardName);
+            availableCards.removeCardFromCardsList(((CardMessage) message).cardName);
 
         }
 
-        // Starts DiceActivity for defending Player:
+        // Updates HandDeck data and sets UI:
         else if (message instanceof ExchangeMessage) {
 
-            // TODO: Exchange Cards:
+            // This message exists because the Exchange inside the CardActivity has to find
+            // its way into the MapAcitivty - it gets relayed from one Player to himself!
 
+            Player player = players[((ExchangeMessage) message).playerIndex];
+
+            // Award Player bonus armies:
+            player.setAvailable(player.getAvailable() + ((ExchangeMessage) message).bonusArmies);
+
+            // Set Cards as exchanged:
+            player.getHandDeck().deleteCardFromHandDeck(((ExchangeMessage) message).cardOne);
+            player.getHandDeck().deleteCardFromHandDeck(((ExchangeMessage) message).cardTwo);
+            player.getHandDeck().deleteCardFromHandDeck(((ExchangeMessage) message).cardThree);
 
         }
     }

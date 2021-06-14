@@ -12,7 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.IOException;
 
+import at.aau.server.dto.CardMessage;
 import at.aau.server.dto.DiceMessage;
+import at.aau.server.dto.ExchangeMessage;
 import at.aau.server.dto.EyeNumbersMessage;
 import at.aau.server.dto.LogMessage;
 import at.aau.server.dto.NameMessage;
@@ -41,6 +43,9 @@ public class LoginActivity extends AppCompatActivity {
         client.registerClass(UpdateMessage.class);
         client.registerClass(DiceMessage.class);
         client.registerClass(EyeNumbersMessage.class);
+        // client.registerClass(CheatedMessage.class);
+        client.registerClass(CardMessage.class);
+        client.registerClass(ExchangeMessage.class);
 
         Thread clientThread = new Thread() {
             @Override

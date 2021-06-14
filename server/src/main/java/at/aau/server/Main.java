@@ -1,7 +1,9 @@
 package at.aau.server;
 
 import at.aau.server.dto.BaseMessage;
+import at.aau.server.dto.CardMessage;
 import at.aau.server.dto.DiceMessage;
+import at.aau.server.dto.ExchangeMessage;
 import at.aau.server.dto.EyeNumbersMessage;
 import at.aau.server.dto.LogMessage;
 import at.aau.server.dto.NameMessage;
@@ -43,6 +45,9 @@ public class Main {
             server.registerClass(UpdateMessage.class);
             server.registerClass(DiceMessage.class);
             server.registerClass(EyeNumbersMessage.class);
+            // server.registerClass(CheatedMessage.class);
+            server.registerClass(CardMessage.class);
+            server.registerClass(ExchangeMessage.class);
 
             server.start();
             server.registerCallback(new Callback<BaseMessage>() {
@@ -132,12 +137,30 @@ public class Main {
 
                     }
 
-                    // TODO: Dice response
-                    else if (argument instanceof EyeNumbersMessage) {
-                        System.out.println("EyeNumbersMessage received.");
+                    // TODO: EyeNumbers response
+                    // else if ...
 
-                        //
+                    // TODO: Cheated message
+                    // else if ...
 
+                    // TODO: CardMessage
+                    else if (argument instanceof CardMessage) {
+                        System.out.println("CardMessage received.");
+
+                        // Simply broadcast which card was drawn:
+                        ((CardMessage) argument).playerIndex = currentTurn;
+                        server.broadcastMessage(argument);
+
+                    }
+
+                    // TODO: ExchangeMessage
+                    else if (argument instanceof ExchangeMessage) {
+                        System.out.println("ExchangeMessage received.");
+
+                        // TODO: Possiby delete, as Players don't need to know about eachother.
+                        // Simply broadcast which cards were exchanged:
+                        // ((ExchangeMessage) argument).playerIndex = currentTurn;
+                        // server.broadcastMessage(argument);
 
                     }
 

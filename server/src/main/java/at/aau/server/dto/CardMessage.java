@@ -3,12 +3,16 @@ package at.aau.server.dto;
 public class CardMessage extends BaseMessage {
 
     // Card that was drawn
-    String cardName;
+    public String cardName;
     // Identifier of the player
-    Integer playerIndex;
+    public Integer playerIndex;
 
     public CardMessage() {
 
+    }
+
+    public CardMessage(String cardName) {
+        this.cardName = cardName;
     }
 
 }

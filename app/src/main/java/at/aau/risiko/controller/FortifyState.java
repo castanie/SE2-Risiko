@@ -13,7 +13,7 @@ import at.aau.server.dto.UpdateMessage;
 
 public class FortifyState extends State {
 
-    private final Player player = game.getPlayers()[game.getIndex()];
+    private final Player player = game.getCurrentPlayer();
     private Country donor;
     private Button donorButton;
     private Country recipient;
@@ -77,6 +77,10 @@ public class FortifyState extends State {
                     }
                 } else {
                     game.showSnackbar("You can only move armies between neighbouring countries!");
+                    donor = null;
+                    donorButton = null;
+                    recipient = null;
+                    recipientButton = null;
                 }
             } else {
                 donor = null;

@@ -13,6 +13,8 @@ import java.util.ArrayList;
 
 import at.aau.core.CardList;
 import at.aau.core.HandDeck;
+import at.aau.risiko.controller.Game;
+import at.aau.server.dto.CardMessage;
 import at.aau.server.dto.ExchangeMessage;
 import at.aau.server.kryonet.GameClient;
 
@@ -40,11 +42,11 @@ public class CardActivity extends AppCompatActivity {
             }
         });
 
-        cardDeck = new CardList();
-        handDeck = new HandDeck();
+        cardDeck = Game.availableCards;
+        handDeck = Game.drawnCards;
         cardDeck.fillUpCardlistForStart();
 
-        // drawCards();
+        drawCards();
         updateDataForShowingHandDeck();
         showHandDeck();
 
@@ -53,13 +55,15 @@ public class CardActivity extends AppCompatActivity {
 
     public void drawCards() {
 
-        handDeck.addCardToHandDeck(cardDeck.drawCardFromCardList());
-        handDeck.addCardToHandDeck(cardDeck.drawCardFromCardList());
-        handDeck.addCardToHandDeck(cardDeck.drawCardFromCardList());
+        GameClient client = GameClient.getInstance();
+
         handDeck.addCardToHandDeck(cardDeck.drawCardFromCardList());
         handDeck.addCardToHandDeck(cardDeck.drawCardFromCardList());
         handDeck.addCardToHandDeck(cardDeck.drawCardFromCardList());
 
+        for (String s : handDeck.getCardNames()) {
+            client.sendMessage(new CardMessage(s));
+        }
 
     }
 
@@ -398,7 +402,7 @@ public class CardActivity extends AppCompatActivity {
         if (handDeck.sizeOfSelection() == 3 && cardDeck.checkIfCombinationOfCardsCanBeExchanged(handDeck.getCardFromSelection(0), handDeck.getCardFromSelection(1), handDeck.getCardFromSelection(2))) {
 
             // Send Server message:
-            GameClient.getInstance().sendMessage(new ExchangeMessage(handDeck.getCardFromSelection(0), handDeck.getCardFromSelection(1), handDeck.getCardFromSelection(2)));
+            GameClient.getInstance().sendMessage(new ExchangeMessage(handDeck.getCardFromSelection(0), handDeck.getCardFromSelection(1), handDeck.getCardFromSelection(2), 5));
 
             //exchange cards
             cardDeck.exchangeCards(handDeck.getCardFromSelection(0), handDeck.getCardFromSelection(1), handDeck.getCardFromSelection(2));
