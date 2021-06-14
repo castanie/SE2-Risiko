@@ -98,6 +98,8 @@ public class AttackState extends State {
                 attacking = null;
                 defending = null;
             }
+
+            // Reset highlighting:
             game.resetCountryButtonHighlight();
 
         } else {

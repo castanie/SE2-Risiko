@@ -48,11 +48,18 @@ public class FortifyState extends State {
 
         List<Country> occupiedCountries = player.getOccupied();
 
+        // Make sure Player actually holds the Country:
         if (occupiedCountries.contains(game.buttonMap.get(view.getId()))) {
+
+            // Executed on first click:
             if (donor == null) {
                 donor = clicked;
                 donorButton = (Button) view;
-            } else if (recipient == null) {
+                game.setCountryButtonHighlight(view);
+            }
+
+            // Executed on second click:
+            else if (recipient == null) {
                 if (clicked.getNeighbors().contains(donor)) {
                     recipient = clicked;
                     recipientButton = (Button) view;
@@ -82,6 +89,10 @@ public class FortifyState extends State {
                     recipient = null;
                     recipientButton = null;
                 }
+
+                // Reset highlighting:
+                game.resetCountryButtonHighlight();
+
             } else {
                 donor = null;
                 donorButton = null;
@@ -91,7 +102,7 @@ public class FortifyState extends State {
 
         } else {
 
-            game.showSnackbar("You can move armys only between your own countries!");
+            game.showSnackbar("You can move armies only between your own countries!");
         }
     }
 
