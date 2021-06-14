@@ -4,16 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_kris"
+    android:background="@drawable/menu_bg"
     tools:context=".MenuActivity">
 
     <Button
         android:id="@+id/btnPlay"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="300dp"
-        android:layout_marginTop="145dp"
+
+        android:layout_marginStart="338dp"
+        android:layout_marginTop="187dp"
+        android:layout_marginEnd="339dp"
+        android:fontFamily="@font/erica_one"
         android:text="Play"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -21,9 +25,12 @@
         android:id="@+id/btnSettings"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="300dp"
-        android:layout_marginTop="26dp"
+        android:layout_marginStart="338dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="339dp"
+        android:fontFamily="@font/erica_one"
         android:text="Settings"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnPlay" />
 
@@ -31,9 +38,12 @@
         android:id="@+id/btnRules"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="300dp"
-        android:layout_marginTop="21dp"
+        android:layout_marginStart="338dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="339dp"
+        android:fontFamily="@font/erica_one"
         android:text="Rules"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnSettings" />
 </androidx.constraintlayout.widget.ConstraintLayout>

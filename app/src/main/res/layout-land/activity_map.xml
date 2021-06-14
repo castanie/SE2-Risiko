@@ -5,7 +5,9 @@
     android:id="@+id/constraintLayout"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    tools:context=".MapActivity">
+    tools:context=".MapActivity"
+    android:background="@drawable/basic_map_bg"
+    >
 
     <ImageView
         android:id="@+id/imageMap"
@@ -15,7 +17,7 @@
         app:layout_constraintEnd_toStartOf="@+id/linearLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_basic_map" />
+        app:srcCompat="@drawable/basic_map_color_without_bg" />
 
     <Button
         android:id="@+id/buttonCongo"
@@ -31,10 +33,10 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/imageMap"
         app:layout_constraintEnd_toEndOf="@id/imageMap"
-        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="@id/imageMap"
         app:layout_constraintTop_toTopOf="@id/imageMap"
-        app:layout_constraintVertical_bias="0.568" />
+        app:layout_constraintVertical_bias="0.621" />
 
     <Button
         android:id="@+id/buttonBrazil"
@@ -50,10 +52,10 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/imageMap"
         app:layout_constraintEnd_toEndOf="@id/imageMap"
-        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintHorizontal_bias="0.306"
         app:layout_constraintStart_toStartOf="@id/imageMap"
         app:layout_constraintTop_toTopOf="@id/imageMap"
-        app:layout_constraintVertical_bias="0.669" />
+        app:layout_constraintVertical_bias="0.69" />
 
     <Button
         android:id="@+id/buttonCentralAmerica"
@@ -91,7 +93,7 @@
         app:layout_constraintHorizontal_bias="0.795"
         app:layout_constraintStart_toStartOf="@id/imageMap"
         app:layout_constraintTop_toTopOf="@id/imageMap"
-        app:layout_constraintVertical_bias="0.36" />
+        app:layout_constraintVertical_bias="0.33" />
 
     <Button
         android:id="@+id/buttonEthiopia"
@@ -126,10 +128,10 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/imageMap"
         app:layout_constraintEnd_toEndOf="@id/imageMap"
-        app:layout_constraintHorizontal_bias="0.847"
+        app:layout_constraintHorizontal_bias="0.841"
         app:layout_constraintStart_toStartOf="@id/imageMap"
         app:layout_constraintTop_toTopOf="@id/imageMap"
-        app:layout_constraintVertical_bias="0.594" />
+        app:layout_constraintVertical_bias="0.549" />
 
     <Button
         android:id="@+id/buttonEastCoast"
@@ -145,10 +147,10 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/imageMap"
         app:layout_constraintEnd_toEndOf="@id/imageMap"
-        app:layout_constraintHorizontal_bias="0.194"
+        app:layout_constraintHorizontal_bias="0.189"
         app:layout_constraintStart_toStartOf="@id/imageMap"
         app:layout_constraintTop_toTopOf="@id/imageMap"
-        app:layout_constraintVertical_bias="0.302" />
+        app:layout_constraintVertical_bias="0.306" />
 
     <Button
         android:id="@+id/buttonWestCoast"
@@ -164,10 +166,10 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/imageMap"
         app:layout_constraintEnd_toEndOf="@id/imageMap"
-        app:layout_constraintHorizontal_bias="0.115"
+        app:layout_constraintHorizontal_bias="0.102"
         app:layout_constraintStart_toStartOf="@id/imageMap"
         app:layout_constraintTop_toTopOf="@id/imageMap"
-        app:layout_constraintVertical_bias="0.277" />
+        app:layout_constraintVertical_bias="0.285" />
 
     <Button
         android:id="@+id/buttonEgypt"
@@ -186,7 +188,7 @@
         app:layout_constraintHorizontal_bias="0.532"
         app:layout_constraintStart_toStartOf="@id/imageMap"
         app:layout_constraintTop_toTopOf="@id/imageMap"
-        app:layout_constraintVertical_bias="0.424" />
+        app:layout_constraintVertical_bias="0.402" />
 
     <Button
         android:id="@+id/buttonGreenland"
@@ -202,10 +204,10 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/imageMap"
         app:layout_constraintEnd_toEndOf="@id/imageMap"
-        app:layout_constraintHorizontal_bias="0.374"
+        app:layout_constraintHorizontal_bias="0.368"
         app:layout_constraintStart_toStartOf="@id/imageMap"
         app:layout_constraintTop_toTopOf="@id/imageMap"
-        app:layout_constraintVertical_bias="0.05" />
+        app:layout_constraintVertical_bias="0.042" />
 
     <Button
         android:id="@+id/buttonIndia"
@@ -221,10 +223,10 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/imageMap"
         app:layout_constraintEnd_toEndOf="@id/imageMap"
-        app:layout_constraintHorizontal_bias="0.707"
+        app:layout_constraintHorizontal_bias="0.687"
         app:layout_constraintStart_toStartOf="@id/imageMap"
         app:layout_constraintTop_toTopOf="@id/imageMap"
-        app:layout_constraintVertical_bias="0.402" />
+        app:layout_constraintVertical_bias="0.381" />
 
     <Button
         android:id="@+id/buttonMongolia"
@@ -240,10 +242,10 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/imageMap"
         app:layout_constraintEnd_toEndOf="@id/imageMap"
-        app:layout_constraintHorizontal_bias="0.739"
+        app:layout_constraintHorizontal_bias="0.71"
         app:layout_constraintStart_toStartOf="@id/imageMap"
         app:layout_constraintTop_toTopOf="@id/imageMap"
-        app:layout_constraintVertical_bias="0.235" />
+        app:layout_constraintVertical_bias="0.224" />
 
     <Button
         android:id="@+id/buttonMiddleEast"
@@ -259,7 +261,7 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/imageMap"
         app:layout_constraintEnd_toEndOf="@id/imageMap"
-        app:layout_constraintHorizontal_bias="0.604"
+        app:layout_constraintHorizontal_bias="0.595"
         app:layout_constraintStart_toStartOf="@id/imageMap"
         app:layout_constraintTop_toTopOf="@id/imageMap"
         app:layout_constraintVertical_bias="0.36" />
@@ -297,10 +299,10 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/imageMap"
         app:layout_constraintEnd_toEndOf="@id/imageMap"
-        app:layout_constraintHorizontal_bias="0.936"
+        app:layout_constraintHorizontal_bias="0.927"
         app:layout_constraintStart_toStartOf="@id/imageMap"
         app:layout_constraintTop_toTopOf="@id/imageMap"
-        app:layout_constraintVertical_bias="0.599" />
+        app:layout_constraintVertical_bias="0.593" />
 
     <Button
         android:id="@+id/buttonOntario"
@@ -316,10 +318,10 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/imageMap"
         app:layout_constraintEnd_toEndOf="@id/imageMap"
-        app:layout_constraintHorizontal_bias="0.162"
+        app:layout_constraintHorizontal_bias="0.149"
         app:layout_constraintStart_toStartOf="@id/imageMap"
         app:layout_constraintTop_toTopOf="@id/imageMap"
-        app:layout_constraintVertical_bias="0.15" />
+        app:layout_constraintVertical_bias="0.149" />
 
     <Button
         android:id="@+id/buttonPeru"
@@ -335,10 +337,10 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/imageMap"
         app:layout_constraintEnd_toEndOf="@id/imageMap"
-        app:layout_constraintHorizontal_bias="0.227"
+        app:layout_constraintHorizontal_bias="0.212"
         app:layout_constraintStart_toStartOf="@id/imageMap"
         app:layout_constraintTop_toTopOf="@id/imageMap"
-        app:layout_constraintVertical_bias="0.722" />
+        app:layout_constraintVertical_bias="0.696" />
 
     <Button
         android:id="@+id/buttonQuebec"
@@ -373,10 +375,10 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/imageMap"
         app:layout_constraintEnd_toEndOf="@id/imageMap"
-        app:layout_constraintHorizontal_bias="0.06"
+        app:layout_constraintHorizontal_bias="0.088"
         app:layout_constraintStart_toStartOf="@id/imageMap"
         app:layout_constraintTop_toTopOf="@id/imageMap"
-        app:layout_constraintVertical_bias="0.095" />
+        app:layout_constraintVertical_bias="0.07" />
 
     <Button
         android:id="@+id/buttonSouthAfrica"
@@ -411,10 +413,10 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/imageMap"
         app:layout_constraintEnd_toEndOf="@id/imageMap"
-        app:layout_constraintHorizontal_bias="0.795"
+        app:layout_constraintHorizontal_bias="0.773"
         app:layout_constraintStart_toStartOf="@id/imageMap"
         app:layout_constraintTop_toTopOf="@id/imageMap"
-        app:layout_constraintVertical_bias="0.498" />
+        app:layout_constraintVertical_bias="0.481" />
 
     <Button
         android:id="@+id/buttonScandinavia"
@@ -430,10 +432,10 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/imageMap"
         app:layout_constraintEnd_toEndOf="@id/imageMap"
-        app:layout_constraintHorizontal_bias="0.514"
+        app:layout_constraintHorizontal_bias="0.513"
         app:layout_constraintStart_toStartOf="@id/imageMap"
         app:layout_constraintTop_toTopOf="@id/imageMap"
-        app:layout_constraintVertical_bias="0.095" />
+        app:layout_constraintVertical_bias="0.053" />
 
     <Button
         android:id="@+id/buttonUral"
@@ -452,7 +454,7 @@
         app:layout_constraintHorizontal_bias="0.595"
         app:layout_constraintStart_toStartOf="@id/imageMap"
         app:layout_constraintTop_toTopOf="@id/imageMap"
-        app:layout_constraintVertical_bias="0.17" />
+        app:layout_constraintVertical_bias="0.149" />
 
     <Button
         android:id="@+id/buttonYakutsk"
@@ -468,10 +470,10 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/imageMap"
         app:layout_constraintEnd_toEndOf="@id/imageMap"
-        app:layout_constraintHorizontal_bias="0.828"
+        app:layout_constraintHorizontal_bias="0.834"
         app:layout_constraintStart_toStartOf="@id/imageMap"
         app:layout_constraintTop_toTopOf="@id/imageMap"
-        app:layout_constraintVertical_bias="0.128" />
+        app:layout_constraintVertical_bias="0.149" />
 
     <Button
         android:id="@+id/buttonSiberia"
@@ -487,10 +489,10 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/imageMap"
         app:layout_constraintEnd_toEndOf="@id/imageMap"
-        app:layout_constraintHorizontal_bias="0.682"
+        app:layout_constraintHorizontal_bias="0.687"
         app:layout_constraintStart_toStartOf="@id/imageMap"
         app:layout_constraintTop_toTopOf="@id/imageMap"
-        app:layout_constraintVertical_bias="0.128" />
+        app:layout_constraintVertical_bias="0.096" />
 
     <Button
         android:id="@+id/buttonUkraine"
@@ -506,10 +508,10 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/imageMap"
         app:layout_constraintEnd_toEndOf="@id/imageMap"
-        app:layout_constraintHorizontal_bias="0.53"
+        app:layout_constraintHorizontal_bias="0.532"
         app:layout_constraintStart_toStartOf="@id/imageMap"
         app:layout_constraintTop_toTopOf="@id/imageMap"
-        app:layout_constraintVertical_bias="0.235" />
+        app:layout_constraintVertical_bias="0.192" />
 
     <Button
         android:id="@+id/buttonVenezuela"
@@ -563,10 +565,10 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/imageMap"
         app:layout_constraintEnd_toEndOf="@id/imageMap"
-        app:layout_constraintHorizontal_bias="0.254"
+        app:layout_constraintHorizontal_bias="0.248"
         app:layout_constraintStart_toStartOf="@id/imageMap"
         app:layout_constraintTop_toTopOf="@id/imageMap"
-        app:layout_constraintVertical_bias="0.879" />
+        app:layout_constraintVertical_bias="0.877" />
 
     <Button
         android:id="@+id/buttonEastAustralia"
@@ -582,10 +584,10 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/imageMap"
         app:layout_constraintEnd_toEndOf="@id/imageMap"
-        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintHorizontal_bias="0.915"
         app:layout_constraintStart_toStartOf="@id/imageMap"
         app:layout_constraintTop_toTopOf="@id/imageMap"
-        app:layout_constraintVertical_bias="0.801" />
+        app:layout_constraintVertical_bias="0.789" />
 
     <Button
         android:id="@+id/buttonWestEurope"
@@ -601,10 +603,10 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/imageMap"
         app:layout_constraintEnd_toEndOf="@id/imageMap"
-        app:layout_constraintHorizontal_bias="0.434"
+        app:layout_constraintHorizontal_bias="0.447"
         app:layout_constraintStart_toStartOf="@id/imageMap"
         app:layout_constraintTop_toTopOf="@id/imageMap"
-        app:layout_constraintVertical_bias="0.260" />
+        app:layout_constraintVertical_bias="0.264" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -658,9 +660,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="12dp"
+        android:backgroundTint="#3B3F41"
         android:enabled="false"
+        android:fontFamily="@font/erica_one"
         android:onClick="openCardActivity"
         android:text="Cards"
+        android:textColor="#B6B2B2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

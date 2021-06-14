@@ -10,30 +10,32 @@
 
     <Button
         android:id="@+id/btnStart"
-        android:layout_width="wrap_content"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="236dp"
-        android:layout_marginTop="336dp"
-        android:backgroundTint="#2196F3"
+        android:layout_marginStart="220dp"
+        android:layout_marginTop="308dp"
+        android:layout_marginBottom="55dp"
+        android:fontFamily="@font/erica_one"
         android:text="Start game"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/btnExit"
-        android:layout_width="wrap_content"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="78dp"
-        android:layout_marginTop="336dp"
-        android:layout_marginEnd="217dp"
-        android:backgroundTint="#2196F3"
+        android:layout_marginStart="73dp"
+        android:fontFamily="@font/erica_one"
+        android:layout_marginTop="310dp"
+        android:layout_marginEnd="178dp"
+        android:layout_marginBottom="53dp"
         android:text="EXIT GAME"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/btnStart"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
         android:id="@+id/listOfPlayers"
@@ -41,6 +43,7 @@
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="250dp"
         tools:layout_editor_absoluteY="79dp" />
+    app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
