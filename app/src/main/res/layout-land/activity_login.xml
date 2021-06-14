@@ -28,12 +28,13 @@
 
     <Button
         android:id="@+id/btnConfirm"
-        android:layout_width="wrap_content"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="317dp"
         android:layout_marginTop="6dp"
         android:layout_marginEnd="321dp"
-        android:backgroundTint="#2196F3"
+
+        android:fontFamily="@font/erica_one"
         android:text="Confirm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
