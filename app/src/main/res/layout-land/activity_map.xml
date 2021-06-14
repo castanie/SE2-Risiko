@@ -375,10 +375,10 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/imageMap"
         app:layout_constraintEnd_toEndOf="@id/imageMap"
-        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintHorizontal_bias="0.088"
         app:layout_constraintStart_toStartOf="@id/imageMap"
         app:layout_constraintTop_toTopOf="@id/imageMap"
-        app:layout_constraintVertical_bias="0.128" />
+        app:layout_constraintVertical_bias="0.07" />
 
     <Button
         android:id="@+id/buttonSouthAfrica"

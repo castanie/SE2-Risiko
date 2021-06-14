@@ -11,48 +11,39 @@
         android:id="@+id/btnPlay"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="288dp"
-        android:layout_marginTop="228dp"
-        android:layout_marginEnd="313dp"
-        android:layout_marginBottom="135dp"
 
+        android:layout_marginStart="338dp"
+        android:layout_marginTop="187dp"
+        android:layout_marginEnd="339dp"
         android:fontFamily="@font/erica_one"
         android:text="Play"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.657"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnSettings"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="130dp"
-        android:layout_marginTop="314dp"
-        android:layout_marginEnd="183dp"
-        android:layout_marginBottom="49dp"
+        android:layout_marginStart="338dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="339dp"
         android:fontFamily="@font/erica_one"
         android:text="Settings"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/btnRules"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnPlay" />
 
     <Button
         android:id="@+id/btnRules"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="208dp"
-        android:layout_marginTop="314dp"
-        android:layout_marginBottom="49dp"
+        android:layout_marginStart="338dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="339dp"
         android:fontFamily="@font/erica_one"
         android:text="Rules"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/btnSettings" />
 </androidx.constraintlayout.widget.ConstraintLayout>
