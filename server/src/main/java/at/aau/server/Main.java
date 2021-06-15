@@ -291,19 +291,26 @@ public class Main {
                 private void evaluateWinner() {
                     if (hasCheatedAttacker) {
                         //TODO: Defender won due to cheating of attacker, update GUI and show snackbar or smth
+                        server.broadcastMessage(new UpdateMessage(attackerCountryName, 1, attackerIndex));
+
                     }else if (hasCheatedDefender) {
                         //TODO: Attacker won due to cheating of defender, update GUI and show snackbar or smth
+                        server.broadcastMessage(new UpdateMessage(defenderCountryName, numAttackers, attackerIndex));
                     }
                     else if (badGuessAttacker) {
                         //TODO: Defender won due to wrong guess of attacker, update GUI and show snackbar or smth
+                        server.broadcastMessage(new UpdateMessage(attackerCountryName, 1, attackerIndex));
                     }else if (badGuessDefender) {
                         //TODO: Attacker won due to wrong guess of defender, update GUI and show snackbar or smth
+                        server.broadcastMessage(new UpdateMessage(defenderCountryName, numAttackers, attackerIndex));
                     }
                     //if draw defender has the advantage
                     else if (eyeNumberSumDefender >= eyeNumberSumAttacker) {
                         //TODO: Defender won, update GUI and show snackbar or smth
+                        server.broadcastMessage(new UpdateMessage(attackerCountryName, 1, attackerIndex));
                     }else {
                         //TODO: Attacker won, update GUI and show snackbar or smth
+                        server.broadcastMessage(new UpdateMessage(defenderCountryName, numAttackers, attackerIndex));
                     }
 
                 }
