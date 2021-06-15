@@ -84,7 +84,7 @@ public class Main {
 
 
                 @Override
-                public void callback(BaseMessage argument) {
+                public void callback(BaseMessage argument) throws InterruptedException {
 
                     // Simple text message:
                     if (argument instanceof LogMessage) {
@@ -228,11 +228,8 @@ public class Main {
                         }
 
                         //TODO: wait for 5 seconds to let players decide if other one has cheated
-                        try {
+
                             TimeUnit.SECONDS.sleep(5);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
 
                         //TODO: send messages to DiceActivities that they should finish themselves
                         server.sendMessage(attackerIndex, new CloseDiceActivitiesMessage());
