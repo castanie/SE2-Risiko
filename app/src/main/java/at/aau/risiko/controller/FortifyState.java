@@ -66,18 +66,18 @@ public class FortifyState extends State {
 
                     if (donor.getArmies() > 1) {
                         //move one Army from donor to recipient
-                        int donorArmys = donor.getArmies() - 1;
-                        int recipientArmys = recipient.getArmies() + 1;
+                        int movingArmies = donor.getArmies() / 2;
+                        int donorArmies = donor.getArmies() - movingArmies;
+                        int recipientArmies = recipient.getArmies() + movingArmies;
 
-                        donor.setArmies(donorArmys);
-                        recipient.setArmies(recipientArmys);
+                        donor.setArmies(donorArmies);
+                        recipient.setArmies(recipientArmies);
 
-                        donorButton.setText(Integer.toString(donorArmys));
-                        recipientButton.setText(Integer.toString(recipientArmys));
+                        donorButton.setText(Integer.toString(donorArmies));
+                        recipientButton.setText(Integer.toString(recipientArmies));
 
                         game.sendMessage(new UpdateMessage(donor.getName(), donor.getArmies(), game.getIndex()));
                         game.sendMessage(new UpdateMessage(recipient.getName(), recipient.getArmies(), game.getIndex()));
-
 
                         changeState();
                     } else {
