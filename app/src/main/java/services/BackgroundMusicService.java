@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.IBinder;
+import android.provider.MediaStore;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
@@ -12,7 +13,20 @@ import at.aau.risiko.R;
 
 public class BackgroundMusicService extends Service {
     private static final String TAG = "MusicService";
-    MediaPlayer player;
+    public  MediaPlayer  player;
+    private int length = 0;
+
+    //singelton pattern
+    private static BackgroundMusicService service = new BackgroundMusicService();
+
+    private BackgroundMusicService() {
+
+    }
+
+    public static BackgroundMusicService getInstance(){
+        return service;
+    }
+
 
     @Nullable
     @Override
@@ -26,11 +40,11 @@ public class BackgroundMusicService extends Service {
 
         Log.i(TAG, "OnCreate executes");
 
-        //player = MediaPlayer.create(this,R.raw.music);
-        player = MediaPlayer.create(this, R.raw.music);
-        player.setLooping(true);
-        player.setVolume(100, 100);
-        player.start();
+        if(player!= null)
+        {
+            player.setLooping(true);
+            player.setVolume(100,100);
+        }
     }
 
     @Override
@@ -41,8 +55,39 @@ public class BackgroundMusicService extends Service {
     }
 
     @Override
-    public void onDestroy() {
+    public void onDestroy ()
+    {
+        super.onDestroy();
+        if(player != null)
+        {
+            try{
+                player.stop();
+                player.release();
+            }finally {
+                player = null;
+            }
+        }
+    }
+
+    public void resumeMusic(){
+        if(!player.isPlaying()){
+            player.seekTo(length);
+            player.start();
+        }
+    }
+
+    public void pauseMusic(){
+        if(player.isPlaying()){
+            player.pause();
+            length = player.getCurrentPosition();
+        }
+    }
+
+
+    public void stopMusic()
+    {
         player.stop();
         player.release();
+        player = null;
     }
 }
