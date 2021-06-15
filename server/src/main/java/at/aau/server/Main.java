@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 import at.aau.server.dto.BaseMessage;
 import at.aau.server.dto.CardMessage;
 import at.aau.server.dto.CheatedMessage;
+import at.aau.server.dto.CloseDiceActivitiesMessage;
 import at.aau.server.dto.DiceMessage;
 import at.aau.server.dto.ExchangeMessage;
 import at.aau.server.dto.EyeNumbersMessage;
@@ -52,6 +53,8 @@ public class Main {
             server.registerClass(CheatedMessage.class);
             server.registerClass(CardMessage.class);
             server.registerClass(ExchangeMessage.class);
+            server.registerClass(CloseDiceActivitiesMessage.class);
+
 
             server.start();
             server.registerCallback(new Callback<BaseMessage>() {
@@ -232,6 +235,8 @@ public class Main {
                         }
 
                         //TODO: send messages to DiceActivities that they should finish themselves
+                        server.sendMessage(attackerIndex, new CloseDiceActivitiesMessage());
+                        server.sendMessage(defenderIndex, new CloseDiceActivitiesMessage());
 
                         if(isDoneRolling) {
                             evaluateWinner();
