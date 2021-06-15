@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_kris"
+    android:background="@drawable/menu_bg_risky_risk"
 
     tools:context=".LobbyActivity">
 
@@ -17,6 +17,8 @@
         android:layout_marginBottom="55dp"
         android:fontFamily="@font/erica_one"
         android:text="Start game"
+        android:textColor="#B6B2B2"
+        android:backgroundTint="#3B3F41"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -32,6 +34,8 @@
         android:layout_marginEnd="178dp"
         android:layout_marginBottom="53dp"
         android:text="EXIT GAME"
+        android:textColor="#B6B2B2"
+        android:backgroundTint="#3B3F41"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnStart"

@@ -144,6 +144,7 @@ public class Main {
                     // else if ...
 
                     // TODO: CardMessage
+                    //Broadcasts a message when a card was drawn and which card was drawn from the Carddeck
                     else if (argument instanceof CardMessage) {
                         System.out.println("CardMessage received.");
 
@@ -154,6 +155,8 @@ public class Main {
                     }
 
                     // TODO: ExchangeMessage
+                    // Broadcasts a message when cards were exchanged and which cards were exchanged
+
                     else if (argument instanceof ExchangeMessage) {
                         System.out.println("ExchangeMessage received.");
 

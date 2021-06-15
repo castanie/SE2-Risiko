@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_kris"
+    android:background="@drawable/menu_bg_risky_risk"
     tools:context=".SettingsActivity">
 
     <Button
@@ -16,6 +16,8 @@
         android:layout_marginTop="200dp"
         android:fontFamily="@font/erica_one"
         android:text="music on"
+        android:textColor="#B6B2B2"
+        android:backgroundTint="#3B3F41"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.522"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,6 +33,8 @@
         android:layout_marginBottom="74dp"
         android:fontFamily="@font/erica_one"
         android:text="music off"
+        android:textColor="#B6B2B2"
+        android:backgroundTint="#3B3F41"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.522"
