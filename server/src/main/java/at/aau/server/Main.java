@@ -2,6 +2,7 @@ package at.aau.server;
 
 import at.aau.server.dto.BaseMessage;
 import at.aau.server.dto.CardMessage;
+import at.aau.server.dto.CheatedMessage;
 import at.aau.server.dto.DiceMessage;
 import at.aau.server.dto.ExchangeMessage;
 import at.aau.server.dto.EyeNumbersMessage;
@@ -45,6 +46,8 @@ public class Main {
             server.registerClass(UpdateMessage.class);
             server.registerClass(DiceMessage.class);
             server.registerClass(EyeNumbersMessage.class);
+            server.registerClass(CheatedMessage.class);
+
             // server.registerClass(CheatedMessage.class);
             server.registerClass(CardMessage.class);
             server.registerClass(ExchangeMessage.class);
@@ -54,6 +57,25 @@ public class Main {
 
                 int readyBarrier = 0;
                 int currentTurn = 0;
+                //variables from DiceMessage
+                Integer defenderIndex;
+                Integer attackerIndex;
+                String attackerCountryName;
+                String defenderCountryName;
+                Integer numDefenders;
+                Integer numAttackers;
+                //variables from EyeNumbersMessage
+                int[] diceArrayAttacker;
+                int[] diceArrayDefender;
+
+                //variables for evaluating the winner
+                int eyeNumberSumDefender;
+                int eyeNumberSumAttacker;
+
+                boolean isDoneRolling = false;
+                boolean hasCheatedDefender = false;
+                boolean hasCheatedAttacker = false;
+
 
                 @Override
                 public void callback(BaseMessage argument) {
@@ -128,20 +150,7 @@ public class Main {
 
                     }
 
-                    // Message sent from Map requesting to start attack:
-                    else if (argument instanceof DiceMessage) {
-                        System.out.println("DiceMessage received.");
 
-                        // Order Defender to roll dice:
-                        server.sendMessage(((DiceMessage) argument).playerIndex, argument);
-
-                    }
-
-                    // TODO: EyeNumbers response
-                    // else if ...
-
-                    // TODO: Cheated message
-                    // else if ...
 
                     // TODO: CardMessage
                     //Broadcasts a message when a card was drawn and which card was drawn from the Carddeck
@@ -164,6 +173,100 @@ public class Main {
                         ((ExchangeMessage) argument).playerIndex = currentTurn;
                         server.broadcastMessage(argument);
 
+                    }  // Message sent from Map requesting to start attack:
+                    else if (argument instanceof DiceMessage) {
+                        System.out.println("DiceMessage received.");
+
+                        //save variables on server
+                        defenderIndex = ((DiceMessage) argument).playerIndex;
+                        //TODO: get senders index
+                        attackerIndex = ((DiceMessage) argument).attackingIndex;
+                        attackerCountryName = ((DiceMessage)argument).attackingCountryName;
+                        defenderCountryName = ((DiceMessage)argument).defendingCountryName;
+                        numAttackers = ((DiceMessage)argument).numAttackers;
+                        numDefenders = ((DiceMessage)argument).numDefenders;
+
+
+
+                        // Order Defender to roll dice:
+                        server.sendMessage(((DiceMessage) argument).playerIndex, argument);
+
+                    }
+
+                    //
+                    else if (argument instanceof EyeNumbersMessage){
+                        System.out.println("EyeNumbersMessage received.");
+                        /**
+                         * If sender is DiceActivityDefender receiver is DiceActivityAttacker
+                         * If sender is DiceActivityAttacker receiver is DiceActivityDefender
+                         * Set the diceArrayAttacker and diceArrayDefender arrays, for the evaluation of the winner
+                         * if both Activities have send a message set isDoneRolling to true
+                         * TODO: don't forget to reset isDoneRolling to false after winner evaluation
+                         */
+                        //TODO: check who sender is and send to opposite
+                        if(((EyeNumbersMessage)argument).isDefender) {
+                            server.sendMessage(attackerIndex, argument);
+                            System.out.println("EyeNumbersMessage sent to Defender");
+                            diceArrayDefender = ((EyeNumbersMessage)argument).getMessage();
+                            calcEyenumberSum(diceArrayDefender, "defender");
+                        }else {
+                            server.sendMessage(defenderIndex, argument);
+                            System.out.println("EyeNumbersMessage sent to Attacker");
+                            diceArrayAttacker = ((EyeNumbersMessage)argument).getMessage();
+                            isDoneRolling = true;
+                            calcEyenumberSum(diceArrayAttacker, "attacker");
+                        }
+
+                        //TODO: wait for CheatedMessage for about 5 seconds or so
+
+                        if(isDoneRolling) {
+                            evaluateWinner();
+                            isDoneRolling = false;
+                        }
+
+                        
+                    }
+                    else if (argument instanceof CheatedMessage) {
+                        System.out.println("CheatedMessage received.");
+                        /**
+                         * sender is one of the DiceActivities
+                         */
+                        if(((CheatedMessage)argument).getSenderIsDefender()) {
+                            hasCheatedAttacker = true;
+                        }else {
+                            hasCheatedDefender = true;
+                        }
+                    }
+
+                }
+
+
+                private void calcEyenumberSum(int[] arr, String playersRoll) {
+                    int sum = 0;
+                    //i < arr.length-1 because the last element is just the indicator for cheating
+                    for(int i = 0; i < arr.length-1; i++) {
+                        sum += arr[i];
+                    }
+
+                    if (playersRoll.equals("defender")) {
+                        eyeNumberSumDefender = sum;
+                    }else if (playersRoll.equals("attacker")) {
+                        eyeNumberSumAttacker = sum;
+                    }
+
+                }
+
+                private void evaluateWinner() {
+                    if (hasCheatedAttacker) {
+                        //TODO: Defender won due to cheating of attacker, update GUI and show snackbar or smth
+                    }else if (hasCheatedDefender) {
+                        //TODO: Attacker won due to cheating of defender, update GUI and show snackbar or smth
+                    }
+                    //if draw defender has the advantage
+                    else if (eyeNumberSumDefender >= eyeNumberSumAttacker) {
+                        //TODO: Defender won, update GUI and show snackbar or smth
+                    }else {
+                        //TODO: Attacker won, update GUI and show snackbar or smth
                     }
 
                 }
