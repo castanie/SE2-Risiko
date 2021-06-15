@@ -6,6 +6,6 @@ package at.aau.server.kryonet;
 public interface Callback<T> {
 
 
-    void callback(T argument) throws InterruptedException;
+    void callback(T argument);
 
 }
