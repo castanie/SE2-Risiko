@@ -46,7 +46,7 @@ public class DiceActivityDefender extends AppCompatActivity implements SensorEve
     /*if hasRolledAttacker == true the UI needs to be updated*/
     boolean hasRolledAttacker = false;
     //dice should only be rolled if acceleration is > SHAKE_THRESHOLD
-    final static int SHAKE_THRESHOLD = 3;
+    final static int SHAKE_THRESHOLD = 1;
     /*this array will be send to DiceActivityAttacker*/
     int[] eyeNumbersDefender;
 
@@ -79,15 +79,6 @@ public class DiceActivityDefender extends AppCompatActivity implements SensorEve
             updateGUI(j+1, j+2);
         }
 
-        Button closeBtn = (Button)findViewById(R.id.closeBtn);
-        closeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //close the activity
-                finish();
-            }
-        });
-
 
         /**
          * ToDo: wait for server message from DiceActivityAttacker to update GUI and then switch state.
@@ -113,6 +104,9 @@ public class DiceActivityDefender extends AppCompatActivity implements SensorEve
                         oponentNotCheated = true;
                     }
 
+                } else if (argument instanceof CloseDiceActivitiesMessage) {
+                    Log.i("DICE DEFENDER", "Received CloseDiceActivitiesMessage!");
+                    finish();
                 }
             }
         });
@@ -123,25 +117,28 @@ public class DiceActivityDefender extends AppCompatActivity implements SensorEve
         cheatedBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (oponentCheated) {
 
                     //ToDo: send to server that defender cheated all his dices are set to one or he automatically loses
+                    Log.i("ATTACKER CHEATED", "Right!");
                     Toast toast = Toast.makeText(getApplicationContext(), "You are right, you've won the duel Sherlock.", Toast.LENGTH_LONG);
                     toast.show();
-                    GameClient.getInstance().sendMessage(new CheatedMessage(true, true));
+                    GameClient.getInstance().sendMessage(new CheatedMessage(true, false));
                 }
                 if(oponentNotCheated) {
                     //ToDo Toast or smth that not rolled dice yet
+                    Log.i("ATTACKER CHEATED", "Wrong!");
                     Toast toast = Toast.makeText(getApplicationContext(), "You are wrong, you've lost the duel.", Toast.LENGTH_LONG);
                     toast.show();
-                    GameClient.getInstance().sendMessage(new CheatedMessage(false, true));
+                    GameClient.getInstance().sendMessage(new CheatedMessage(false, false));
                 }
             }
         });
 
         /**
          * ToDo: wait for server message to close activity.
-         */
+
         GameClient.getInstance().registerCallback(new Callback<BaseMessage>() {
             @Override
             public void callback(BaseMessage argument) {
@@ -150,7 +147,7 @@ public class DiceActivityDefender extends AppCompatActivity implements SensorEve
                     finish();
                 }
             }
-        });
+        });*/
 
     }
 

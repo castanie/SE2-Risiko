@@ -19,6 +19,7 @@ import at.aau.core.Country;
 import at.aau.core.Player;
 import at.aau.risiko.controller.Game;
 import at.aau.risiko.controller.ObserveState;
+import at.aau.server.dto.BackInMapMessage;
 import at.aau.server.dto.BaseMessage;
 import at.aau.server.dto.ReadyMessage;
 import at.aau.server.kryonet.Callback;
@@ -148,6 +149,13 @@ public class MapActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        GameClient.getInstance().registerCallback(new Callback<BaseMessage>() {
+            @Override
+            public void callback(BaseMessage argument) {
+                game.handleMessage(argument);
+            }
+        });
+
         GameClient.getInstance().sendMessage(new ReadyMessage());
     }
 
@@ -161,6 +169,8 @@ public class MapActivity extends AppCompatActivity {
                 game.handleMessage(argument);
             }
         });
+
+        GameClient.getInstance().sendMessage(new BackInMapMessage());
     }
 
     public void onClick(View view) {

@@ -11,7 +11,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import at.aau.server.dto.BackInMapMessage;
 import at.aau.server.dto.CardMessage;
 import at.aau.server.dto.CloseDiceActivitiesMessage;
 import at.aau.server.dto.DiceMessage;
@@ -21,6 +23,8 @@ import at.aau.server.dto.CheatedMessage;
 import at.aau.server.dto.LogMessage;
 import at.aau.server.dto.NameMessage;
 import at.aau.server.dto.ReadyMessage;
+import at.aau.server.dto.RequestPlayerMessage;
+import at.aau.server.dto.ResponsePlayerMessage;
 import at.aau.server.dto.StartMessage;
 import at.aau.server.dto.TurnMessage;
 import at.aau.server.dto.UpdateMessage;
@@ -35,11 +39,14 @@ public class LoginActivity extends AppCompatActivity {
 
         GameClient client = GameClient.getInstance();
 
-        client.registerClass(String[].class);
         client.registerClass(int[].class);
         client.registerClass(Integer[].class);
+        client.registerClass(String[].class);
+        client.registerClass(ArrayList.class);
         client.registerClass(LogMessage.class);
         client.registerClass(NameMessage.class);
+        client.registerClass(RequestPlayerMessage.class);
+        client.registerClass(ResponsePlayerMessage.class);
         client.registerClass(StartMessage.class);
         client.registerClass(ReadyMessage.class);
         client.registerClass(TurnMessage.class);
@@ -50,6 +57,7 @@ public class LoginActivity extends AppCompatActivity {
         client.registerClass(CardMessage.class);
         client.registerClass(ExchangeMessage.class);
         client.registerClass(CloseDiceActivitiesMessage.class);
+        client.registerClass(BackInMapMessage.class);
 
         Thread clientThread = new Thread() {
             @Override

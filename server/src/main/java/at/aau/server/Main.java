@@ -3,6 +3,7 @@ package at.aau.server;
 import java.util.concurrent.TimeUnit;
 import java.util.ArrayList;
 
+import at.aau.server.dto.BackInMapMessage;
 import at.aau.server.dto.BaseMessage;
 import at.aau.server.dto.CardMessage;
 import at.aau.server.dto.CheatedMessage;
@@ -13,6 +14,7 @@ import at.aau.server.dto.EyeNumbersMessage;
 import at.aau.server.dto.LogMessage;
 import at.aau.server.dto.NameMessage;
 import at.aau.server.dto.ReadyMessage;
+import at.aau.server.dto.RequestPlayerMessage;
 import at.aau.server.dto.ResponsePlayerMessage;
 import at.aau.server.dto.StartMessage;
 import at.aau.server.dto.TurnMessage;
@@ -41,11 +43,14 @@ public class Main {
 
         try {
             GameServer server = GameServer.getInstance();
-            server.registerClass(String[].class);
             server.registerClass(int[].class);
             server.registerClass(Integer[].class);
+            server.registerClass(String[].class);
+            server.registerClass(ArrayList.class);
             server.registerClass(LogMessage.class);
             server.registerClass(NameMessage.class);
+            server.registerClass(RequestPlayerMessage.class);
+            server.registerClass(ResponsePlayerMessage.class);
             server.registerClass(StartMessage.class);
             server.registerClass(ReadyMessage.class);
             server.registerClass(TurnMessage.class);
@@ -56,12 +61,14 @@ public class Main {
             server.registerClass(CardMessage.class);
             server.registerClass(ExchangeMessage.class);
             server.registerClass(CloseDiceActivitiesMessage.class);
+            server.registerClass(BackInMapMessage.class);
 
 
             server.start();
             server.registerCallback(new Callback<BaseMessage>() {
 
                 int readyBarrier = 0;
+                int backInMapBarrier = 0;
                 int currentTurn = 0;
                 //variables from DiceMessage
                 Integer defenderIndex;
@@ -97,14 +104,12 @@ public class Main {
                     // Message sent from Login screen containing player name:
                     else if (argument instanceof NameMessage) {
                         System.out.println("NameMessage: " + ((NameMessage) argument).name);
+
+                        // Register Player name:
                         NameMessage name = (NameMessage)argument;
-                        System.out.println("Player " + name + " wants to connect");
                         playerNames.add(name.name);
                         System.out.println("Notifying all clients!");
                         server.broadcastMessage(new ResponsePlayerMessage(playerNames));
-
-                        // Register Player name:
-
                         
                     }
 
@@ -237,25 +242,20 @@ public class Main {
                             calcEyenumberSum(diceArrayAttacker, "attacker");
                         }
 
-                        //TODO: wait for 5 seconds to let players decide if other one has cheated
-                        try {
-                            TimeUnit.SECONDS.sleep(5);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-
-                        //TODO: send messages to DiceActivities that they should finish themselves
-                        server.sendMessage(attackerIndex, new CloseDiceActivitiesMessage());
-                        server.sendMessage(defenderIndex, new CloseDiceActivitiesMessage());
 
                         if(isDoneRolling) {
-                            evaluateWinner();
-                            //reset all booleans
-                            isDoneRolling = false;
-                            hasCheatedDefender = false;
-                            hasCheatedAttacker = false;
-                            badGuessDefender = false;
-                            badGuessAttacker = false;
+                            //TODO: wait for 5 seconds to let players decide if other one has cheated
+                            try {
+                                TimeUnit.SECONDS.sleep(8);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+
+                            //TODO: send messages to DiceActivities that they should finish themselves
+                            server.sendMessage(attackerIndex, new CloseDiceActivitiesMessage());
+                            server.sendMessage(defenderIndex, new CloseDiceActivitiesMessage());
+
+
                         }
 
 
@@ -280,6 +280,31 @@ public class Main {
                         }
                     }
 
+                    //
+                    else if (argument instanceof BackInMapMessage) {
+                        System.out.println("BackInMapMessage received.");
+
+                        // Wait for all players to get ready:
+                        if (isDoneRolling) {
+                            ++backInMapBarrier;
+
+                            // Once all are ready, start first turn:
+                            if (backInMapBarrier == 2) {
+                                // TODO: make sure players are back in MapActivity
+                                evaluateWinner();
+
+                                //reset all booleans
+                                isDoneRolling = false;
+                                hasCheatedDefender = false;
+                                hasCheatedAttacker = false;
+                                badGuessDefender = false;
+                                badGuessAttacker = false;
+
+                                backInMapBarrier = 0;
+                            }
+                        }
+                    }
+
                 }
 
 
@@ -301,25 +326,31 @@ public class Main {
                 private void evaluateWinner() {
                     if (hasCheatedAttacker) {
                         //TODO: Defender won due to cheating of attacker, update GUI and show snackbar or smth
+                        System.out.println("Defender won because Attacker cheated.");
                         server.broadcastMessage(new UpdateMessage(attackerCountryName, 1, attackerIndex));
 
                     }else if (hasCheatedDefender) {
                         //TODO: Attacker won due to cheating of defender, update GUI and show snackbar or smth
+                        System.out.println("Attacker won because Defender cheated.");
                         server.broadcastMessage(new UpdateMessage(defenderCountryName, numAttackers, attackerIndex));
                     }
                     else if (badGuessAttacker) {
                         //TODO: Defender won due to wrong guess of attacker, update GUI and show snackbar or smth
+                        System.out.println("Defender won due to bad guess.");
                         server.broadcastMessage(new UpdateMessage(attackerCountryName, 1, attackerIndex));
                     }else if (badGuessDefender) {
                         //TODO: Attacker won due to wrong guess of defender, update GUI and show snackbar or smth
+                        System.out.println("Attacker won due to bad guess.");
                         server.broadcastMessage(new UpdateMessage(defenderCountryName, numAttackers, attackerIndex));
                     }
                     //if draw defender has the advantage
                     else if (eyeNumberSumDefender >= eyeNumberSumAttacker) {
                         //TODO: Defender won, update GUI and show snackbar or smth
+                        System.out.println("Defender won.");
                         server.broadcastMessage(new UpdateMessage(attackerCountryName, 1, attackerIndex));
                     }else {
                         //TODO: Attacker won, update GUI and show snackbar or smth
+                        System.out.println("Attacker won.");
                         server.broadcastMessage(new UpdateMessage(defenderCountryName, numAttackers, attackerIndex));
                     }
 

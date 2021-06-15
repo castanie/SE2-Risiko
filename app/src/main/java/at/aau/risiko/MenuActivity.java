@@ -18,7 +18,7 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
 
 
-        BackgroundMusicService.getInstance().player.start();
+        // BackgroundMusicService.getInstance().player.start();
 
         Button btnPlay = findViewById(R.id.btnPlay);
         Button btnSettings = findViewById(R.id.btnSettings);

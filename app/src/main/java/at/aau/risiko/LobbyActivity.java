@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 
 import at.aau.server.dto.BaseMessage;
-import at.aau.server.dto.RequestPlayerNames;
+import at.aau.server.dto.RequestPlayerMessage;
 import at.aau.server.dto.ResponsePlayerMessage;
 import at.aau.server.dto.StartMessage;
 import at.aau.server.kryonet.Callback;
@@ -51,7 +51,7 @@ public class LobbyActivity extends AppCompatActivity {
 
         });
 
-        GameClient.getInstance().sendMessage(new RequestPlayerNames());
+        GameClient.getInstance().sendMessage(new RequestPlayerMessage());
 
 
         Button btnExit = findViewById(R.id.btnExit);
