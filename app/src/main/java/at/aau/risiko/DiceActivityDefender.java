@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import at.aau.core.Dice;
 import at.aau.server.dto.BaseMessage;
 import at.aau.server.dto.CheatedMessage;
+import at.aau.server.dto.CloseDiceActivitiesMessage;
 import at.aau.server.dto.EyeNumbersMessage;
 import at.aau.server.kryonet.Callback;
 import at.aau.server.kryonet.GameClient;
@@ -91,7 +92,6 @@ public class DiceActivityDefender extends AppCompatActivity implements SensorEve
         /**
          * ToDo: wait for server message from DiceActivityAttacker to update GUI and then switch state.
          */
-
         GameClient.getInstance().registerCallback(new Callback<BaseMessage>() {
             @Override
             public void callback(BaseMessage argument) {
@@ -139,6 +139,18 @@ public class DiceActivityDefender extends AppCompatActivity implements SensorEve
             }
         });
 
+        /**
+         * ToDo: wait for server message to close activity.
+         */
+        GameClient.getInstance().registerCallback(new Callback<BaseMessage>() {
+            @Override
+            public void callback(BaseMessage argument) {
+                if (argument instanceof CloseDiceActivitiesMessage) {
+                    Log.i("DICE DEFENDER", "Received CloseDiceActivitiesMessage!");
+                    finish();
+                }
+            }
+        });
 
     }
 
