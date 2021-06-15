@@ -154,12 +154,12 @@ public class DiceActivityDefender extends AppCompatActivity implements SensorEve
 
     }
 
-
+    @Override
     protected void onResume() {
         super.onResume();
         sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
     }
-
+    @Override
     protected void onPause() {
         super.onPause();
         sensorManager.unregisterListener(this);

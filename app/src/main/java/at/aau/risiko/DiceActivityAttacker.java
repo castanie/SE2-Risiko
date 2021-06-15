@@ -126,17 +126,6 @@ public class DiceActivityAttacker extends AppCompatActivity implements SensorEve
             }
         });
 
-        /*
-        // iterate over the
-        if(hasRolledDefender) {
-            for(int i = 0; i < defendersDices.length; i++) {
-                updateGUI(i, defendersDices[i]);
-            }
-            isUpdatedGUI = true;
-
-        }
-        */
-
 
         Button cheatedBtn = findViewById(R.id.cheatBtn);
         cheatedBtn.setOnClickListener(new View.OnClickListener() {
@@ -179,12 +168,12 @@ public class DiceActivityAttacker extends AppCompatActivity implements SensorEve
 
 
     }
-
+    @Override
     protected void onResume() {
         super.onResume();
         sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
     }
-
+    @Override
     protected void onPause() {
         super.onPause();
         sensorManager.unregisterListener(this);
