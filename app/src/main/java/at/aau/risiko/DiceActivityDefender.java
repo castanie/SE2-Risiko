@@ -112,6 +112,9 @@ public class DiceActivityDefender extends AppCompatActivity implements SensorEve
         cheatedBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(attackersDices == null) {
+                    //ToDo Toast or smth that not rolled dice yet
+                }
                 if (attackersDices[numAttackers] == 1) {
 
                     // ToDo: the attacker cheated send this to the server so all his dices are set to 1 or he automatically loses
