@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/risiko_background_neu"
+
 
     tools:context=".LobbyActivity">
 
@@ -14,7 +14,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="236dp"
         android:layout_marginTop="336dp"
-        android:backgroundTint="#2196F3"
+        android:backgroundTint="#3B3F41"
+        android:textColor="#B6B2B2"
+        android:fontFamily="@font/erica_one"
         android:text="Start game"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -27,7 +29,9 @@
         android:layout_marginStart="78dp"
         android:layout_marginTop="336dp"
         android:layout_marginEnd="217dp"
-        android:backgroundTint="#2196F3"
+        android:backgroundTint="#3B3F41"
+        android:textColor="#B6B2B2"
+        android:fontFamily="@font/erica_one"
         android:text="EXIT GAME"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -39,8 +43,8 @@
         android:id="@+id/playerList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="250dp"
-        tools:layout_editor_absoluteY="79dp" />
+        tools:layout_editor_absoluteX="-72dp"
+        tools:layout_editor_absoluteY="0dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
