@@ -11,6 +11,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -49,6 +50,9 @@ public class DiceActivityDefender extends AppCompatActivity implements SensorEve
     int[] eyeNumbersDefender;
 
     int[] attackersDices;
+
+    boolean oponentCheated = false;
+    boolean oponentNotCheated = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +107,12 @@ public class DiceActivityDefender extends AppCompatActivity implements SensorEve
                         updateGUI(i + 1, attackersDices[i]);
                     }
 
+                    if(attackersDices[numDefenders] == 1) {
+                        oponentCheated = true;
+                    }else {
+                        oponentNotCheated = true;
+                    }
+
                 }
             }
         });
@@ -113,14 +123,18 @@ public class DiceActivityDefender extends AppCompatActivity implements SensorEve
         cheatedBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(attackersDices == null) {
-                    //ToDo Toast or smth that not rolled dice yet
+                if (oponentCheated) {
+
+                    //ToDo: send to server that defender cheated all his dices are set to one or he automatically loses
+                    Toast toast = Toast.makeText(getApplicationContext(), "You are right, you've won the duel Sherlock.", Toast.LENGTH_LONG);
+                    toast.show();
+                    GameClient.getInstance().sendMessage(new CheatedMessage(true, true));
                 }
-                if (attackersDices[numAttackers] == 1) {
-
-                    // ToDo: the attacker cheated send this to the server so all his dices are set to 1 or he automatically loses
-
-                    GameClient.getInstance().sendMessage(new CheatedMessage(true));
+                if(oponentNotCheated) {
+                    //ToDo Toast or smth that not rolled dice yet
+                    Toast toast = Toast.makeText(getApplicationContext(), "You are wrong, you've lost the duel.", Toast.LENGTH_LONG);
+                    toast.show();
+                    GameClient.getInstance().sendMessage(new CheatedMessage(false, true));
                 }
             }
         });
