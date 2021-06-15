@@ -230,7 +230,7 @@ public class Main {
                         //TODO: wait for 5 seconds to let players decide if other one has cheated
 
                             TimeUnit.SECONDS.sleep(5);
-
+                        
                         //TODO: send messages to DiceActivities that they should finish themselves
                         server.sendMessage(attackerIndex, new CloseDiceActivitiesMessage());
                         server.sendMessage(defenderIndex, new CloseDiceActivitiesMessage());
