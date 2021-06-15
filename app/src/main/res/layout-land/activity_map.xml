@@ -6,7 +6,7 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     tools:context=".MapActivity"
-    android:background="@drawable/basic_map_bg"
+    android:background="@drawable/basic_map_bg_line"
     >
 
     <ImageView

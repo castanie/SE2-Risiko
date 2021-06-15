@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 
 import at.aau.server.dto.BaseMessage;
+import at.aau.server.dto.RequestPlayerNames;
+import at.aau.server.dto.ResponsePlayerMessage;
 import at.aau.server.dto.StartMessage;
 import at.aau.server.kryonet.Callback;
 import at.aau.server.kryonet.GameClient;
@@ -39,8 +41,17 @@ public class LobbyActivity extends AppCompatActivity {
                     intent.putExtra("colors", ((StartMessage) argument).colors);
                     startActivity(intent);
                 }
-            }
+
+                else if(argument instanceof ResponsePlayerMessage){
+                        ResponsePlayerMessage rpm = (ResponsePlayerMessage)argument;
+                        userNames.clear();
+                        userNames.addAll(rpm.getPlayerNames());
+                    }
+                }
+
         });
+
+        GameClient.getInstance().sendMessage(new RequestPlayerNames());
 
 
         Button btnExit = findViewById(R.id.btnExit);
@@ -53,9 +64,6 @@ public class LobbyActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
-                for (String e : userNames) {
-                    userNames.remove(e);
-                }
                 startActivity(intent);
             }
         });
