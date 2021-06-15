@@ -10,9 +10,10 @@ public class UpdateMessage extends BaseMessage{
 
     }
 
-    public UpdateMessage(String countryName, Integer countryArmies) {
+    public UpdateMessage(String countryName, Integer countryArmies, Integer playerIndex) {
         this.countryName = countryName;
         this.countryArmies = countryArmies;
+        this.playerIndex = playerIndex;
     }
 
 }

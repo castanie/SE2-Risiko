@@ -133,6 +133,7 @@ public class MapActivity extends AppCompatActivity {
 
         // Start game:
         game = new Game(players, countries, buttonMapping, avatarMapping, this);
+        game.setState(new ObserveState(game));
 
         GameClient.getInstance().registerCallback(new Callback<BaseMessage>() {
             @Override

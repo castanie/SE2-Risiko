@@ -75,7 +75,7 @@ public class DraftState extends State {
             player.setAvailable(player.getAvailable() - 1);
 
             game.showSnackbar(player.getAvailable() + " armies left to place on the board.");
-            game.sendMessage(new UpdateMessage(game.buttonMap.get(button.getId()).getName(), game.buttonMap.get(button.getId()).getArmies()));
+            game.sendMessage(new UpdateMessage(game.buttonMap.get(button.getId()).getName(), game.buttonMap.get(button.getId()).getArmies(), game.getIndex()));
 
             if (player.getAvailable() == 0) {
                 changeState();

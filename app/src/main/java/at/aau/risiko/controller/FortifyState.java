@@ -75,8 +75,9 @@ public class FortifyState extends State {
                         donorButton.setText(Integer.toString(donorArmys));
                         recipientButton.setText(Integer.toString(recipientArmys));
 
-                        game.sendMessage(new UpdateMessage(donor.getName(), donor.getArmies()));
-                        game.sendMessage(new UpdateMessage(recipient.getName(), recipient.getArmies()));
+                        game.sendMessage(new UpdateMessage(donor.getName(), donor.getArmies(), game.getIndex()));
+                        game.sendMessage(new UpdateMessage(recipient.getName(), recipient.getArmies(), game.getIndex()));
+
 
                         changeState();
                     } else {

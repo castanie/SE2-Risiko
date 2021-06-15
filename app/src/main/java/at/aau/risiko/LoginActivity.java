@@ -46,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         // client.registerClass(CheatedMessage.class);
         client.registerClass(CardMessage.class);
         client.registerClass(ExchangeMessage.class);
+        client.registerClass(int[].class);
 
         Thread clientThread = new Thread() {
             @Override

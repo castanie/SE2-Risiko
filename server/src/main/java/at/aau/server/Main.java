@@ -47,6 +47,7 @@ public class Main {
             server.registerClass(DiceMessage.class);
             server.registerClass(EyeNumbersMessage.class);
             server.registerClass(CheatedMessage.class);
+            server.registerClass(int[].class);
 
             // server.registerClass(CheatedMessage.class);
             server.registerClass(CardMessage.class);
@@ -143,9 +144,7 @@ public class Main {
                     else if (argument instanceof UpdateMessage) {
                         System.out.println("UpdateMessage received.");
 
-                        // TODO: DO NOT SEND MESSAGE BACK TO SENDER; THIS CAUSES VARIOUS PROBLEMS!
-                        // - INCLUDING RANDOM COLOR CHANGES IN FORTIFY STATE
-                        ((UpdateMessage) argument).playerIndex = currentTurn;
+                        //((UpdateMessage) argument).playerIndex = currentTurn;
                         server.broadcastMessage(argument);
 
                     }

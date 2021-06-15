@@ -98,7 +98,7 @@ public class DiceActivityDefender extends AppCompatActivity implements SensorEve
 
                     hasRolledAttacker = true;
 
-                    for(int i = 0; i < attackersDices.length-1; i++) {
+                    for(int i = 0; i < attackersDices.length; i++) {
                         updateGUI(i, attackersDices[i]);
                     }
 
