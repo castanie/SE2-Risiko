@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.io.IOException;
 
 import at.aau.server.dto.CardMessage;
+import at.aau.server.dto.CloseDiceActivitiesMessage;
 import at.aau.server.dto.DiceMessage;
 import at.aau.server.dto.ExchangeMessage;
 import at.aau.server.dto.EyeNumbersMessage;
@@ -48,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         client.registerClass(CheatedMessage.class);
         client.registerClass(CardMessage.class);
         client.registerClass(ExchangeMessage.class);
+        client.registerClass(CloseDiceActivitiesMessage.class);
 
         Thread clientThread = new Thread() {
             @Override
