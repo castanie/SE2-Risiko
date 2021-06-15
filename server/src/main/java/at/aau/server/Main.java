@@ -1,5 +1,7 @@
 package at.aau.server;
 
+import java.util.ArrayList;
+
 import at.aau.server.dto.BaseMessage;
 import at.aau.server.dto.CardMessage;
 import at.aau.server.dto.CheatedMessage;
@@ -9,6 +11,7 @@ import at.aau.server.dto.EyeNumbersMessage;
 import at.aau.server.dto.LogMessage;
 import at.aau.server.dto.NameMessage;
 import at.aau.server.dto.ReadyMessage;
+import at.aau.server.dto.ResponsePlayerMessage;
 import at.aau.server.dto.StartMessage;
 import at.aau.server.dto.TurnMessage;
 import at.aau.server.dto.UpdateMessage;
@@ -77,6 +80,7 @@ public class Main {
                 boolean hasCheatedDefender = false;
                 boolean hasCheatedAttacker = false;
 
+                ArrayList<String>playerNames = new ArrayList<String>();
 
                 @Override
                 public void callback(BaseMessage argument) {
@@ -89,6 +93,11 @@ public class Main {
                     // Message sent from Login screen containing player name:
                     else if (argument instanceof NameMessage) {
                         System.out.println("NameMessage: " + ((NameMessage) argument).name);
+                        NameMessage name = (NameMessage)argument;
+                        System.out.println("Player " + name + " wants to connect");
+                        playerNames.add(name.name);
+                        System.out.println("Notifying all clients!");
+                        server.broadcastMessage(new ResponsePlayerMessage(playerNames));
 
                         // Register Player name:
 

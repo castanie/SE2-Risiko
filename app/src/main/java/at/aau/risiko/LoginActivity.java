@@ -84,6 +84,8 @@ public class LoginActivity extends AppCompatActivity {
                     GameClient.getInstance().sendMessage(new NameMessage(enteredNickname));
 
                     startActivity(new Intent(getApplicationContext(), LobbyActivity.class));
+
+
                 }
             }
         });
