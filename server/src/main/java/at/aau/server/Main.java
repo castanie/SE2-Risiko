@@ -224,7 +224,7 @@ public class Main {
                             isDoneRolling = false;
                         }
 
-                        
+
                     }
                     else if (argument instanceof CheatedMessage) {
                         System.out.println("CheatedMessage received.");
