@@ -104,7 +104,8 @@ public class DiceActivityAttacker extends AppCompatActivity implements SensorEve
                     setDefendersDices(((EyeNumbersMessage) argument).getMessage());
 
                     for(int i = 0; i < numDefenders; i++) {
-                        updateGUI(i, defendersDices[i]);
+                        Log.i("DICE ATTACKER", String.valueOf(defendersDices[i]));
+                        updateGUI(i + 1, defendersDices[i]);
                     }
                     isUpdatedGUI = true;
 
@@ -175,7 +176,7 @@ public class DiceActivityAttacker extends AppCompatActivity implements SensorEve
         //has cheated that element is 1 else it's 0
         eyeNumbersAttacker = new int[numAttackers+1];
         if(hasRolledDefender && isUpdatedGUI && count < 1) {
-            if (accelerationValue > SHAKE_THRESHOLD && accelerationValue < 30) {
+            if (accelerationValue > SHAKE_THRESHOLD && accelerationValue < 5) {
 
 
                 for (int i = 0; i < numAttackers; i++) {
@@ -196,7 +197,7 @@ public class DiceActivityAttacker extends AppCompatActivity implements SensorEve
 
             }
             //cheat function
-            else if (accelerationValue > 30) {
+            else if (accelerationValue > 5) {
                 dice.setEyeNumber(6);
                 for (int index = 0; index < numAttackers; index++) {
                     setImageViewAttacker(6, index + 1);

@@ -37,6 +37,7 @@ public class Main {
         try {
             GameServer server = GameServer.getInstance();
             server.registerClass(String[].class);
+            server.registerClass(int[].class);
             server.registerClass(Integer[].class);
             server.registerClass(LogMessage.class);
             server.registerClass(NameMessage.class);
@@ -47,9 +48,6 @@ public class Main {
             server.registerClass(DiceMessage.class);
             server.registerClass(EyeNumbersMessage.class);
             server.registerClass(CheatedMessage.class);
-            server.registerClass(int[].class);
-
-            // server.registerClass(CheatedMessage.class);
             server.registerClass(CardMessage.class);
             server.registerClass(ExchangeMessage.class);
 
@@ -205,12 +203,18 @@ public class Main {
                         //TODO: check who sender is and send to opposite
                         if(((EyeNumbersMessage)argument).isDefender) {
                             server.sendMessage(attackerIndex, argument);
-                            System.out.println("EyeNumbersMessage sent to Defender");
+                            System.out.println("EyeNumbersMessage sent to Attacker");
+                            for (int i : ((EyeNumbersMessage) argument).getMessage()) {
+                                System.out.println(i);
+                            }
                             diceArrayDefender = ((EyeNumbersMessage)argument).getMessage();
                             calcEyenumberSum(diceArrayDefender, "defender");
                         }else {
                             server.sendMessage(defenderIndex, argument);
-                            System.out.println("EyeNumbersMessage sent to Attacker");
+                            System.out.println("EyeNumbersMessage sent to Defender");
+                            for (int i : ((EyeNumbersMessage) argument).getMessage()) {
+                                System.out.println(i);
+                            }
                             diceArrayAttacker = ((EyeNumbersMessage)argument).getMessage();
                             isDoneRolling = true;
                             calcEyenumberSum(diceArrayAttacker, "attacker");

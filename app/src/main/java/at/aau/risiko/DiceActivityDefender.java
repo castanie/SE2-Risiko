@@ -98,8 +98,9 @@ public class DiceActivityDefender extends AppCompatActivity implements SensorEve
 
                     hasRolledAttacker = true;
 
-                    for(int i = 0; i < attackersDices.length; i++) {
-                        updateGUI(i, attackersDices[i]);
+                    for(int i = 0; i < numAttackers; i++) {
+                        Log.i("DICE DEFENDER", String.valueOf(attackersDices[i]));
+                        updateGUI(i + 1, attackersDices[i]);
                     }
 
                 }
@@ -152,7 +153,7 @@ public class DiceActivityDefender extends AppCompatActivity implements SensorEve
         //has cheated that element is 1 else it's 0
         eyeNumbersDefender = new int[numDefenders+1];
         if(!isShaken) {
-            if (accelerationValue > SHAKE_THRESHOLD && accelerationValue < 30) {
+            if (accelerationValue > SHAKE_THRESHOLD && accelerationValue < 5) {
 
                 for (int i = 0; i < numDefenders; i++) {
                     int num = dice.diceRoll();
@@ -172,7 +173,7 @@ public class DiceActivityDefender extends AppCompatActivity implements SensorEve
             }
 
             //cheat function
-            if (accelerationValue > 30) {
+            if (accelerationValue > 5) {
                 dice.setEyeNumber(6);
                 for (int index = 0; index < numDefenders; index++) {
                     setImageViewDefender(6, index + 1);
