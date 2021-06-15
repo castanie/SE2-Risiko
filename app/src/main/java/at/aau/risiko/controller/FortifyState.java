@@ -79,7 +79,6 @@ public class FortifyState extends State {
                         game.sendMessage(new UpdateMessage(donor.getName(), donor.getArmies(), game.getIndex()));
                         game.sendMessage(new UpdateMessage(recipient.getName(), recipient.getArmies(), game.getIndex()));
 
-
                         changeState();
                     } else {
                         game.showSnackbar("Not enough armies to move");

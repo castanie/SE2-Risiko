@@ -8,12 +8,17 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import services.BackgroundMusicService;
+
 public class MenuActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+
+        BackgroundMusicService.getInstance().player.start();
 
         Button btnPlay = findViewById(R.id.btnPlay);
         Button btnSettings = findViewById(R.id.btnSettings);
