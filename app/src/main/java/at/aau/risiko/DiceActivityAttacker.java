@@ -11,12 +11,14 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import at.aau.core.Dice;
 import at.aau.server.dto.BaseMessage;
 import at.aau.server.dto.CheatedMessage;
+import at.aau.server.dto.CloseDiceActivitiesMessage;
 import at.aau.server.dto.EyeNumbersMessage;
 import at.aau.server.kryonet.Callback;
 import at.aau.server.kryonet.GameClient;
@@ -55,6 +57,9 @@ public class DiceActivityAttacker extends AppCompatActivity implements SensorEve
     /*this array will be send to DiceActivityDefender*/
     int[] eyeNumbersAttacker;
     int[] defendersDices;
+
+    boolean oponentCheated = false;
+    boolean oponentNotCheated = false;
 
 
 
@@ -104,40 +109,55 @@ public class DiceActivityAttacker extends AppCompatActivity implements SensorEve
                     setDefendersDices(((EyeNumbersMessage) argument).getMessage());
 
                     for(int i = 0; i < numDefenders; i++) {
-                        updateGUI(i, defendersDices[i]);
+                        Log.i("DICE ATTACKER", String.valueOf(defendersDices[i]));
+                        updateGUI(i + 1, defendersDices[i]);
                     }
                     isUpdatedGUI = true;
 
                     hasRolledDefender = true;
 
+                    if(defendersDices[numDefenders] == 1) {
+                        oponentCheated = true;
+                    }else {
+                        oponentNotCheated = true;
+                    }
+
                 }
             }
         });
-
-        /*
-        // iterate over the
-        if(hasRolledDefender) {
-            for(int i = 0; i < defendersDices.length; i++) {
-                updateGUI(i, defendersDices[i]);
-            }
-            isUpdatedGUI = true;
-
-        }
-        */
 
 
         Button cheatedBtn = findViewById(R.id.cheatBtn);
         cheatedBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(defendersDices == null) {
-                    //ToDo Toast or smth that not rolled dice yet
-                }
-                if (defendersDices[numDefenders] == 1) {
+
+                if (oponentCheated) {
 
                     //ToDo: send to server that defender cheated all his dices are set to one or he automatically loses
+                    Toast toast = Toast.makeText(getApplicationContext(), "You are right, you've won the duel Sherlock.", Toast.LENGTH_LONG);
+                    toast.show();
+                    GameClient.getInstance().sendMessage(new CheatedMessage(true, false));
+                }
+                if(oponentNotCheated) {
+                    //ToDo Toast or smth that not rolled dice yet
+                    Toast toast = Toast.makeText(getApplicationContext(), "You are wrong, you've lost the duel.", Toast.LENGTH_LONG);
+                    toast.show();
+                    GameClient.getInstance().sendMessage(new CheatedMessage(false, false));
+                }
+            }
+        });
 
-                    GameClient.getInstance().sendMessage(new CheatedMessage());
+
+        /**
+         * ToDo: wait for server message to close activity.
+         */
+        GameClient.getInstance().registerCallback(new Callback<BaseMessage>() {
+            @Override
+            public void callback(BaseMessage argument) {
+                if (argument instanceof CloseDiceActivitiesMessage) {
+                    Log.i("DICE ATTACKER", "Received CloseDiceActivitiesMessage!");
+                    finish();
                 }
             }
         });
@@ -147,14 +167,13 @@ public class DiceActivityAttacker extends AppCompatActivity implements SensorEve
 
 
 
-
     }
-
+    @Override
     protected void onResume() {
         super.onResume();
         sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
     }
-
+    @Override
     protected void onPause() {
         super.onPause();
         sensorManager.unregisterListener(this);
@@ -175,7 +194,7 @@ public class DiceActivityAttacker extends AppCompatActivity implements SensorEve
         //has cheated that element is 1 else it's 0
         eyeNumbersAttacker = new int[numAttackers+1];
         if(hasRolledDefender && isUpdatedGUI && count < 1) {
-            if (accelerationValue > SHAKE_THRESHOLD && accelerationValue < 30) {
+            if (accelerationValue > SHAKE_THRESHOLD && accelerationValue < 5) {
 
 
                 for (int i = 0; i < numAttackers; i++) {
@@ -196,7 +215,7 @@ public class DiceActivityAttacker extends AppCompatActivity implements SensorEve
 
             }
             //cheat function
-            else if (accelerationValue > 30) {
+            else if (accelerationValue > 5) {
                 dice.setEyeNumber(6);
                 for (int index = 0; index < numAttackers; index++) {
                     setImageViewAttacker(6, index + 1);
