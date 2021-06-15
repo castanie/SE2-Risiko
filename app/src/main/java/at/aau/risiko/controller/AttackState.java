@@ -78,7 +78,7 @@ public class AttackState extends State {
                             ++defendingIndex;
                         }
 
-                        game.sendMessage(new DiceMessage(defendingIndex));
+                        game.sendMessage(new DiceMessage(defendingIndex, game.getIndex(), attacking.getName(), defending.getName(),attacking.getArmies()-1,defending.getArmies()));
                         game.getContext().startActivity(new Intent(game.getContext(), DiceActivityAttacker.class));
                     } else {
                         game.showSnackbar("Not enough armies to attack a country!");
