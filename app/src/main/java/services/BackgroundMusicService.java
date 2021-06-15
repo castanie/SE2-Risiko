@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.IBinder;
+import android.provider.MediaStore;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
@@ -12,8 +13,20 @@ import at.aau.risiko.R;
 
 public class BackgroundMusicService extends Service {
     private static final String TAG = "MusicService";
-    public static MediaPlayer  player;
+    public  MediaPlayer  player;
     private int length = 0;
+
+    //singelton pattern
+    private static BackgroundMusicService service = new BackgroundMusicService();
+
+    private BackgroundMusicService() {
+
+    }
+
+    public static BackgroundMusicService getInstance(){
+        return service;
+    }
+
 
     @Nullable
     @Override

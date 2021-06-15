@@ -64,9 +64,6 @@ public class LobbyActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
-                for (String e : userNames) {
-                    userNames.remove(e);
-                }
                 startActivity(intent);
             }
         });

@@ -104,6 +104,8 @@ public class Main {
                         
                     }
 
+
+
                     // Message sent from Lobby screen requesting game start:
                     else if (argument instanceof StartMessage) {
                         System.out.println("StartMessage received.");
