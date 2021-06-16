@@ -8,12 +8,14 @@ import at.aau.server.dto.BaseMessage;
 import at.aau.server.dto.CardMessage;
 import at.aau.server.dto.CheatedMessage;
 import at.aau.server.dto.CloseDiceActivitiesMessage;
+import at.aau.server.dto.ConqueredMessage;
 import at.aau.server.dto.DiceMessage;
 import at.aau.server.dto.ExchangeMessage;
 import at.aau.server.dto.EyeNumbersMessage;
 import at.aau.server.dto.LogMessage;
 import at.aau.server.dto.NameMessage;
 import at.aau.server.dto.ReadyMessage;
+import at.aau.server.dto.RequestPlayerMessage;
 import at.aau.server.dto.ResponsePlayerMessage;
 import at.aau.server.dto.StartMessage;
 import at.aau.server.dto.TurnMessage;
@@ -42,22 +44,6 @@ public class Main {
 
         try {
             GameServer server = GameServer.getInstance();
-            server.registerClass(String[].class);
-            server.registerClass(int[].class);
-            server.registerClass(Integer[].class);
-            server.registerClass(LogMessage.class);
-            server.registerClass(NameMessage.class);
-            server.registerClass(StartMessage.class);
-            server.registerClass(ReadyMessage.class);
-            server.registerClass(TurnMessage.class);
-            server.registerClass(UpdateMessage.class);
-            server.registerClass(DiceMessage.class);
-            server.registerClass(EyeNumbersMessage.class);
-            server.registerClass(CheatedMessage.class);
-            server.registerClass(CardMessage.class);
-            server.registerClass(ExchangeMessage.class);
-            server.registerClass(CloseDiceActivitiesMessage.class);
-
 
             server.start();
             server.registerCallback(new Callback<BaseMessage>() {
@@ -93,23 +79,18 @@ public class Main {
                     // Simple text message:
                     if (argument instanceof LogMessage) {
                         System.out.println("LogMessage: " + ((LogMessage) argument).text);
+
                     }
 
-                    // Message sent from Login screen containing player name:
+                    // Message sent from Login screen containing Player name:
                     else if (argument instanceof NameMessage) {
                         System.out.println("NameMessage: " + ((NameMessage) argument).name);
-                        NameMessage name = (NameMessage)argument;
-                        System.out.println("Player " + name + " wants to connect");
-                        playerNames.add(name.name);
-                        System.out.println("Notifying all clients!");
-                        server.broadcastMessage(new ResponsePlayerMessage(playerNames));
 
                         // Register Player name:
-
+                        playerNames.add(((NameMessage) argument).name);
+                        server.broadcastMessage(new ResponsePlayerMessage(playerNames));
                         
                     }
-
-
 
                     // Message sent from Lobby screen requesting game start:
                     else if (argument instanceof StartMessage) {
@@ -151,7 +132,7 @@ public class Main {
                         // Order Players to set Avatar:
                         server.broadcastMessage(new TurnMessage(currentTurn, false));
 
-                        // Wake next player:
+                        // Wake next Player:
                         server.sendMessage(currentTurn, new TurnMessage(currentTurn, true));
 
                     }
@@ -165,22 +146,17 @@ public class Main {
 
                     }
 
-
-
-                    // TODO: CardMessage
-                    //Broadcasts a message when a card was drawn and which card was drawn from the Carddeck
+                    // Broadcasts a message when a card was drawn from the CardDeck:
                     else if (argument instanceof CardMessage) {
                         System.out.println("CardMessage received.");
 
                         // Simply broadcast which card was drawn:
-                        ((CardMessage) argument).playerIndex = currentTurn;
+                        // ((CardMessage) argument).playerIndex = currentTurn;
                         server.broadcastMessage(argument);
 
                     }
 
-                    // TODO: ExchangeMessage
-                    // Broadcasts a message when cards were exchanged and which cards were exchanged
-
+                    // Broadcasts a message when cards were exchanged in CardActivity:
                     else if (argument instanceof ExchangeMessage) {
                         System.out.println("ExchangeMessage received.");
 
@@ -188,7 +164,9 @@ public class Main {
                         ((ExchangeMessage) argument).playerIndex = currentTurn;
                         server.broadcastMessage(argument);
 
-                    }  // Message sent from Map requesting to start attack:
+                    }
+
+                    // Message sent from Map requesting to start attack:
                     else if (argument instanceof DiceMessage) {
                         System.out.println("DiceMessage received.");
 
@@ -202,13 +180,12 @@ public class Main {
                         numDefenders = ((DiceMessage)argument).numDefenders;
 
 
-
                         // Order Defender to roll dice:
                         server.sendMessage(((DiceMessage) argument).playerIndex, argument);
 
                     }
 
-                    //
+                    // Message sent from Attacker or Defender after rolling dice:
                     else if (argument instanceof EyeNumbersMessage){
                         System.out.println("EyeNumbersMessage received.");
                         /**
@@ -261,6 +238,8 @@ public class Main {
 
 
                     }
+
+                    // Message sent from Attacker or Defender after calling out a cheater:
                     else if (argument instanceof CheatedMessage) {
                         System.out.println("CheatedMessage received.");
                         /**
@@ -284,6 +263,7 @@ public class Main {
                 }
 
 
+                //
                 private void calcEyenumberSum(int[] arr, String playersRoll) {
                     int sum = 0;
                     //i < arr.length-1 because the last element is just the indicator for cheating
@@ -299,29 +279,33 @@ public class Main {
 
                 }
 
+                //
                 private void evaluateWinner() {
                     if (hasCheatedAttacker) {
-                        //TODO: Defender won due to cheating of attacker, update GUI and show snackbar or smth
+                        // Defender won due to cheating of attacker
                         server.broadcastMessage(new UpdateMessage(attackerCountryName, 1, attackerIndex));
 
-                    }else if (hasCheatedDefender) {
-                        //TODO: Attacker won due to cheating of defender, update GUI and show snackbar or smth
+                    } else if (hasCheatedDefender) {
+                        // Attacker won due to cheating of defender
                         server.broadcastMessage(new UpdateMessage(defenderCountryName, numAttackers, attackerIndex));
+                        server.sendMessage(currentTurn, new ConqueredMessage());
                     }
                     else if (badGuessAttacker) {
-                        //TODO: Defender won due to wrong guess of attacker, update GUI and show snackbar or smth
+                        // Defender won due to wrong guess of attacker
                         server.broadcastMessage(new UpdateMessage(attackerCountryName, 1, attackerIndex));
-                    }else if (badGuessDefender) {
-                        //TODO: Attacker won due to wrong guess of defender, update GUI and show snackbar or smth
+                    } else if (badGuessDefender) {
+                        // Attacker won due to wrong guess of defender
                         server.broadcastMessage(new UpdateMessage(defenderCountryName, numAttackers, attackerIndex));
+                        server.sendMessage(currentTurn, new ConqueredMessage());
                     }
-                    //if draw defender has the advantage
+                    // If draw, defender has the advantage
                     else if (eyeNumberSumDefender >= eyeNumberSumAttacker) {
-                        //TODO: Defender won, update GUI and show snackbar or smth
+                        // Defender won
                         server.broadcastMessage(new UpdateMessage(attackerCountryName, 1, attackerIndex));
-                    }else {
-                        //TODO: Attacker won, update GUI and show snackbar or smth
+                    } else {
+                        // Attacker won
                         server.broadcastMessage(new UpdateMessage(defenderCountryName, numAttackers, attackerIndex));
+                        server.sendMessage(currentTurn, new ConqueredMessage());
                     }
 
                 }

@@ -648,8 +648,8 @@
             android:text="Game Setup"
             android:textAlignment="center"
             android:textAllCaps="false"
-            android:textColor="#BAB9B5"
-            android:textSize="34sp"
+            android:textColor="#DADADA"
+            android:textSize="30sp"
             android:textStyle="normal"
             android:visibility="visible" />
     </androidx.cardview.widget.CardView>
@@ -661,12 +661,12 @@
         android:layout_marginStart="16dp"
         android:layout_marginBottom="12dp"
 
+        android:backgroundTint="@color/btn_colors"
         android:enabled="false"
         android:fontFamily="@font/erica_one"
         android:onClick="openCardActivity"
         android:text="Cards"
-        android:textColor="#B6B2B2"
-        android:backgroundTint="@color/btn_colors"
+        android:textColor="#BABABA"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -675,5 +675,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:constraint_referenced_ids="buttonAlaska,buttonCongo,buttonBrazil,buttonArgentina,buttonCentralAmerica,buttonChina,buttonEthiopia,buttonEastAustralia,buttonIndonesia,buttonEastCoast,buttonEgypt,buttonGreenland,buttonIndia,buttonMongolia,buttonMiddleEast,buttonNorthAfrica,buttonNewGuinea,buttonOntario,buttonPeru,buttonQuebec,buttonSouthAfrica,buttonSiberia,buttonSiam,buttonScandinavia,buttonUral,buttonUkraine,buttonVenezuela,buttonWestCoast,buttonWestAustralia,buttonWestEurope,buttonYakutsk" />
+
+    <ImageButton
+        android:id="@+id/buttonNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:background="@null"
+        android:onClick="onNext"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/cardView"
+        app:layout_constraintStart_toEndOf="@id/cardView"
+        app:layout_constraintTop_toTopOf="@id/progressBar"
+        app:srcCompat="@drawable/ic_next_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

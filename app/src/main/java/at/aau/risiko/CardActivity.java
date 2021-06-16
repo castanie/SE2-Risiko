@@ -42,23 +42,8 @@ public class CardActivity extends AppCompatActivity {
             }
         });
 
-        drawCards();
         updateDataForShowingHandDeck();
         showHandDeck();
-
-    }
-
-    public void drawCards() {
-
-        GameClient client = GameClient.getInstance();
-
-        Game.drawnCards.addCardToHandDeck(Game.availableCards.drawCardFromCardList());
-        Game.drawnCards.addCardToHandDeck(Game.availableCards.drawCardFromCardList());
-        Game.drawnCards.addCardToHandDeck(Game.availableCards.drawCardFromCardList());
-
-        for (String s : Game.drawnCards.getCardNames()) {
-            client.sendMessage(new CardMessage(s));
-        }
 
     }
 

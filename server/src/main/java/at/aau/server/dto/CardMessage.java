@@ -11,8 +11,9 @@ public class CardMessage extends BaseMessage {
 
     }
 
-    public CardMessage(String cardName) {
+    public CardMessage(String cardName, Integer playerIndex) {
         this.cardName = cardName;
+        this.playerIndex = playerIndex;
     }
 
     // getter and setter methods
