@@ -245,11 +245,20 @@ public class Main {
 
                         if(isDoneRolling) {
                             //TODO: wait for 5 seconds to let players decide if other one has cheated
-                            try {
+                           /* try {
                                 TimeUnit.SECONDS.sleep(8);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
+                            }*/ //this crashes the code
+
+                            //try simple wait loop
+                            long currentTime = System.currentTimeMillis();
+                            long endWait = currentTime + 8000; //wait 8 sec
+                            int whileUseLessVar = 0;
+                            while(System.currentTimeMillis() <= endWait) {
+                                whileUseLessVar++;
                             }
+
 
                             //TODO: send messages to DiceActivities that they should finish themselves
                             server.sendMessage(attackerIndex, new CloseDiceActivitiesMessage());

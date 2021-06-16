@@ -11,6 +11,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -79,6 +80,11 @@ public class DiceActivityAttacker extends AppCompatActivity implements SensorEve
         sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
+        TextView attackerLbl = findViewById(R.id.attackerLbl);
+        TextView defenderLbl = findViewById(R.id.defenderLbl);
+
+        defenderLbl.setTextSize(20);
+
         //set dices to random start values
         for (int i = 0; i < numAttackers; i++) {
             setImageViewAttacker(i+2, i+1);
@@ -112,6 +118,12 @@ public class DiceActivityAttacker extends AppCompatActivity implements SensorEve
                         oponentNotCheated = true;
                     }
 
+                    defenderLbl.setTextSize(14);
+                    attackerLbl.setTextSize(20);
+
+                    /**
+                     * ToDo: wait for server message to close activity.
+                     */
                 } else if (argument instanceof CloseDiceActivitiesMessage) {
                     Log.i("DICE ATTACKER", "Received CloseDiceActivitiesMessage!");
                     finish();
@@ -144,19 +156,7 @@ public class DiceActivityAttacker extends AppCompatActivity implements SensorEve
         });
 
 
-        /**
-         * ToDo: wait for server message to close activity.
 
-        GameClient.getInstance().registerCallback(new Callback<BaseMessage>() {
-            @Override
-            public void callback(BaseMessage argument) {
-                if (argument instanceof CloseDiceActivitiesMessage) {
-                    Log.i("DICE ATTACKER", "Received CloseDiceActivitiesMessage!");
-                    finish();
-                }
-            }
-        });
-         */
 
 
     }

@@ -104,6 +104,7 @@
                 android:fontFamily="@font/erica_one"
                 android:text="@string/attacker"
                 android:textColor="#FFFFFF"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/cardView2"
                 app:layout_constraintHorizontal_bias="0.486"
@@ -193,20 +194,6 @@
                 app:layout_constraintStart_toEndOf="@+id/diceContainerLbl"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/closeBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rounded_button"
-                android:fontFamily="@font/erica_one"
-                android:text="@string/close"
-                android:textSize="10sp"
-                app:layout_constraintBottom_toTopOf="@+id/defenderAvatar"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.854"
-                app:layout_constraintStart_toEndOf="@+id/diceContainerLbl"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.25" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
@@ -215,6 +202,7 @@
         android:id="@+id/cheatBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
         android:background="@drawable/rounded_button_cheat"
         android:fontFamily="@font/erica_one"
         android:text="@string/oponent_cheated"
