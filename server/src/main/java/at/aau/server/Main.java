@@ -307,51 +307,59 @@ public class Main {
 
                 //
                 private void evaluateWinner() {
-                    if (hasCheatedAttacker) {
+                    if (hasCheatedDefender && hasCheatedAttacker) {
+                        // Defender won due to both cheated
+                        System.out.println("Defender because both cheated.");
+                        server.broadcastMessage(new UpdateMessage(attackerCountryName, 1, attackerIndex));
 
+                    }else if(badGuessDefender &&badGuessAttacker) {
+                        // Defender won due to both bad guess
+                        System.out.println("Defender won because both had a bad guess.");
+                        server.broadcastMessage(new UpdateMessage(attackerCountryName, 1, attackerIndex));
+
+                    }else if (hasCheatedAttacker) {
                         // Defender won due to cheating of attacker
                         System.out.println("Defender won because Attacker cheated.");
                         server.broadcastMessage(new UpdateMessage(attackerCountryName, 1, attackerIndex));
 
                     } else if (hasCheatedDefender) {
-                      
+
                         // Attacker won due to cheating of defender
                         System.out.println("Attacker won because Defender cheated.");
                         server.broadcastMessage(new UpdateMessage(defenderCountryName, numAttackers, attackerIndex));
                         server.sendMessage(currentTurn, new ConqueredMessage());
-                      
-                    }
-                  
-                    else if (badGuessAttacker) {
-                      
+
+                    } else if (badGuessAttacker) {
+
                         // Defender won due to wrong guess of attacker
                         System.out.println("Defender won due to bad guess.");
                         server.broadcastMessage(new UpdateMessage(attackerCountryName, 1, attackerIndex));
-                      
+
                     } else if (badGuessDefender) {
-                      
+
                         // Attacker won due to wrong guess of defender
                         System.out.println("Attacker won due to bad guess.");
                         server.broadcastMessage(new UpdateMessage(defenderCountryName, numAttackers, attackerIndex));
                         server.sendMessage(currentTurn, new ConqueredMessage());
-                      
+
                     }
-                  
+
                     // If draw, defender has the advantage
                     else if (eyeNumberSumDefender >= eyeNumberSumAttacker) {
-                      
+
                         // Defender won
                         System.out.println("Defender won.");
                         server.broadcastMessage(new UpdateMessage(attackerCountryName, 1, attackerIndex));
-                      
+
                     } else {
-                      
+
                         // Attacker won
                         System.out.println("Attacker won.");
                         server.broadcastMessage(new UpdateMessage(defenderCountryName, numAttackers, attackerIndex));
                         server.sendMessage(currentTurn, new ConqueredMessage());
-                      
+
                     }
+
 
                 }
             });
