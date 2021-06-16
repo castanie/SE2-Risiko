@@ -60,15 +60,15 @@ public class Game {
     HashMap<Integer, Country> buttonMap;
     HashMap<Integer, Player> avatarMap;
 
-    private String[] attackerWonMessages = {"After a long battle the army of the attacker has won!",
+    private final String[] attackerWonMessages = {"After a long battle the army of the attacker has won!",
             "We all thought the defenders would win, but the attacking army fought like vikings and prevailed.",
             "Real warriors never give up we could all learn from the way the attackers army just won.",
             "No sacrifice, no victory ... Attacking army won this crushing battle."};
 
-    private String[] defenderWonMessages = {"After a long battle the army of the attacker has won!",
-            "We all thought the defenders would win, but the attacking army fought like vikings and prevailed.",
-            "Real warriors never give up we could all learn from the way the attackers army just won.",
-            "No sacrifice, no victory ... Attacking army won this crushing battle."};
+    private final String[] defenderWonMessages = {"After a long battle the army of the defender has won!",
+            "We all thought the attackers would win, but the defending army fought like vikings and prevailed.",
+            "Real warriors never give up we could all learn from the way the defenders just held their country.",
+            "No sacrifice, no victory ... Defending army won this crushing battle."};
 
     Random rand = new Random();
     int winMessage;
