@@ -17,9 +17,11 @@ import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import at.aau.core.CardList;
 import at.aau.core.Country;
@@ -58,6 +60,18 @@ public class Game {
     HashMap<Integer, Country> buttonMap;
     HashMap<Integer, Player> avatarMap;
 
+    private final String[] attackerWonMessages = {"After a long battle the army of the attacker has won!",
+            "We all thought the defenders would win, but the attacking army fought like vikings and prevailed.",
+            "Real warriors never give up we could all learn from the way the attackers army just won.",
+            "No sacrifice, no victory ... Attacking army won this crushing battle."};
+
+    private final String[] defenderWonMessages = {"After a long battle the army of the defender has won!",
+            "We all thought the attackers would win, but the defending army fought like vikings and prevailed.",
+            "Real warriors never give up we could all learn from the way the defenders just held their country.",
+            "No sacrifice, no victory ... Defending army won this crushing battle."};
+
+    Random rand = new Random();
+    int winMessage;
 
     public Game(Player[] players, List<Country> countries, HashMap<Integer, Country> buttonMap, HashMap<Integer, Player> avatarMap, Activity activity) {
         this.players = players;
@@ -297,6 +311,7 @@ public class Game {
                     button = activity.findViewById(e.getKey());
                     break;
                 }
+
             }
 
             // Update Model data:
@@ -313,6 +328,20 @@ public class Game {
             // Update View data:
             button.setBackgroundTintList(ColorStateList.valueOf(country.getColor()));
             button.setText(String.valueOf(country.getArmies()));
+
+            if (((UpdateMessage) message).getWonString() != null) {
+                winMessage = rand.nextInt(3);
+                Snackbar snackbar;
+                if(((UpdateMessage) message).getWonString().equals("Attacker")) {
+                    snackbar = Snackbar.make(activity.findViewById(R.id.linearLayout), attackerWonMessages[winMessage] , 1000);
+                    snackbar.show();
+                }else if (((UpdateMessage) message).getWonString().equals("Defender")) {
+                    snackbar = Snackbar.make(activity.findViewById(R.id.linearLayout), defenderWonMessages[winMessage] , 1000);
+                    snackbar.show();
+                }
+
+
+            }
 
         }
 
