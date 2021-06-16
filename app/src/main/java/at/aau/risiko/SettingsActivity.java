@@ -11,7 +11,8 @@ import services.BackgroundMusicService;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    Button btnResumeMusic, btnPauseMusic;
+    Button btnPlayMusic;
+    Button btnStopMusic;
     static  BackgroundMusicService  service;
 
 
