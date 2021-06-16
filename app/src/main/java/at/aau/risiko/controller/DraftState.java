@@ -90,7 +90,7 @@ public class DraftState extends State {
 
     @Override
     public void changeState() {
-        game.setState(new AttackState(game));
         game.setCardsButtonClickable(false);
+        game.setState(new AttackState(game));
     }
 }

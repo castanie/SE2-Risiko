@@ -113,8 +113,8 @@ public class AttackState extends State {
     public void changeState() {
         // If Player has conquered a Country, draw Card:
         game.awardCards();
-        game.setState(new FortifyState(game));
         game.setNextButtonClickable(false);
+        game.setState(new FortifyState(game));
     }
 
 }
