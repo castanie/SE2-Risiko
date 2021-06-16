@@ -18,7 +18,7 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
 
 
-        //start music service
+        // Start music service
         startService(new Intent(this.getBaseContext(),services.BackgroundMusicService.class));
 
         Button btnPlay = findViewById(R.id.btnPlay);

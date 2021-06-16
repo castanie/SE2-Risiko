@@ -1,10 +1,13 @@
 package at.aau.server;
 
+
+import java.util.concurrent.TimeUnit;
 import java.util.ArrayList;
 
 import at.aau.server.dto.BaseMessage;
 import at.aau.server.dto.CardMessage;
 import at.aau.server.dto.CheatedMessage;
+import at.aau.server.dto.CloseDiceActivitiesMessage;
 import at.aau.server.dto.DiceMessage;
 import at.aau.server.dto.ExchangeMessage;
 import at.aau.server.dto.EyeNumbersMessage;
@@ -40,6 +43,7 @@ public class Main {
         try {
             GameServer server = GameServer.getInstance();
             server.registerClass(String[].class);
+            server.registerClass(int[].class);
             server.registerClass(Integer[].class);
             server.registerClass(LogMessage.class);
             server.registerClass(NameMessage.class);
@@ -50,11 +54,10 @@ public class Main {
             server.registerClass(DiceMessage.class);
             server.registerClass(EyeNumbersMessage.class);
             server.registerClass(CheatedMessage.class);
-            server.registerClass(int[].class);
-
-            // server.registerClass(CheatedMessage.class);
             server.registerClass(CardMessage.class);
             server.registerClass(ExchangeMessage.class);
+            server.registerClass(CloseDiceActivitiesMessage.class);
+
 
             server.start();
             server.registerCallback(new Callback<BaseMessage>() {
@@ -79,6 +82,8 @@ public class Main {
                 boolean isDoneRolling = false;
                 boolean hasCheatedDefender = false;
                 boolean hasCheatedAttacker = false;
+                boolean badGuessDefender = false;
+                boolean badGuessAttacker = false;
 
                 ArrayList<String>playerNames = new ArrayList<String>();
 
@@ -216,22 +221,42 @@ public class Main {
                         //TODO: check who sender is and send to opposite
                         if(((EyeNumbersMessage)argument).isDefender) {
                             server.sendMessage(attackerIndex, argument);
-                            System.out.println("EyeNumbersMessage sent to Defender");
+                            System.out.println("EyeNumbersMessage sent to Attacker");
+                            for (int i : ((EyeNumbersMessage) argument).getMessage()) {
+                                System.out.println(i);
+                            }
                             diceArrayDefender = ((EyeNumbersMessage)argument).getMessage();
                             calcEyenumberSum(diceArrayDefender, "defender");
                         }else {
                             server.sendMessage(defenderIndex, argument);
-                            System.out.println("EyeNumbersMessage sent to Attacker");
+                            System.out.println("EyeNumbersMessage sent to Defender");
+                            for (int i : ((EyeNumbersMessage) argument).getMessage()) {
+                                System.out.println(i);
+                            }
                             diceArrayAttacker = ((EyeNumbersMessage)argument).getMessage();
                             isDoneRolling = true;
                             calcEyenumberSum(diceArrayAttacker, "attacker");
                         }
 
-                        //TODO: wait for CheatedMessage for about 5 seconds or so
+                        //TODO: wait for 5 seconds to let players decide if other one has cheated
+                        try {
+                            TimeUnit.SECONDS.sleep(5);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                        //TODO: send messages to DiceActivities that they should finish themselves
+                        server.sendMessage(attackerIndex, new CloseDiceActivitiesMessage());
+                        server.sendMessage(defenderIndex, new CloseDiceActivitiesMessage());
 
                         if(isDoneRolling) {
                             evaluateWinner();
+                            //reset all booleans
                             isDoneRolling = false;
+                            hasCheatedDefender = false;
+                            hasCheatedAttacker = false;
+                            badGuessDefender = false;
+                            badGuessAttacker = false;
                         }
 
 
@@ -241,10 +266,18 @@ public class Main {
                         /**
                          * sender is one of the DiceActivities
                          */
-                        if(((CheatedMessage)argument).getSenderIsDefender()) {
+                        if (((CheatedMessage)argument).getSenderIsDefender() && ((CheatedMessage)argument).getMessage()) {
                             hasCheatedAttacker = true;
-                        }else {
+                            badGuessDefender = false;
+                        }else if (((CheatedMessage)argument).getSenderIsDefender() && !((CheatedMessage)argument).getMessage()) {
+                            hasCheatedAttacker = false;
+                            badGuessDefender = true;
+                        }else if (!((CheatedMessage)argument).getSenderIsDefender() && ((CheatedMessage)argument).getMessage()) {
                             hasCheatedDefender = true;
+                            badGuessAttacker = false;
+                        }else if (!((CheatedMessage)argument).getSenderIsDefender() && !((CheatedMessage)argument).getMessage()) {
+                            hasCheatedDefender = false;
+                            badGuessAttacker = true;
                         }
                     }
 
@@ -269,14 +302,26 @@ public class Main {
                 private void evaluateWinner() {
                     if (hasCheatedAttacker) {
                         //TODO: Defender won due to cheating of attacker, update GUI and show snackbar or smth
+                        server.broadcastMessage(new UpdateMessage(attackerCountryName, 1, attackerIndex));
+
                     }else if (hasCheatedDefender) {
                         //TODO: Attacker won due to cheating of defender, update GUI and show snackbar or smth
+                        server.broadcastMessage(new UpdateMessage(defenderCountryName, numAttackers, attackerIndex));
+                    }
+                    else if (badGuessAttacker) {
+                        //TODO: Defender won due to wrong guess of attacker, update GUI and show snackbar or smth
+                        server.broadcastMessage(new UpdateMessage(attackerCountryName, 1, attackerIndex));
+                    }else if (badGuessDefender) {
+                        //TODO: Attacker won due to wrong guess of defender, update GUI and show snackbar or smth
+                        server.broadcastMessage(new UpdateMessage(defenderCountryName, numAttackers, attackerIndex));
                     }
                     //if draw defender has the advantage
                     else if (eyeNumberSumDefender >= eyeNumberSumAttacker) {
                         //TODO: Defender won, update GUI and show snackbar or smth
+                        server.broadcastMessage(new UpdateMessage(attackerCountryName, 1, attackerIndex));
                     }else {
                         //TODO: Attacker won, update GUI and show snackbar or smth
+                        server.broadcastMessage(new UpdateMessage(defenderCountryName, numAttackers, attackerIndex));
                     }
 
                 }

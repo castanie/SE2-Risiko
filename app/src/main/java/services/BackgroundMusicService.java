@@ -16,7 +16,6 @@ public class BackgroundMusicService extends Service {
     static MediaPlayer player;
     private static  int length = 0;
 
-
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -33,6 +32,7 @@ public class BackgroundMusicService extends Service {
         player.setLooping(true);
         player.setVolume(80,80);
         player.start();
+
     }
 
     @Override
@@ -47,6 +47,7 @@ public class BackgroundMusicService extends Service {
     {
         player.stop();
         player.release();
+        player = null;
     }
 
     public static void pauseMusic()
@@ -67,9 +68,5 @@ public class BackgroundMusicService extends Service {
             player.start();
         }
     }
-
-
-
-
 
 }

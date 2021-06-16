@@ -11,14 +11,14 @@ import services.BackgroundMusicService;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    Button btnPlayMusic, btnStopMusic;
+    Button btnResumeMusic, btnPauseMusic;
+    static  BackgroundMusicService  service;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-
 
 
         btnStopMusic = findViewById(R.id.btnStopMusic);
@@ -41,6 +41,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     }
 
+
     private void stopMusic() {
         //stopService(new Intent(this, BackgroundMusicService.class));
         BackgroundMusicService.pauseMusic();
@@ -51,10 +52,6 @@ public class SettingsActivity extends AppCompatActivity {
         //startService(new Intent(this, BackgroundMusicService.class));
         BackgroundMusicService.resumeMusic();
     }
-
-
-
-
 
 
 }

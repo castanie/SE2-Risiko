@@ -11,19 +11,18 @@ public class CheatedMessage extends BaseMessage{
      * so I'll set some random content
      */
 
-    boolean cheat;
+    boolean goodGuess = false;
     boolean senderIsDefender = false;
 
     public CheatedMessage() {
-        cheat = true;
     }
-    public CheatedMessage (boolean senderIsDefender) {
-        cheat = true;
+    public CheatedMessage (boolean goodGuess ,boolean senderIsDefender) {
+        this.goodGuess = goodGuess;
         this.senderIsDefender = senderIsDefender;
     }
 
     public boolean getMessage () {
-        return cheat;
+        return goodGuess;
     }
 
     public boolean getSenderIsDefender() {

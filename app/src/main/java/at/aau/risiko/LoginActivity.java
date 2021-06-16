@@ -13,9 +13,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.io.IOException;
 
 import at.aau.server.dto.CardMessage;
+import at.aau.server.dto.CloseDiceActivitiesMessage;
 import at.aau.server.dto.DiceMessage;
 import at.aau.server.dto.ExchangeMessage;
 import at.aau.server.dto.EyeNumbersMessage;
+import at.aau.server.dto.CheatedMessage;
 import at.aau.server.dto.LogMessage;
 import at.aau.server.dto.NameMessage;
 import at.aau.server.dto.ReadyMessage;
@@ -34,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
         GameClient client = GameClient.getInstance();
 
         client.registerClass(String[].class);
+        client.registerClass(int[].class);
         client.registerClass(Integer[].class);
         client.registerClass(LogMessage.class);
         client.registerClass(NameMessage.class);
@@ -43,10 +46,10 @@ public class LoginActivity extends AppCompatActivity {
         client.registerClass(UpdateMessage.class);
         client.registerClass(DiceMessage.class);
         client.registerClass(EyeNumbersMessage.class);
-        // client.registerClass(CheatedMessage.class);
+        client.registerClass(CheatedMessage.class);
         client.registerClass(CardMessage.class);
         client.registerClass(ExchangeMessage.class);
-        client.registerClass(int[].class);
+        client.registerClass(CloseDiceActivitiesMessage.class);
 
         Thread clientThread = new Thread() {
             @Override

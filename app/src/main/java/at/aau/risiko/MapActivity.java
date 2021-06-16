@@ -69,7 +69,7 @@ public class MapActivity extends AppCompatActivity {
         neighborMapping = new HashMap<Integer, Integer[]>();
         neighborMapping.put(R.id.buttonAlaska, new Integer[]{R.id.buttonOntario, R.id.buttonYakutsk});
         neighborMapping.put(R.id.buttonArgentina, new Integer[]{R.id.buttonBrazil, R.id.buttonPeru});
-        neighborMapping.put(R.id.buttonBrazil, new Integer[]{R.id.buttonArgentina, R.id.buttonPeru, R.id.buttonVenezuela});
+        neighborMapping.put(R.id.buttonBrazil, new Integer[]{R.id.buttonArgentina, R.id.buttonPeru, R.id.buttonVenezuela, R.id.buttonNorthAfrica});
         neighborMapping.put(R.id.buttonCentralAmerica, new Integer[]{R.id.buttonEastCoast, R.id.buttonVenezuela, R.id.buttonWestCoast});
         neighborMapping.put(R.id.buttonChina, new Integer[]{R.id.buttonIndia, R.id.buttonMongolia, R.id.buttonSiam,  R.id.buttonYakutsk});
         neighborMapping.put(R.id.buttonCongo, new Integer[]{R.id.buttonEthiopia, R.id.buttonNorthAfrica, R.id.buttonSouthAfrica});
@@ -83,7 +83,7 @@ public class MapActivity extends AppCompatActivity {
         neighborMapping.put(R.id.buttonMiddleEast, new Integer[]{R.id.buttonEgypt, R.id.buttonEthiopia, R.id.buttonIndia, R.id.buttonUkraine, R.id.buttonUral});
         neighborMapping.put(R.id.buttonMongolia, new Integer[]{R.id.buttonChina, R.id.buttonSiberia, R.id.buttonUral, R.id.buttonIndia, R.id.buttonYakutsk});
         neighborMapping.put(R.id.buttonNewGuinea, new Integer[]{R.id.buttonEastAustralia, R.id.buttonIndonesia});
-        neighborMapping.put(R.id.buttonNorthAfrica, new Integer[]{R.id.buttonCongo, R.id.buttonEgypt, R.id.buttonWestEurope, R.id.buttonEthiopia});
+        neighborMapping.put(R.id.buttonNorthAfrica, new Integer[]{R.id.buttonCongo, R.id.buttonEgypt, R.id.buttonWestEurope, R.id.buttonEthiopia, R.id.buttonBrazil});
         neighborMapping.put(R.id.buttonOntario, new Integer[]{R.id.buttonAlaska, R.id.buttonEastCoast, R.id.buttonGreenland, R.id.buttonQuebec, R.id.buttonWestCoast});
         neighborMapping.put(R.id.buttonPeru, new Integer[]{R.id.buttonArgentina, R.id.buttonBrazil, R.id.buttonVenezuela});
         neighborMapping.put(R.id.buttonQuebec, new Integer[]{R.id.buttonEastCoast, R.id.buttonGreenland, R.id.buttonOntario});

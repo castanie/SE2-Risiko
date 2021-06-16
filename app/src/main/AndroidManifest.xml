@@ -44,9 +44,6 @@
             android:name=".CardActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".DiceActivity"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".DiceActivityAttacker"
             android:screenOrientation="landscape" />
         <activity
