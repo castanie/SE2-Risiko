@@ -217,7 +217,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_button_cheat"
         android:fontFamily="@font/erica_one"
-        android:text="@string/oponent_cheated"
+        android:text="@string/opponent_cheated"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
