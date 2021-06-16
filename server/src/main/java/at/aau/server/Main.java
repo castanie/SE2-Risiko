@@ -4,6 +4,7 @@ package at.aau.server;
 import java.util.concurrent.TimeUnit;
 import java.util.ArrayList;
 
+import at.aau.server.dto.BackInMapMessage;
 import at.aau.server.dto.BaseMessage;
 import at.aau.server.dto.CardMessage;
 import at.aau.server.dto.CheatedMessage;
@@ -49,6 +50,7 @@ public class Main {
             server.registerCallback(new Callback<BaseMessage>() {
 
                 int readyBarrier = 0;
+                int backInMapBarrier = 0;
                 int currentTurn = 0;
                 //variables from DiceMessage
                 Integer defenderIndex;
@@ -215,25 +217,29 @@ public class Main {
                             calcEyenumberSum(diceArrayAttacker, "attacker");
                         }
 
-                        //TODO: wait for 5 seconds to let players decide if other one has cheated
-                        try {
-                            TimeUnit.SECONDS.sleep(5);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-
-                        //TODO: send messages to DiceActivities that they should finish themselves
-                        server.sendMessage(attackerIndex, new CloseDiceActivitiesMessage());
-                        server.sendMessage(defenderIndex, new CloseDiceActivitiesMessage());
 
                         if(isDoneRolling) {
-                            evaluateWinner();
-                            //reset all booleans
-                            isDoneRolling = false;
-                            hasCheatedDefender = false;
-                            hasCheatedAttacker = false;
-                            badGuessDefender = false;
-                            badGuessAttacker = false;
+                            //TODO: wait for 5 seconds to let players decide if other one has cheated
+                           /* try {
+                                TimeUnit.SECONDS.sleep(8);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }*/ //this crashes the code
+
+                            //try simple wait loop
+                            long currentTime = System.currentTimeMillis();
+                            long endWait = currentTime + 8000; //wait 8 sec
+                            int whileUseLessVar = 0;
+                            while(System.currentTimeMillis() <= endWait) {
+                                whileUseLessVar++;
+                            }
+
+
+                            //TODO: send messages to DiceActivities that they should finish themselves
+                            server.sendMessage(attackerIndex, new CloseDiceActivitiesMessage());
+                            server.sendMessage(defenderIndex, new CloseDiceActivitiesMessage());
+
+
                         }
 
 
@@ -260,6 +266,31 @@ public class Main {
                         }
                     }
 
+                    //
+                    else if (argument instanceof BackInMapMessage) {
+                        System.out.println("BackInMapMessage received.");
+
+                        // Wait for all players to get ready:
+                        if (isDoneRolling) {
+                            ++backInMapBarrier;
+
+                            // Once all are ready, start first turn:
+                            if (backInMapBarrier == 2) {
+                                // TODO: make sure players are back in MapActivity
+                                evaluateWinner();
+
+                                //reset all booleans
+                                isDoneRolling = false;
+                                hasCheatedDefender = false;
+                                hasCheatedAttacker = false;
+                                badGuessDefender = false;
+                                badGuessAttacker = false;
+
+                                backInMapBarrier = 0;
+                            }
+                        }
+                    }
+
                 }
 
 
@@ -282,30 +313,49 @@ public class Main {
                 //
                 private void evaluateWinner() {
                     if (hasCheatedAttacker) {
+
                         // Defender won due to cheating of attacker
+                        System.out.println("Defender won because Attacker cheated.");
                         server.broadcastMessage(new UpdateMessage(attackerCountryName, 1, attackerIndex));
 
                     } else if (hasCheatedDefender) {
+                      
                         // Attacker won due to cheating of defender
+                        System.out.println("Attacker won because Defender cheated.");
                         server.broadcastMessage(new UpdateMessage(defenderCountryName, numAttackers, attackerIndex));
                         server.sendMessage(currentTurn, new ConqueredMessage());
+                      
                     }
+                  
                     else if (badGuessAttacker) {
+                      
                         // Defender won due to wrong guess of attacker
+                        System.out.println("Defender won due to bad guess.");
                         server.broadcastMessage(new UpdateMessage(attackerCountryName, 1, attackerIndex));
+                      
                     } else if (badGuessDefender) {
+                      
                         // Attacker won due to wrong guess of defender
+                        System.out.println("Attacker won due to bad guess.");
                         server.broadcastMessage(new UpdateMessage(defenderCountryName, numAttackers, attackerIndex));
                         server.sendMessage(currentTurn, new ConqueredMessage());
+                      
                     }
+                  
                     // If draw, defender has the advantage
                     else if (eyeNumberSumDefender >= eyeNumberSumAttacker) {
+                      
                         // Defender won
+                        System.out.println("Defender won.");
                         server.broadcastMessage(new UpdateMessage(attackerCountryName, 1, attackerIndex));
+                      
                     } else {
+                      
                         // Attacker won
+                        System.out.println("Attacker won.");
                         server.broadcastMessage(new UpdateMessage(defenderCountryName, numAttackers, attackerIndex));
                         server.sendMessage(currentTurn, new ConqueredMessage());
+                      
                     }
 
                 }
