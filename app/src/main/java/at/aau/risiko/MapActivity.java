@@ -42,7 +42,6 @@ public class MapActivity extends AppCompatActivity {
 
         stopMusic();
 
-
         // Get player data from intent:
         String[] playerNames = getIntent().getStringArrayExtra("names");
         for (String p : playerNames) {

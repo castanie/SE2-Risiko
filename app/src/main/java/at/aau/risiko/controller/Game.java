@@ -33,6 +33,7 @@ import at.aau.server.dto.BaseMessage;
 import at.aau.server.dto.CardMessage;
 import at.aau.server.dto.DiceMessage;
 import at.aau.server.dto.ExchangeMessage;
+import at.aau.server.dto.LostMessage;
 import at.aau.server.dto.ReadyMessage;
 import at.aau.server.dto.StartMessage;
 import at.aau.server.dto.TurnMessage;
@@ -54,6 +55,7 @@ public class Game {
     public static HandDeck drawnCards;
 
     private int currentIndex;
+    private boolean hasSetupGame;
     private boolean hasConqueredCountry;
 
     private final Activity activity;
@@ -82,6 +84,7 @@ public class Game {
         drawnCards = new HandDeck();
 
         this.currentIndex = 0;
+        this.hasSetupGame = false;
         this.hasConqueredCountry = false;
 
         this.activity = activity;
@@ -123,6 +126,25 @@ public class Game {
                 for (Map.Entry<Integer, Player> e : avatarMap.entrySet()) {
                     if (e.getValue().equals(getCurrentPlayer())) {
                         ImageView avatar = activity.findViewById(e.getKey());
+                        avatar.setScaleX(1.0f);
+                        avatar.setScaleY(1.0f);
+                    }
+                }
+            }
+        });
+
+    }
+
+    public void fadeAvatar() {
+
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // TODO: Set Avatar for current Player:
+                for (Map.Entry<Integer, Player> e : avatarMap.entrySet()) {
+                    if (e.getValue().equals(getCurrentPlayer())) {
+                        ImageView avatar = activity.findViewById(e.getKey());
+                        avatar.setImageTintList(ColorStateList.valueOf(0xFFCACACA));
                         avatar.setScaleX(1.0f);
                         avatar.setScaleY(1.0f);
                     }
@@ -286,12 +308,20 @@ public class Game {
                 if (getCurrentPlayer().getAvailable() > 0) {
                     this.setState(new SetupState(this));
                 } else {
+                    hasSetupGame = true;
                     this.setState(new DraftState(this));
                 }
             }
 
             // Set Avatar:
             setAvatar();
+
+            // See if this player has lost:
+            if (((TurnMessage) message).isCurrentPlayer && hasSetupGame && getCurrentPlayer().getOccupied().size() == 0) {
+                this.setState(new LostState(this));
+                fadeAvatar();
+                sendMessage(new TurnMessage());
+            }
 
         }
 

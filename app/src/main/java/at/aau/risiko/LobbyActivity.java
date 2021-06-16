@@ -36,6 +36,8 @@ public class LobbyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lobby);
 
         playerNamesAdapter  = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, userNames);
+        playersInLobby = findViewById(R.id.listOfPlayers);
+        playersInLobby.setAdapter(playerNamesAdapter);
 
         GameClient.getInstance().registerCallback(new Callback<BaseMessage>() {
             @Override
@@ -49,21 +51,13 @@ public class LobbyActivity extends AppCompatActivity {
 
                 else if(argument instanceof ResponsePlayerMessage){
                     userNames = ((ResponsePlayerMessage)argument).getPlayerNames();
-                    for (String s : userNames) {
-                        Log.i("IBGZIB", s);
-                    }
                     setUserNames(userNames);
                 }
             }
 
         });
 
-        GameClient.getInstance().sendMessage(new NameMessage());
-
         Button btnExit = findViewById(R.id.btnExit);
-        playersInLobby = findViewById(R.id.listOfPlayers);
-
-        playersInLobby.setAdapter(playerNamesAdapter);
 
         btnExit.setOnClickListener(new View.OnClickListener() {
             @Override
