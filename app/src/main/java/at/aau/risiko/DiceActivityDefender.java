@@ -56,8 +56,8 @@ public class DiceActivityDefender extends AppCompatActivity implements SensorEve
     boolean oponentCheated = false;
     boolean oponentNotCheated = false;
 
-    TextView attackerLbl = findViewById(R.id.attackerLbl);
-    TextView defenderLbl = findViewById(R.id.defenderLbl);
+    TextView attackerLbl;
+    TextView defenderLbl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +75,8 @@ public class DiceActivityDefender extends AppCompatActivity implements SensorEve
         sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
+        attackerLbl = findViewById(R.id.attackerLbl);
+        defenderLbl = findViewById(R.id.defenderLbl);
 
 
         defenderLbl.setTextSize(20);

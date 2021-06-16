@@ -118,8 +118,13 @@ public class DiceActivityAttacker extends AppCompatActivity implements SensorEve
                         oponentNotCheated = true;
                     }
 
-                    defenderLbl.setTextSize(14);
-                    attackerLbl.setTextSize(20);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            defenderLbl.setTextSize(14);
+                            attackerLbl.setTextSize(20);
+                        }
+                    });
 
                     /**
                      * ToDo: wait for server message to close activity.
