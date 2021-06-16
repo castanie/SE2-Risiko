@@ -17,6 +17,7 @@ import at.aau.server.dto.ResponsePlayerMessage;
 import at.aau.server.dto.StartMessage;
 import at.aau.server.kryonet.Callback;
 import at.aau.server.kryonet.GameClient;
+import services.BackgroundMusicService;
 
 public class LobbyActivity extends AppCompatActivity {
 
@@ -85,6 +86,8 @@ public class LobbyActivity extends AppCompatActivity {
         this.userNames = userNames;
         this.playerNamesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, this.userNames);
     }
+
+
 
 
 }
