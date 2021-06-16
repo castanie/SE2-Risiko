@@ -6,6 +6,10 @@ public class UpdateMessage extends BaseMessage{
     public String countryName;
     public Integer countryArmies;
 
+    private String wonString;
+
+
+
     public UpdateMessage() {
 
     }
@@ -14,6 +18,16 @@ public class UpdateMessage extends BaseMessage{
         this.countryName = countryName;
         this.countryArmies = countryArmies;
         this.playerIndex = playerIndex;
+    }
+    public UpdateMessage(String countryName, Integer countryArmies, Integer playerIndex, String wonString) {
+        this.playerIndex = playerIndex;
+        this.countryName = countryName;
+        this.countryArmies = countryArmies;
+        this.wonString = wonString;
+    }
+
+    public String getWonString() {
+        return wonString;
     }
 
 }
