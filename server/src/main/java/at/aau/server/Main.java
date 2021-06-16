@@ -219,6 +219,7 @@ public class Main {
 
 
                         if(isDoneRolling) {
+
                             // Wait for 5 seconds to let players decide if other one has cheated
 
                             long currentTime = System.currentTimeMillis();
@@ -226,7 +227,8 @@ public class Main {
                             int whileUseLessVar = 0;
                             while(System.currentTimeMillis() <= endWait) {
                                 whileUseLessVar++;
-                            }
+                            } 
+                         
 
                             //TODO: send messages to DiceActivities that they should finish themselves
                             server.sendMessage(attackerIndex, new CloseDiceActivitiesMessage());
