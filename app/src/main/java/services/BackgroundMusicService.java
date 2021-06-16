@@ -13,19 +13,8 @@ import at.aau.risiko.R;
 
 public class BackgroundMusicService extends Service {
     private static final String TAG = "MusicService";
-    public  MediaPlayer  player;
-    private int length = 0;
-
-    //singelton pattern
-    private static BackgroundMusicService service = new BackgroundMusicService();
-
-    private BackgroundMusicService() {
-
-    }
-
-    public static BackgroundMusicService getInstance(){
-        return service;
-    }
+    static MediaPlayer player;
+    private static  int length = 0;
 
 
     @Nullable
@@ -40,11 +29,10 @@ public class BackgroundMusicService extends Service {
 
         Log.i(TAG, "OnCreate executes");
 
-        if(player!= null)
-        {
-            player.setLooping(true);
-            player.setVolume(100,100);
-        }
+        player = MediaPlayer.create(this, R.raw.risiko);
+        player.setLooping(true);
+        player.setVolume(80,80);
+        player.start();
     }
 
     @Override
@@ -57,37 +45,31 @@ public class BackgroundMusicService extends Service {
     @Override
     public void onDestroy ()
     {
-        super.onDestroy();
-        if(player != null)
+        player.stop();
+        player.release();
+    }
+
+    public static void pauseMusic()
+    {
+        if(player.isPlaying())
         {
-            try{
-                player.stop();
-                player.release();
-            }finally {
-                player = null;
-            }
+            player.pause();
+            length=player.getCurrentPosition();
+
         }
     }
 
-    public void resumeMusic(){
-        if(!player.isPlaying()){
+    public static  void resumeMusic()
+    {
+        if(!player.isPlaying())
+        {
             player.seekTo(length);
             player.start();
         }
     }
 
-    public void pauseMusic(){
-        if(player.isPlaying()){
-            player.pause();
-            length = player.getCurrentPosition();
-        }
-    }
 
 
-    public void stopMusic()
-    {
-        player.stop();
-        player.release();
-        player = null;
-    }
+
+
 }

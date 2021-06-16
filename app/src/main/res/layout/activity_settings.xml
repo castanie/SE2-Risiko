@@ -8,7 +8,7 @@
     tools:context=".SettingsActivity">
 
     <Button
-        android:id="@+id/btnResumeMusic"
+        android:id="@+id/btnPlayMusic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="289dp"
@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btnPauseMusic"
+        android:id="@+id/btnStopMusic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="303dp"
@@ -32,7 +32,7 @@
         android:text="Stop music"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnResumeMusic" />
+        app:layout_constraintTop_toBottomOf="@+id/btnPlayMusic" />
     />
 
 
