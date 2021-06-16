@@ -6,7 +6,7 @@
     <string name="angreifer">Angreifer</string>
     <string name="verteidiger">Verteidiger</string>
     <string name="close">Close</string>
-    <string name="oponent_cheated">Oponent Cheated</string>
+    <string name="opponent_cheated">Opponent cheated!</string>
     <string name="defender">Defender</string>
     <string name="attacker">Attacker</string>
     <string name="roll_dice">Roll Dice</string>

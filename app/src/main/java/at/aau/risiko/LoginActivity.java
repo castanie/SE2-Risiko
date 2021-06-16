@@ -39,26 +39,6 @@ public class LoginActivity extends AppCompatActivity {
 
         GameClient client = GameClient.getInstance();
 
-        client.registerClass(int[].class);
-        client.registerClass(Integer[].class);
-        client.registerClass(String[].class);
-        client.registerClass(ArrayList.class);
-        client.registerClass(LogMessage.class);
-        client.registerClass(NameMessage.class);
-        client.registerClass(RequestPlayerMessage.class);
-        client.registerClass(ResponsePlayerMessage.class);
-        client.registerClass(StartMessage.class);
-        client.registerClass(ReadyMessage.class);
-        client.registerClass(TurnMessage.class);
-        client.registerClass(UpdateMessage.class);
-        client.registerClass(DiceMessage.class);
-        client.registerClass(EyeNumbersMessage.class);
-        client.registerClass(CheatedMessage.class);
-        client.registerClass(CardMessage.class);
-        client.registerClass(ExchangeMessage.class);
-        client.registerClass(CloseDiceActivitiesMessage.class);
-        client.registerClass(BackInMapMessage.class);
-
         Thread clientThread = new Thread() {
             @Override
             public void run() {

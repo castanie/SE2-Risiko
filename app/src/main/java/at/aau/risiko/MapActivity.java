@@ -24,6 +24,7 @@ import at.aau.server.dto.BaseMessage;
 import at.aau.server.dto.ReadyMessage;
 import at.aau.server.kryonet.Callback;
 import at.aau.server.kryonet.GameClient;
+import services.BackgroundMusicService;
 
 public class MapActivity extends AppCompatActivity {
 
@@ -37,6 +38,8 @@ public class MapActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
+        stopMusic();
 
 
         // Get player data from intent:
@@ -177,10 +180,20 @@ public class MapActivity extends AppCompatActivity {
         game.handleInput(view);
     }
 
+    public void onNext(View view) {
+        game.changeState();
+    }
+
     public void openCardActivity(View view) {
         Intent intent = new Intent(this, CardActivity.class);
         intent.putExtra("deck", game.getCurrentPlayer().getHandDeck().getCardNames());
         startActivity(intent);
+    }
+
+    private void stopMusic() {
+        //stopService(new Intent(this, BackgroundMusicService.class));
+        BackgroundMusicService.pauseMusic();
+
     }
 
 }

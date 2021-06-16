@@ -8,38 +8,38 @@
     tools:context=".SettingsActivity">
 
     <Button
-        android:id="@+id/btnPlayMusic"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
-
-
-        android:layout_marginTop="200dp"
-        android:fontFamily="@font/erica_one"
-        android:text="music on"
-        android:textColor="#B6B2B2"
-        android:backgroundTint="#3B3F41"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.522"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
         android:id="@+id/btnStopMusic"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
 
 
-        android:layout_marginTop="41dp"
-        android:layout_marginBottom="74dp"
-        android:fontFamily="@font/erica_one"
-        android:text="music off"
-        android:textColor="#B6B2B2"
+        android:layout_marginBottom="128dp"
         android:backgroundTint="#3B3F41"
+        android:fontFamily="@font/erica_one"
+        android:text="PAUSE MUSIC"
+        android:textColor="#B6B2B2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.522"
+        app:layout_constraintHorizontal_bias="0.534"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnPlayMusic"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+
+
+        android:layout_marginTop="264dp"
+        android:backgroundTint="#3B3F41"
+        android:fontFamily="@font/erica_one"
+        android:text="RESUME MUSIC"
+        android:textColor="#B6B2B2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.534"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnPlayMusic" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     />
 
 
