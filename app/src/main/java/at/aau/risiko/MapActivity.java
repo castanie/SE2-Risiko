@@ -17,6 +17,7 @@ import java.util.LinkedList;
 
 import at.aau.core.Country;
 import at.aau.core.Player;
+import at.aau.risiko.controller.AttackState;
 import at.aau.risiko.controller.Game;
 import at.aau.risiko.controller.ObserveState;
 import at.aau.server.dto.BackInMapMessage;
@@ -173,6 +174,9 @@ public class MapActivity extends AppCompatActivity {
             }
         });
 
+        if (game.getState() instanceof AttackState) {
+
+        }
         GameClient.getInstance().sendMessage(new BackInMapMessage());
     }
 

@@ -7,10 +7,12 @@ import com.esotericsoftware.kryonet.Server;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import at.aau.server.dto.BackInMapMessage;
 import at.aau.server.dto.BaseMessage;
 import at.aau.server.dto.CardMessage;
 import at.aau.server.dto.CheatedMessage;
 import at.aau.server.dto.CloseDiceActivitiesMessage;
+import at.aau.server.dto.ConqueredMessage;
 import at.aau.server.dto.DiceMessage;
 import at.aau.server.dto.ExchangeMessage;
 import at.aau.server.dto.EyeNumbersMessage;
@@ -52,6 +54,8 @@ public class GameServer implements NetworkServer, KryoNetComponent {
         instance.registerClass(DiceMessage.class);
         instance.registerClass(EyeNumbersMessage.class);
         instance.registerClass(CheatedMessage.class);
+        instance.registerClass(ConqueredMessage.class);
+        instance.registerClass(BackInMapMessage.class);
         instance.registerClass(CardMessage.class);
         instance.registerClass(ExchangeMessage.class);
         instance.registerClass(CloseDiceActivitiesMessage.class);

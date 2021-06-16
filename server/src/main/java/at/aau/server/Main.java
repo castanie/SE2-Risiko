@@ -172,10 +172,9 @@ public class Main {
                     else if (argument instanceof DiceMessage) {
                         System.out.println("DiceMessage received.");
 
-                        //save variables on server
-                        defenderIndex = ((DiceMessage) argument).playerIndex;
-                        //TODO: get senders index
-                        attackerIndex = ((DiceMessage) argument).attackingIndex;
+                        // Save variables on server
+                        attackerIndex = ((DiceMessage) argument).playerIndex;
+                        defenderIndex = ((DiceMessage) argument).defendingIndex;
                         attackerCountryName = ((DiceMessage)argument).attackingCountryName;
                         defenderCountryName = ((DiceMessage)argument).defendingCountryName;
                         numAttackers = ((DiceMessage)argument).numAttackers;
@@ -183,7 +182,7 @@ public class Main {
 
 
                         // Order Defender to roll dice:
-                        server.sendMessage(((DiceMessage) argument).playerIndex, argument);
+                        server.sendMessage(((DiceMessage) argument).defendingIndex, argument);
 
                     }
 
@@ -224,14 +223,20 @@ public class Main {
                                 TimeUnit.SECONDS.sleep(8);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
-                            }*/ //this crashes the code
+                            } */ //this crashes the code
 
-                            //try simple wait loop
+                            /* Try simple wait loop
                             long currentTime = System.currentTimeMillis();
-                            long endWait = currentTime + 8000; //wait 8 sec
+                            long endWait = currentTime + 4000; //wait 8 sec
                             int whileUseLessVar = 0;
                             while(System.currentTimeMillis() <= endWait) {
                                 whileUseLessVar++;
+                            } */
+
+                            try {
+                                Thread.sleep(4000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
                             }
 
 
@@ -279,7 +284,7 @@ public class Main {
                                 // TODO: make sure players are back in MapActivity
                                 evaluateWinner();
 
-                                //reset all booleans
+                                // Reset all booleans
                                 isDoneRolling = false;
                                 hasCheatedDefender = false;
                                 hasCheatedAttacker = false;

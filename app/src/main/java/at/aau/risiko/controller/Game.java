@@ -175,7 +175,7 @@ public class Game {
                 Animation blinkAnimation = AnimationUtils.loadAnimation(activity, R.anim.blink);
                 blinkAnimation.setRepeatCount(Animation.INFINITE);
                 blinkAnimation.setRepeatMode(Animation.REVERSE);
-                blinkAnimation.setDuration(1000);
+                blinkAnimation.setDuration(800);
 
                 view.startAnimation(blinkAnimation);
             }
@@ -228,12 +228,14 @@ public class Game {
 
     public void awardCards() {
         if (hasConqueredCountry) {
-            showSnackbar("You received a country card!");
+            showSnackbar("You received three country cards!");
 
-            String card;
-            card = availableCards.drawCardFromCardList();
-            drawnCards.addCardToHandDeck(card);
-            sendMessage(new CardMessage(card, getIndex()));
+            for (int i = 0; i < 3; ++i) {
+                String card;
+                card = availableCards.drawCardFromCardList();
+                drawnCards.addCardToHandDeck(card);
+                sendMessage(new CardMessage(card, getIndex()));
+            }
 
             hasConqueredCountry = false;
         }
@@ -326,6 +328,7 @@ public class Game {
         // Tells Player to draw a Card:
         else if (message instanceof ConqueredMessage) {
 
+            // Set flag true so awardCards fires:
             hasConqueredCountry = true;
 
         }
