@@ -5,6 +5,10 @@ import java.util.ArrayList;
 public class ResponsePlayerMessage extends BaseMessage {
     private ArrayList<String> playerNames;
 
+    public ResponsePlayerMessage() {
+
+    }
+
     public ResponsePlayerMessage(ArrayList<String>playerNames){
         this.playerNames = playerNames;
     }
