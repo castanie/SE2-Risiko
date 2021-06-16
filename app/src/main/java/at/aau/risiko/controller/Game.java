@@ -261,8 +261,6 @@ public class Game {
 
         // Wakes Player from sleep and sets UI:
         else if (message instanceof TurnMessage) {
-            // TODO: IMPORTANT! Debug random color changes after new Turn!
-            Log.i("TURN MESSAGE", "Old: " + getIndex() + ", New: " + ((TurnMessage) message).playerIndex);
 
             // Set current Player:
             setIndex(((TurnMessage) message).playerIndex);

@@ -82,7 +82,7 @@ public class Main {
 
                     }
 
-                    // Message sent from Login screen containing player name:
+                    // Message sent from Login screen containing Player name:
                     else if (argument instanceof NameMessage) {
                         System.out.println("NameMessage: " + ((NameMessage) argument).name);
 
@@ -91,8 +91,6 @@ public class Main {
                         server.broadcastMessage(new ResponsePlayerMessage(playerNames));
                         
                     }
-
-
 
                     // Message sent from Lobby screen requesting game start:
                     else if (argument instanceof StartMessage) {
@@ -148,10 +146,7 @@ public class Main {
 
                     }
 
-
-
-                    // TODO: CardMessage
-                    //Broadcasts a message when a card was drawn and which card was drawn from the Carddeck
+                    // Broadcasts a message when a card was drawn from the CardDeck:
                     else if (argument instanceof CardMessage) {
                         System.out.println("CardMessage received.");
 
@@ -161,9 +156,7 @@ public class Main {
 
                     }
 
-                    // TODO: ExchangeMessage
-                    // Broadcasts a message when cards were exchanged and which cards were exchanged
-
+                    // Broadcasts a message when cards were exchanged in CardActivity:
                     else if (argument instanceof ExchangeMessage) {
                         System.out.println("ExchangeMessage received.");
 
@@ -171,7 +164,9 @@ public class Main {
                         ((ExchangeMessage) argument).playerIndex = currentTurn;
                         server.broadcastMessage(argument);
 
-                    }  // Message sent from Map requesting to start attack:
+                    }
+
+                    // Message sent from Map requesting to start attack:
                     else if (argument instanceof DiceMessage) {
                         System.out.println("DiceMessage received.");
 
@@ -190,7 +185,7 @@ public class Main {
 
                     }
 
-                    //
+                    // Message sent from Attacker or Defender after rolling dice:
                     else if (argument instanceof EyeNumbersMessage){
                         System.out.println("EyeNumbersMessage received.");
                         /**
@@ -243,6 +238,8 @@ public class Main {
 
 
                     }
+
+                    // Message sent from Attacker or Defender after calling out a cheater:
                     else if (argument instanceof CheatedMessage) {
                         System.out.println("CheatedMessage received.");
                         /**
@@ -266,6 +263,7 @@ public class Main {
                 }
 
 
+                //
                 private void calcEyenumberSum(int[] arr, String playersRoll) {
                     int sum = 0;
                     //i < arr.length-1 because the last element is just the indicator for cheating
@@ -281,7 +279,7 @@ public class Main {
 
                 }
 
-
+                //
                 private void evaluateWinner() {
                     if (hasCheatedAttacker) {
                         // Defender won due to cheating of attacker

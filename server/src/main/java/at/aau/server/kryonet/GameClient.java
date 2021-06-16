@@ -74,10 +74,18 @@ public class GameClient implements NetworkClient, KryoNetComponent {
         client.connect(5000, host, NetworkConstants.TCP_PORT);
 
         client.addListener(new Listener() {
+
+            @Override
             public void received(Connection connection, Object object) {
                 if (callback != null && object instanceof BaseMessage)
                     callback.callback((BaseMessage) object);
             }
+
+            @Override
+            public void disconnected(Connection connection) {
+                super.disconnected(connection);
+            }
+
         });
     }
 
