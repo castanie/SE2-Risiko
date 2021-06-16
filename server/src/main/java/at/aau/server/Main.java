@@ -99,8 +99,9 @@ public class Main {
                         System.out.println("StartMessage received.");
 
                         // Order Clients to start:
-                        ((StartMessage) argument).names = new String[] {"One", "Two"};
-                        ((StartMessage) argument).colors = new Integer[] {0xFFFFCC00, 0xFFFF44CC};
+                        // ((StartMessage) argument).names = new String[] {"One", "Two", "Three"};
+                        ((StartMessage) argument).names = playerNames.toArray(new String[0]);
+                        ((StartMessage) argument).colors = new Integer[] {0xFFFFCC00, 0xFFFF44CC, 0x00CCFF};
                         server.broadcastMessage(argument);
 
                         readyBarrier = 0;
@@ -218,27 +219,16 @@ public class Main {
 
 
                         if(isDoneRolling) {
-                            //TODO: wait for 5 seconds to let players decide if other one has cheated
-                           /* try {
-                                TimeUnit.SECONDS.sleep(8);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            } */ //this crashes the code
 
-                            /* Try simple wait loop
+                            // Wait for 5 seconds to let players decide if other one has cheated
+
                             long currentTime = System.currentTimeMillis();
                             long endWait = currentTime + 4000; //wait 8 sec
                             int whileUseLessVar = 0;
                             while(System.currentTimeMillis() <= endWait) {
                                 whileUseLessVar++;
-                            } */
-
-                            try {
-                                Thread.sleep(4000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-
+                            } 
+                         
 
                             //TODO: send messages to DiceActivities that they should finish themselves
                             server.sendMessage(attackerIndex, new CloseDiceActivitiesMessage());

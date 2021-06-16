@@ -2,16 +2,20 @@ package at.aau.risiko;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
 import at.aau.server.dto.BaseMessage;
+import at.aau.server.dto.NameMessage;
 import at.aau.server.dto.RequestPlayerMessage;
 import at.aau.server.dto.ResponsePlayerMessage;
 import at.aau.server.dto.StartMessage;
@@ -26,11 +30,12 @@ public class LobbyActivity extends AppCompatActivity {
     ArrayList<String> userNames = new ArrayList<>();
     ArrayAdapter<String> playerNamesAdapter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lobby);
+
+        playerNamesAdapter  = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, userNames);
 
         GameClient.getInstance().registerCallback(new Callback<BaseMessage>() {
             @Override
@@ -43,21 +48,21 @@ public class LobbyActivity extends AppCompatActivity {
                 }
 
                 else if(argument instanceof ResponsePlayerMessage){
-                        ResponsePlayerMessage rpm = (ResponsePlayerMessage)argument;
-                        userNames.clear();
-                        userNames.addAll(rpm.getPlayerNames());
+                    userNames = ((ResponsePlayerMessage)argument).getPlayerNames();
+                    for (String s : userNames) {
+                        Log.i("IBGZIB", s);
                     }
+                    setUserNames(userNames);
                 }
+            }
 
         });
 
-        GameClient.getInstance().sendMessage(new RequestPlayerMessage());
-
+        GameClient.getInstance().sendMessage(new NameMessage());
 
         Button btnExit = findViewById(R.id.btnExit);
         playersInLobby = findViewById(R.id.listOfPlayers);
 
-        playerNamesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, userNames);
         playersInLobby.setAdapter(playerNamesAdapter);
 
         btnExit.setOnClickListener(new View.OnClickListener() {
@@ -76,17 +81,16 @@ public class LobbyActivity extends AppCompatActivity {
             }
         });
 
-        // playersInLobby.findViewById(R.id.listOfPlayers);
-
     }
 
     // called by the network client to update the list of users
     public void setUserNames(ArrayList<String> userNames) {
-        this.userNames = userNames;
-        this.playerNamesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, this.userNames);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                playerNamesAdapter.notifyDataSetChanged();
+            }
+        });
     }
-
-
-
 
 }

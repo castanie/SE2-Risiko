@@ -38,9 +38,6 @@ public class DiceActivityAttacker extends AppCompatActivity implements SensorEve
     private ImageView diceTwoDefense;
     private ImageView diceThreeDefense;
 
-    /**
-     *ToDo: replace this Variables with getNumAttackers() from Daniel's feature to set exactly the amount of dices needed
-     */
     /*This variables are needed to set the exact amount of dices needed*/
     int numAttackers = 3;
     int numDefenders = 3;
@@ -53,15 +50,12 @@ public class DiceActivityAttacker extends AppCompatActivity implements SensorEve
     //dice should only be rolled if acceleration is > SHAKE_THRESHOLD
     final static int SHAKE_THRESHOLD = 1;
 
-    /*count variable for insurance that dices can only be rolled once*/
-    int count = 0;
     /*this array will be send to DiceActivityDefender*/
     int[] eyeNumbersAttacker;
     int[] defendersDices;
 
-    boolean oponentCheated = false;
-    boolean oponentNotCheated = false;
-
+    boolean opponentCheated = false;
+    boolean opponentNotCheated = false;
 
 
     @Override
@@ -77,7 +71,7 @@ public class DiceActivityAttacker extends AppCompatActivity implements SensorEve
         diceTwoDefense = findViewById(R.id.diceTwoDefense);
         diceThreeDefense = findViewById(R.id.diceThreeDefense);
 
-        sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
         TextView attackerLbl = findViewById(R.id.attackerLbl);
@@ -87,16 +81,13 @@ public class DiceActivityAttacker extends AppCompatActivity implements SensorEve
 
         //set dices to random start values
         for (int i = 0; i < numAttackers; i++) {
-            setImageViewAttacker(i+2, i+1);
+            setImageViewAttacker(i + 2, i + 1);
         }
         for (int j = 0; j < numDefenders; j++) {
-            updateGUI(j+1, j+2);
+            updateGUI(j + 1, j + 2);
         }
 
 
-        /**
-         * ToDo: read server message from DiceActivityDefender and set hasShakenDefender to true and update the UI
-         */
         GameClient.getInstance().registerCallback(new Callback<BaseMessage>() {
             @Override
             public void callback(BaseMessage argument) {
@@ -104,7 +95,7 @@ public class DiceActivityAttacker extends AppCompatActivity implements SensorEve
                     Log.i("DICE ATTACKER", "Received EyeNumbersMessage!");
                     setDefendersDices(((EyeNumbersMessage) argument).getMessage());
 
-                    for(int i = 0; i < numDefenders; i++) {
+                    for (int i = 0; i < numDefenders; i++) {
                         Log.i("DICE ATTACKER", String.valueOf(defendersDices[i]));
                         updateGUI(i + 1, defendersDices[i]);
                     }
@@ -112,10 +103,10 @@ public class DiceActivityAttacker extends AppCompatActivity implements SensorEve
 
                     hasRolledDefender = true;
 
-                    if(defendersDices[numDefenders] == 1) {
-                        oponentCheated = true;
-                    }else {
-                        oponentNotCheated = true;
+                    if (defendersDices[numDefenders] == 1) {
+                        opponentCheated = true;
+                    } else {
+                        opponentNotCheated = true;
                     }
 
                     runOnUiThread(new Runnable() {
@@ -126,9 +117,6 @@ public class DiceActivityAttacker extends AppCompatActivity implements SensorEve
                         }
                     });
 
-                    /**
-                     * ToDo: wait for server message to close activity.
-                     */
                 } else if (argument instanceof CloseDiceActivitiesMessage) {
                     Log.i("DICE ATTACKER", "Received CloseDiceActivitiesMessage!");
                     finish();
@@ -142,34 +130,30 @@ public class DiceActivityAttacker extends AppCompatActivity implements SensorEve
             @Override
             public void onClick(View v) {
 
-                if (oponentCheated) {
-
-                    //ToDo: send to server that defender cheated all his dices are set to one or he automatically loses
+                if (opponentCheated) {
                     Log.i("DEFENDER CHEATED", "Right!");
                     Toast toast = Toast.makeText(getApplicationContext(), "You are right, you've won the duel Sherlock.", Toast.LENGTH_LONG);
                     toast.show();
                     GameClient.getInstance().sendMessage(new CheatedMessage(true, false));
                 }
-                if(oponentNotCheated) {
-                    //ToDo Toast or smth that not rolled dice yet
+                if (opponentNotCheated) {
                     Log.i("DEFENDER CHEATED", "Wrong!");
                     Toast toast = Toast.makeText(getApplicationContext(), "You are wrong, you've lost the duel.", Toast.LENGTH_LONG);
                     toast.show();
                     GameClient.getInstance().sendMessage(new CheatedMessage(false, false));
                 }
+
             }
         });
 
-
-
-
-
     }
+
     @Override
     protected void onResume() {
         super.onResume();
         sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
     }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -189,16 +173,14 @@ public class DiceActivityAttacker extends AppCompatActivity implements SensorEve
         Dice dice = new Dice("attacker");
         //array gets size numAttackers+1 because the last entry will be kind of a reference bit if the player
         //has cheated that element is 1 else it's 0
-        eyeNumbersAttacker = new int[numAttackers+1];
-        if(hasRolledDefender && isUpdatedGUI && count < 1) {
-            if (accelerationValue > SHAKE_THRESHOLD && accelerationValue < 5) {
+        eyeNumbersAttacker = new int[numAttackers + 1];
+        if (!isShaken && hasRolledDefender && isUpdatedGUI) {
 
+            if (accelerationValue > SHAKE_THRESHOLD && accelerationValue <= 3) {
 
                 for (int i = 0; i < numAttackers; i++) {
                     int num = dice.diceRoll();
                     eyeNumbersAttacker[i] = num;
-                    //diceNum.setText("dice have been rolled:" + num);
-                    //accel.setText("Acceleration: " + (int)accelerationValueDefender);
                     dice.setEyeNumber(num);
 
                     setImageViewAttacker(num, i + 1);
@@ -206,51 +188,38 @@ public class DiceActivityAttacker extends AppCompatActivity implements SensorEve
                 }
                 //player has not cheated
                 eyeNumbersAttacker[numAttackers] = 0;
-                count++;
                 isShaken = true;
-                Log.i("DiceActivity", "Device was shaken");
+                Log.i("DiceActivity", "Device was shaken, legit.");
 
             }
             //cheat function
-            else if (accelerationValue > 5) {
+            else if (accelerationValue > 3) {
                 dice.setEyeNumber(6);
                 for (int index = 0; index < numAttackers; index++) {
                     setImageViewAttacker(6, index + 1);
                     eyeNumbersAttacker[index] = 6;
                 }
-                count++;
+                //player has cheated
+                eyeNumbersAttacker[numAttackers] = 1;
                 isShaken = true;
+                Log.i("DiceActivityAttacker", "Device was shaken - cheated.");
             }
-            //player has cheated
-            eyeNumbersAttacker[numAttackers] = 1;
-            System.out.println("Attacker rolled dice");
-            /**
-             * ToDo: send server message to DiceActivityDefender if isShaken is true so that the UI can be updated and change state
-             */
-            if(isShaken) {
 
+            if (isShaken) {
                 GameClient.getInstance().sendMessage(new EyeNumbersMessage(eyeNumbersAttacker));
-                //ToDo: send results to MapActivity
-                // GameClient.getInstance().sendMessage(new DiceResultMessage(eyeNumbersAttacker, defendersDices));
             }
-            return;
 
-        }else {
-            return;
         }
 
-
     }
-
-
-
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
     }
+
     private void setImageViewAttacker(int num, int index) {
-        if(index == 1) {
+        if (index == 1) {
             switch (num) {
                 case 1:
                     diceOneAttack.setImageResource(R.drawable.diceredone);
@@ -275,7 +244,7 @@ public class DiceActivityAttacker extends AppCompatActivity implements SensorEve
 
             }
 
-        }else if(index == 2) {
+        } else if (index == 2) {
             switch (num) {
                 case 1:
                     diceTwoAttack.setImageResource(R.drawable.diceredone);
@@ -287,7 +256,7 @@ public class DiceActivityAttacker extends AppCompatActivity implements SensorEve
                     diceTwoAttack.setImageResource(R.drawable.diceredthree);
                     break;
                 case 4:
-                    diceTwoAttack.setImageResource(R.drawable.diceredfour);;
+                    diceTwoAttack.setImageResource(R.drawable.diceredfour);
                     break;
                 case 5:
                     diceTwoAttack.setImageResource(R.drawable.diceredfive);
@@ -300,7 +269,7 @@ public class DiceActivityAttacker extends AppCompatActivity implements SensorEve
 
             }
 
-        }else if(index == 3) {
+        } else if (index == 3) {
             switch (num) {
                 case 1:
                     diceThreeAttack.setImageResource(R.drawable.diceredone);
@@ -327,7 +296,6 @@ public class DiceActivityAttacker extends AppCompatActivity implements SensorEve
         }
         rotateDice(index);
     }
-
 
 
     private void setDefendersDices(int[] arr) {
@@ -384,7 +352,7 @@ public class DiceActivityAttacker extends AppCompatActivity implements SensorEve
                     break;
 
             }
-        }else if (index == 3) {
+        } else if (index == 3) {
             switch (num) {
                 case 1:
                     diceThreeDefense.setImageResource(R.drawable.diceblueone);
@@ -413,24 +381,24 @@ public class DiceActivityAttacker extends AppCompatActivity implements SensorEve
     }
 
 
-
     private void rotateDice(int index) {
         Animation rollAnimation = AnimationUtils.loadAnimation(this, R.anim.rotate);
-        if(index == 1) {
+        if (index == 1) {
             diceOneAttack.startAnimation(rollAnimation);
-        }else if(index == 2) {
+        } else if (index == 2) {
             diceTwoAttack.startAnimation(rollAnimation);
-        }else if(index == 3) {
+        } else if (index == 3) {
             diceThreeAttack.startAnimation(rollAnimation);
         }
     }
+
     private void rotateDiceDefender(int index) {
         Animation rollAnimation = AnimationUtils.loadAnimation(this, R.anim.rotate);
         if (index == 1) {
             diceOneDefense.startAnimation(rollAnimation);
-        }else if (index == 2) {
+        } else if (index == 2) {
             diceTwoDefense.startAnimation(rollAnimation);
-        }else if (index == 3) {
+        } else if (index == 3) {
             diceThreeDefense.startAnimation(rollAnimation);
         }
     }
