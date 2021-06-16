@@ -170,6 +170,10 @@ public class MapActivity extends AppCompatActivity {
         game.handleInput(view);
     }
 
+    public void onNext(View view) {
+        game.changeState();
+    }
+
     public void openCardActivity(View view) {
         Intent intent = new Intent(this, CardActivity.class);
         intent.putExtra("deck", game.getCurrentPlayer().getHandDeck().getCardNames());

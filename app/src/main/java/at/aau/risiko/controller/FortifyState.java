@@ -28,6 +28,7 @@ public class FortifyState extends State {
 
         game.setProgress(3);
         game.setInfo("Move");
+        game.setNextButtonClickable(true);
     }
 
     /**
@@ -111,6 +112,7 @@ public class FortifyState extends State {
     public void changeState() {
         game.setState(new ObserveState(game));
         game.sendMessage(new TurnMessage());
+        game.setNextButtonClickable(false);
     }
 
 }

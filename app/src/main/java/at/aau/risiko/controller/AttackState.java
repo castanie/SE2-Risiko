@@ -26,6 +26,7 @@ public class AttackState extends State {
 
         game.setProgress(2);
         game.setInfo("Attack");
+        game.setNextButtonClickable(true);
     }
 
     /**
@@ -111,12 +112,9 @@ public class AttackState extends State {
     @Override
     public void changeState() {
         // If Player has conquered a Country, draw Card:
-        if (occupied < game.getCurrentPlayer().getOccupied().size()) {
-            String card = game.getCardDeck().drawCardFromCardList();
-            game.sendMessage(new CardMessage(card));
-            game.showSnackbar("You received a new card!");
-        }
+        game.awardCards();
         game.setState(new FortifyState(game));
+        game.setNextButtonClickable(false);
     }
 
 }
