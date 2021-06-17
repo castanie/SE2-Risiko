@@ -266,7 +266,7 @@ public class Game {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Snackbar snackbar = Snackbar.make(activity.findViewById(R.id.linearLayout), message, 12000);
+                Snackbar snackbar = Snackbar.make(activity.findViewById(R.id.linearLayout), message, 8000);
                 snackbar.show();
             }
         });
@@ -466,7 +466,7 @@ public class Game {
         //
         else if (message instanceof QuitMessage) {
             activity.startActivity(new Intent(activity, MenuActivity.class));
-            activity.finish();
+            // activity.finish();
         }
 
     }

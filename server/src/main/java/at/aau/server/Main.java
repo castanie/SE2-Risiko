@@ -314,10 +314,9 @@ public class Main {
                             }
 
                             try {
-                                for (int i = 0; i < 4; i++) {
-                                    Thread.sleep(4000);
-                                    System.out.println("Lole");
-                                }
+
+                                Thread.sleep(12000);
+
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
