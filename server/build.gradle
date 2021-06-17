@@ -25,7 +25,7 @@ test {
     useJUnitPlatform()
 }
 
-jar {
+fatJar (type : jar) {
     manifest {
         attributes('Implementation-Title': 'Rizik',
                    'Implementation-Version': '0.1.0',

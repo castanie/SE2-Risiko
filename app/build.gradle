@@ -30,8 +30,8 @@ android {
     packagingOptions {
         // exclude 'META-INF/DEPENDENCIES*'
         // exclude 'META-INF/LICENSE*'
-        //exclude 'META-INF/NOTICE*'
-        pickFirst '*'
+        // exclude 'META-INF/NOTICE*'
+        pickFirst '**'
     }
 }
 
