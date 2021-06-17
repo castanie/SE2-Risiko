@@ -25,6 +25,7 @@ test {
     useJUnitPlatform()
 }
 
+/*
 task fatJar (type: Jar) {
     manifest {
         attributes('Implementation-Title': 'Rizik',
@@ -39,3 +40,4 @@ task fatJar (type: Jar) {
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
     with jar
 }
+*/
