@@ -28,10 +28,10 @@ android {
     }
 
     packagingOptions {
-        // exclude 'META-INF/DEPENDENCIES*'
-        // exclude 'META-INF/LICENSE*'
-        // exclude 'META-INF/NOTICE*'
-        pickFirst '**'
+        pickFirst 'META-INF/MANIFEST.MF'
+        exclude 'META-INF/DEPENDENCIES*'
+        exclude 'META-INF/LICENSE*'
+        exclude 'META-INF/NOTICE*'
     }
 }
 
