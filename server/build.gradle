@@ -24,3 +24,17 @@ jacocoTestReport {
 test {
     useJUnitPlatform()
 }
+
+jar {
+    manifest {
+        attributes('Implementation-Title': 'Rizik',
+                   'Implementation-Version': '0.1.0',
+                   'Main-Class': 'at.aau.server.Main')
+    }
+    from {
+        configurations.runtimeClasspath.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
