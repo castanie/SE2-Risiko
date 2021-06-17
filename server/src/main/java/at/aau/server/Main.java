@@ -99,6 +99,11 @@ public class Main {
 
                     }
 
+                    //
+                    else if (argument instanceof RequestPlayerMessage) {
+                        server.broadcastMessage(new ResponsePlayerMessage(playerNames));
+                    }
+
                     // Message sent from Lobby screen requesting game start:
                     else if (argument instanceof StartMessage) {
                         System.out.println("StartMessage received.");
@@ -309,7 +314,9 @@ public class Main {
                             }
 
                             try {
-                                Thread.sleep(20000);
+
+                                Thread.sleep(12000);
+
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }

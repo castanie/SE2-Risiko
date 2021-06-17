@@ -38,7 +38,15 @@ public class LobbyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lobby);
 
-       
+
+        TextView playerOne = findViewById(R.id.textPlayerOne);
+        TextView playerTwo = findViewById(R.id.textPlayerTwo);
+        TextView playerThree = findViewById(R.id.textPlayerThree);
+        TextView playerFour = findViewById(R.id.textPlayerFour);
+        TextView playerFive = findViewById(R.id.textPlayerFive);
+
+        TextView[] playerNames = {playerOne, playerTwo, playerThree, playerFour, playerFive};
+
 
         GameClient.getInstance().registerCallback(new Callback<BaseMessage>() {
             @Override
@@ -52,46 +60,20 @@ public class LobbyActivity extends AppCompatActivity {
 
                 else if(argument instanceof ResponsePlayerMessage){
                     userNames = ((ResponsePlayerMessage)argument).getPlayerNames();
-
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            for (int i = 0; i < userNames.size(); i++) {
+                                playerNames[i].setText(userNames.get(i));
+                            }
+                        }
+                    });
                 }
             }
 
         });
 
-        TextView playerOne = findViewById(R.id.playerOneLbl);
-        TextView playerTwo = findViewById(R.id.playerTwoLbl);
-        TextView playerThree = findViewById(R.id.playerThreeLbl);
-        TextView playerFour = findViewById(R.id.playerFourLbl);
-        TextView playerFive = findViewById(R.id.playerFiveLbl);
-
-        ImageView plyrOne = findViewById(R.id.imagePlayer1);
-        ImageView plyrTwo = findViewById(R.id.imagePlayer2);
-        ImageView plyrThree = findViewById(R.id.imagePlayer3);
-        ImageView plyrFour = findViewById(R.id.imagePlayer4);
-        ImageView plyrFive = findViewById(R.id.imagePlayer5);
-
-        plyrOne.setImageResource(R.color.plyrOne);
-        plyrTwo.setImageResource(R.color.plyrTwo);
-        plyrThree.setImageResource(R.color.plyrThree);
-        plyrFour.setImageResource(R.color.plyrFour);
-        plyrFive.setImageResource(R.color.plyrFive);
-
-        plyrOne.setVisibility(View.GONE);
-        plyrTwo.setVisibility(View.GONE);
-        plyrThree.setVisibility(View.GONE);
-        plyrFour.setVisibility(View.GONE);
-        plyrFive.setVisibility(View.GONE);
-
-        TextView[] playerNames = {playerOne, playerTwo, playerThree, playerFour, playerFive};
-        ImageView[] playerColors = {plyrOne, plyrTwo, plyrThree, plyrFour, plyrFive};
-
-        for (int i = 0; i < userNames.size(); i++) {
-            playerNames[i].setText(userNames.get(i));
-            playerColors[i].setVisibility(View.VISIBLE);
-        }
-
-
-
+        GameClient.getInstance().sendMessage(new RequestPlayerMessage());
 
         Button btnExit = findViewById(R.id.btnExit);
 
@@ -112,7 +94,6 @@ public class LobbyActivity extends AppCompatActivity {
         });
 
     }
-
 
 
 }

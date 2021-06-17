@@ -81,7 +81,7 @@ public class GameClient implements NetworkClient, KryoNetComponent {
 
     public void connect(String host) throws IOException {
         client.start();
-        client.connect(5000, host, NetworkConstants.TCP_PORT);
+        client.connect(20000, host, NetworkConstants.TCP_PORT);
 
         client.addListener(new Listener() {
 

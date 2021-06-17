@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="128dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:backgroundTint="#3A3A3A"
         android:fontFamily="@font/erica_one"
         android:text="Start game"
@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="128dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:backgroundTint="#3A3A3A"
         android:fontFamily="@font/erica_one"
         android:text="EXIT GAME"
@@ -40,186 +40,183 @@
         app:layout_constraintStart_toEndOf="@+id/btnStart" />
 
     <androidx.cardview.widget.CardView
-        android:layout_width="389dp"
-        android:layout_height="196dp"
+        android:layout_width="380dp"
+        android:layout_height="180dp"
         app:cardBackgroundColor="#B33A3A3A"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.702">
+        app:layout_constraintVertical_bias="0.7">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/playerOneLbl"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="33dp"
-                android:fontFamily="@font/erica_one"
-                android:text=""
-                android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="@+id/playerTwoLbl"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/playerTwoLbl" />
-
-            <TextView
-                android:id="@+id/playerFiveLbl"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="55dp"
-                android:fontFamily="@font/erica_one"
-                android:text=""
-                android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/playerThreeLbl" />
-
-            <TextView
-                android:id="@+id/playerFourLbl"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="42dp"
-                android:fontFamily="@font/erica_one"
-                android:text=""
-                android:textColor="@color/white"
-                app:layout_constraintBaseline_toBaselineOf="@+id/playerFiveLbl"
-                app:layout_constraintEnd_toStartOf="@+id/playerFiveLbl" />
-
-            <TextView
-                android:id="@+id/playerThreeLbl"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="30dp"
-                android:fontFamily="@font/erica_one"
-                android:text=""
-                android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="@+id/playerTwoLbl"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/playerTwoLbl" />
-
-            <TextView
-                android:id="@+id/playerTwoLbl"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="8dp"
-                android:fontFamily="@font/erica_one"
-                android:text=""
-                android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="@+id/playersLbl"
-                app:layout_constraintTop_toBottomOf="@+id/playersLbl" />
-
-            <TextView
                 android:id="@+id/playersLbl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/erica_one"
                 android:text="Players:"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.096" />
-
-            <ImageView
-                android:id="@+id/imagePlayer1"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginEnd="2dp"
-                android:background="@drawable/ic_player_avatar"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/playerOneLbl"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.409" />
-
-            <ImageView
-                android:id="@+id/imagePlayer2"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginEnd="2dp"
-                android:background="@drawable/ic_player_avatar"
-                app:layout_constraintBottom_toTopOf="@+id/playerFourLbl"
-                app:layout_constraintEnd_toStartOf="@+id/playerTwoLbl"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/playerOneLbl"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.72" />
-
-            <ImageView
-                android:id="@+id/imagePlayer3"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginEnd="2dp"
-                android:background="@drawable/ic_player_avatar"
-                app:layout_constraintBottom_toTopOf="@+id/playerFiveLbl"
-                app:layout_constraintEnd_toStartOf="@+id/playerThreeLbl"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/playerTwoLbl"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.72" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/imagePlayer4"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginEnd="2dp"
+                android:layout_marginStart="16dp"
                 android:background="@drawable/ic_player_avatar"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/playerFourLbl"
-                app:layout_constraintHorizontal_bias="1.0"
+                android:backgroundTint="@color/plyrFour"
+                android:backgroundTintMode="multiply"
+                app:layout_constraintBottom_toTopOf="@+id/imagePlayer5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/playerOneLbl"
-                app:layout_constraintVertical_bias="0.345" />
+                app:layout_constraintTop_toBottomOf="@+id/imagePlayer3" />
+
+            <ImageView
+                android:id="@+id/imagePlayer1"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/ic_player_avatar"
+                android:backgroundTint="@color/plyrOne"
+                android:backgroundTintMode="multiply"
+                app:layout_constraintBottom_toTopOf="@+id/imagePlayer2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imagePlayer2"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/ic_player_avatar"
+                android:backgroundTint="@color/plyrTwo"
+                android:backgroundTintMode="multiply"
+                app:layout_constraintBottom_toTopOf="@+id/imagePlayer3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imagePlayer1" />
+
+            <ImageView
+                android:id="@+id/imagePlayer3"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/ic_player_avatar"
+                android:backgroundTint="@color/plyrThree"
+                android:backgroundTintMode="multiply"
+                app:layout_constraintBottom_toTopOf="@+id/imagePlayer4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imagePlayer2" />
 
             <ImageView
                 android:id="@+id/imagePlayer5"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginEnd="2dp"
+                android:layout_marginStart="16dp"
                 android:background="@drawable/ic_player_avatar"
+                android:backgroundTint="@color/plyrFive"
+                android:backgroundTintMode="multiply"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/playerFiveLbl"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/playerFourLbl"
-                app:layout_constraintTop_toBottomOf="@+id/playerTwoLbl"
-                app:layout_constraintVertical_bias="0.345" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imagePlayer4" />
 
             <androidx.constraintlayout.widget.Group
                 android:id="@+id/playerOne"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:constraint_referenced_ids="imagePlayer1,playerOneLbl" />
+                app:constraint_referenced_ids="imagePlayer1" />
 
             <androidx.constraintlayout.widget.Group
                 android:id="@+id/playerTwo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:constraint_referenced_ids="imagePlayer2,playerTwoLbl" />
+                app:constraint_referenced_ids="imagePlayer2" />
 
             <androidx.constraintlayout.widget.Group
                 android:id="@+id/playerThree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:constraint_referenced_ids="imagePlayer3,playerThreeLbl" />
+                app:constraint_referenced_ids="imagePlayer3" />
 
             <androidx.constraintlayout.widget.Group
                 android:id="@+id/playerFour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:constraint_referenced_ids="imagePlayer4,playerFourLbl" />
+                app:constraint_referenced_ids="imagePlayer4" />
 
             <androidx.constraintlayout.widget.Group
                 android:id="@+id/playerSix"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:constraint_referenced_ids="imagePlayer5,playerFiveLbl" />
+                app:constraint_referenced_ids="imagePlayer5" />
+
+            <TextView
+                android:id="@+id/textPlayerFive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/erica_one"
+                android:text="-"
+                android:textColor="#FAFAFA"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imagePlayer5"
+                app:layout_constraintTop_toBottomOf="@+id/textPlayerFour" />
+
+            <TextView
+                android:id="@+id/textPlayerTwo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/erica_one"
+                android:text="-"
+                android:textColor="#FAFAFA"
+                app:layout_constraintBottom_toTopOf="@+id/textPlayerThree"
+                app:layout_constraintStart_toEndOf="@+id/imagePlayer2"
+                app:layout_constraintTop_toBottomOf="@+id/textPlayerOne" />
+
+            <TextView
+                android:id="@+id/textPlayerThree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/erica_one"
+                android:text="-"
+                android:textColor="#FAFAFA"
+                app:layout_constraintBottom_toTopOf="@+id/textPlayerFour"
+                app:layout_constraintStart_toEndOf="@+id/imagePlayer3"
+                app:layout_constraintTop_toBottomOf="@+id/textPlayerTwo" />
+
+            <TextView
+                android:id="@+id/textPlayerFour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/erica_one"
+                android:text="-"
+                android:textColor="#FAFAFA"
+                app:layout_constraintBottom_toTopOf="@+id/textPlayerFive"
+                app:layout_constraintStart_toEndOf="@+id/imagePlayer4"
+                app:layout_constraintTop_toBottomOf="@+id/textPlayerThree" />
+
+            <TextView
+                android:id="@+id/textPlayerOne"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/erica_one"
+                android:text="-"
+                android:textColor="#FAFAFA"
+                app:layout_constraintBottom_toTopOf="@+id/textPlayerTwo"
+                app:layout_constraintStart_toEndOf="@+id/imagePlayer1"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
