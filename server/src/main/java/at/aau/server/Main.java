@@ -14,13 +14,16 @@ import at.aau.server.dto.DiceMessage;
 import at.aau.server.dto.ExchangeMessage;
 import at.aau.server.dto.EyeNumbersMessage;
 import at.aau.server.dto.LogMessage;
+import at.aau.server.dto.LostMessage;
 import at.aau.server.dto.NameMessage;
+import at.aau.server.dto.QuitMessage;
 import at.aau.server.dto.ReadyMessage;
 import at.aau.server.dto.RequestPlayerMessage;
 import at.aau.server.dto.ResponsePlayerMessage;
 import at.aau.server.dto.StartMessage;
 import at.aau.server.dto.TurnMessage;
 import at.aau.server.dto.UpdateMessage;
+import at.aau.server.dto.WonMessage;
 import at.aau.server.kryonet.Callback;
 import at.aau.server.kryonet.GameServer;
 
@@ -51,6 +54,7 @@ public class Main {
 
                 int readyBarrier = 0;
                 int backInMapBarrier = 0;
+                int lostBarrier = 0;
                 int currentTurn = 0;
                 //variables from DiceMessage
                 Integer defenderIndex;
@@ -73,7 +77,8 @@ public class Main {
                 boolean badGuessDefender = false;
                 boolean badGuessAttacker = false;
 
-                ArrayList<String>playerNames = new ArrayList<String>();
+                ArrayList<String> playerNames = new ArrayList<String>();
+                ArrayList<Integer> lostIndexes = new ArrayList<Integer>();
 
                 @Override
                 public void callback(BaseMessage argument) {
@@ -284,6 +289,34 @@ public class Main {
                                 backInMapBarrier = 0;
                             }
                         }
+                    }
+
+                    //
+                    else if (argument instanceof LostMessage) {
+                        System.out.println("ReadyMessage received.");
+
+                        // Wait for all players but one to lose:
+                        server.broadcastMessage(argument);
+                        lostIndexes.add(((LostMessage) argument).playerIndex);
+                        ++lostBarrier;
+
+                        // Once all have lost, announce winner:
+                        if (lostBarrier == server.getConnections().length - 1) {
+                            for (int i = 0; i < server.getConnections().length; i++) {
+                                if (!lostIndexes.contains(i)) {
+                                    server.sendMessage(i, new WonMessage());
+                                }
+                            }
+
+                            try {
+                                Thread.sleep(20000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+
+                            server.broadcastMessage(new QuitMessage());
+                        }
+
                     }
 
                 }
