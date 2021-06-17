@@ -8,4 +8,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="diceBack">#424242</color>
+
+    <color name="plyrOne">#FFFFCC00</color>
+    <color name="plyrTwo">#FFFF44CC</color>
+    <color name="plyrThree">#00CCFF</color>
+    <color name="plyrFour">#00FF00</color>
+    <color name="plyrFive">#FF0000</color>
 </resources>

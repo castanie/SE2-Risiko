@@ -1,13 +1,16 @@
 package at.aau.risiko;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,16 +31,14 @@ public class LobbyActivity extends AppCompatActivity {
 
     // TODO replace this list with data from server
     ArrayList<String> userNames = new ArrayList<>();
-    ArrayAdapter<String> playerNamesAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lobby);
 
-        playerNamesAdapter  = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, userNames);
-        playersInLobby = findViewById(R.id.listOfPlayers);
-        playersInLobby.setAdapter(playerNamesAdapter);
+       
 
         GameClient.getInstance().registerCallback(new Callback<BaseMessage>() {
             @Override
@@ -51,11 +52,46 @@ public class LobbyActivity extends AppCompatActivity {
 
                 else if(argument instanceof ResponsePlayerMessage){
                     userNames = ((ResponsePlayerMessage)argument).getPlayerNames();
-                    setUserNames(userNames);
+
                 }
             }
 
         });
+
+        TextView playerOne = findViewById(R.id.playerOneLbl);
+        TextView playerTwo = findViewById(R.id.playerTwoLbl);
+        TextView playerThree = findViewById(R.id.playerThreeLbl);
+        TextView playerFour = findViewById(R.id.playerFourLbl);
+        TextView playerFive = findViewById(R.id.playerFiveLbl);
+
+        ImageView plyrOne = findViewById(R.id.imagePlayer1);
+        ImageView plyrTwo = findViewById(R.id.imagePlayer2);
+        ImageView plyrThree = findViewById(R.id.imagePlayer3);
+        ImageView plyrFour = findViewById(R.id.imagePlayer4);
+        ImageView plyrFive = findViewById(R.id.imagePlayer5);
+
+        plyrOne.setImageResource(R.color.plyrOne);
+        plyrTwo.setImageResource(R.color.plyrTwo);
+        plyrThree.setImageResource(R.color.plyrThree);
+        plyrFour.setImageResource(R.color.plyrFour);
+        plyrFive.setImageResource(R.color.plyrFive);
+
+        plyrOne.setVisibility(View.GONE);
+        plyrTwo.setVisibility(View.GONE);
+        plyrThree.setVisibility(View.GONE);
+        plyrFour.setVisibility(View.GONE);
+        plyrFive.setVisibility(View.GONE);
+
+        TextView[] playerNames = {playerOne, playerTwo, playerThree, playerFour, playerFive};
+        ImageView[] playerColors = {plyrOne, plyrTwo, plyrThree, plyrFour, plyrFive};
+
+        for (int i = 0; i < userNames.size(); i++) {
+            playerNames[i].setText(userNames.get(i));
+            playerColors[i].setVisibility(View.VISIBLE);
+        }
+
+
+
 
         Button btnExit = findViewById(R.id.btnExit);
 
@@ -77,14 +113,6 @@ public class LobbyActivity extends AppCompatActivity {
 
     }
 
-    // called by the network client to update the list of users
-    public void setUserNames(ArrayList<String> userNames) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                playerNamesAdapter.notifyDataSetChanged();
-            }
-        });
-    }
+
 
 }
