@@ -28,17 +28,20 @@ import at.aau.core.Country;
 import at.aau.core.HandDeck;
 import at.aau.core.Player;
 import at.aau.risiko.DiceActivityDefender;
+import at.aau.risiko.MenuActivity;
 import at.aau.risiko.R;
 import at.aau.server.dto.BaseMessage;
 import at.aau.server.dto.CardMessage;
 import at.aau.server.dto.DiceMessage;
 import at.aau.server.dto.ExchangeMessage;
 import at.aau.server.dto.LostMessage;
+import at.aau.server.dto.QuitMessage;
 import at.aau.server.dto.ReadyMessage;
 import at.aau.server.dto.StartMessage;
 import at.aau.server.dto.TurnMessage;
 import at.aau.server.dto.UpdateMessage;
 import at.aau.server.dto.ConqueredMessage;
+import at.aau.server.dto.WonMessage;
 import at.aau.server.kryonet.GameClient;
 
 public class Game {
@@ -135,14 +138,14 @@ public class Game {
 
     }
 
-    public void fadeAvatar() {
+    public void fadeAvatar(int playerIndex) {
 
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 // TODO: Set Avatar for current Player:
                 for (Map.Entry<Integer, Player> e : avatarMap.entrySet()) {
-                    if (e.getValue().equals(getCurrentPlayer())) {
+                    if (e.getValue().equals(players[playerIndex])) {
                         ImageView avatar = activity.findViewById(e.getKey());
                         avatar.setImageTintList(ColorStateList.valueOf(0xFFCACACA));
                         avatar.setScaleX(1.0f);
@@ -235,7 +238,7 @@ public class Game {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast toast = Toast.makeText(activity, message, Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(activity, message, Toast.LENGTH_LONG);
                 toast.show();
             }
         });
@@ -247,6 +250,17 @@ public class Game {
             @Override
             public void run() {
                 Snackbar snackbar = Snackbar.make(activity.findViewById(R.id.linearLayout), message, 1000);
+                snackbar.show();
+            }
+        });
+    }
+
+    // Show a Snackbar in the MapActivity:
+    public void showLongSnackbar(String message) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Snackbar snackbar = Snackbar.make(activity.findViewById(R.id.linearLayout), message, 6000);
                 snackbar.show();
             }
         });
@@ -317,9 +331,12 @@ public class Game {
             setAvatar();
 
             // See if this player has lost:
-            if (((TurnMessage) message).isCurrentPlayer && hasSetupGame && getCurrentPlayer().getOccupied().size() == 0) {
+            if (state instanceof LostState) {
+                sendMessage(new TurnMessage());
+            }
+            else if (((TurnMessage) message).isCurrentPlayer && hasSetupGame && getCurrentPlayer().getOccupied().size() == 0) {
                 this.setState(new LostState(this));
-                fadeAvatar();
+                sendMessage(new LostMessage(getIndex()));
                 sendMessage(new TurnMessage());
             }
 
@@ -361,15 +378,11 @@ public class Game {
 
             if (((UpdateMessage) message).getWonString() != null) {
                 winMessage = rand.nextInt(3);
-                Snackbar snackbar;
                 if(((UpdateMessage) message).getWonString().equals("Attacker")) {
-                    snackbar = Snackbar.make(activity.findViewById(R.id.linearLayout), attackerWonMessages[winMessage] , 1000);
-                    snackbar.show();
-                }else if (((UpdateMessage) message).getWonString().equals("Defender")) {
-                    snackbar = Snackbar.make(activity.findViewById(R.id.linearLayout), defenderWonMessages[winMessage] , 1000);
-                    snackbar.show();
+                    showLongSnackbar(attackerWonMessages[winMessage]);
+                } else if (((UpdateMessage) message).getWonString().equals("Defender")) {
+                    showLongSnackbar(defenderWonMessages[winMessage]);
                 }
-
 
             }
 
@@ -419,6 +432,23 @@ public class Game {
             player.getHandDeck().deleteCardFromHandDeck(((ExchangeMessage) message).cardThree);
 
         }
+
+        //
+        else if (message instanceof LostMessage) {
+            fadeAvatar(((LostMessage) message).playerIndex);
+        }
+
+        //
+        else if (message instanceof WonMessage) {
+            showToast("You have conquered the globe!");
+        }
+
+        //
+        else if (message instanceof QuitMessage) {
+            activity.startActivity(new Intent(activity, MenuActivity.class));
+            activity.finish();
+        }
+
     }
 
 

@@ -17,13 +17,16 @@ import at.aau.server.dto.DiceMessage;
 import at.aau.server.dto.ExchangeMessage;
 import at.aau.server.dto.EyeNumbersMessage;
 import at.aau.server.dto.LogMessage;
+import at.aau.server.dto.LostMessage;
 import at.aau.server.dto.NameMessage;
+import at.aau.server.dto.QuitMessage;
 import at.aau.server.dto.ReadyMessage;
 import at.aau.server.dto.RequestPlayerMessage;
 import at.aau.server.dto.ResponsePlayerMessage;
 import at.aau.server.dto.StartMessage;
 import at.aau.server.dto.TurnMessage;
 import at.aau.server.dto.UpdateMessage;
+import at.aau.server.dto.WonMessage;
 
 public class GameServer implements NetworkServer, KryoNetComponent {
     private static GameServer instance;
@@ -59,6 +62,9 @@ public class GameServer implements NetworkServer, KryoNetComponent {
         instance.registerClass(CardMessage.class);
         instance.registerClass(ExchangeMessage.class);
         instance.registerClass(CloseDiceActivitiesMessage.class);
+        instance.registerClass(LostMessage.class);
+        instance.registerClass(WonMessage.class);
+        instance.registerClass(QuitMessage.class);
 
         return instance;
     }
