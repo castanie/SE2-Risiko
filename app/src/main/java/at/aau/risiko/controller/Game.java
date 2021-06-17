@@ -43,6 +43,7 @@ import at.aau.server.dto.UpdateMessage;
 import at.aau.server.dto.ConqueredMessage;
 import at.aau.server.dto.WonMessage;
 import at.aau.server.kryonet.GameClient;
+import pl.droidsonroids.gif.GifImageView;
 
 public class Game {
 
@@ -74,6 +75,9 @@ public class Game {
             "We all thought the attackers would win, but the defending army fought like vikings and prevailed.",
             "Real warriors never give up we could all learn from the way the defenders just held their country.",
             "No sacrifice, no victory ... Defending army won this crushing battle."};
+
+    private final int[] playerWonGifs = {R.drawable.gifone, R.drawable.giftwo, R.drawable.gifthree, R.drawable.giffour,
+            R.drawable.giffive, R.drawable.gifsix, R.drawable.gifseven, R.drawable.gifeight, R.drawable.gifnine, R.drawable.giften};
 
     Random rand = new Random();
     int winMessage;
@@ -441,6 +445,10 @@ public class Game {
         //
         else if (message instanceof WonMessage) {
             showToast("You have conquered the globe!");
+
+            GifImageView gif = activity.findViewById(R.id.winnerGif);
+            gif.setImageResource(playerWonGifs[rand.nextInt(10)]);
+            gif.setVisibility(View.VISIBLE);
         }
 
         //

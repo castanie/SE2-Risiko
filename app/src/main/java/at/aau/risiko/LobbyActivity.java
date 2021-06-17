@@ -38,25 +38,6 @@ public class LobbyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lobby);
 
-       
-
-        GameClient.getInstance().registerCallback(new Callback<BaseMessage>() {
-            @Override
-            public void callback(BaseMessage argument) {
-                if (argument instanceof StartMessage) {
-                    Intent intent = new Intent(getApplicationContext(), MapActivity.class);
-                    intent.putExtra("names", ((StartMessage) argument).names);
-                    intent.putExtra("colors", ((StartMessage) argument).colors);
-                    startActivity(intent);
-                }
-
-                else if(argument instanceof ResponsePlayerMessage){
-                    userNames = ((ResponsePlayerMessage)argument).getPlayerNames();
-
-                }
-            }
-
-        });
 
         TextView playerOne = findViewById(R.id.playerOneLbl);
         TextView playerTwo = findViewById(R.id.playerTwoLbl);
@@ -70,12 +51,6 @@ public class LobbyActivity extends AppCompatActivity {
         ImageView plyrFour = findViewById(R.id.imagePlayer4);
         ImageView plyrFive = findViewById(R.id.imagePlayer5);
 
-        plyrOne.setImageResource(R.color.plyrOne);
-        plyrTwo.setImageResource(R.color.plyrTwo);
-        plyrThree.setImageResource(R.color.plyrThree);
-        plyrFour.setImageResource(R.color.plyrFour);
-        plyrFive.setImageResource(R.color.plyrFive);
-
         plyrOne.setVisibility(View.GONE);
         plyrTwo.setVisibility(View.GONE);
         plyrThree.setVisibility(View.GONE);
@@ -85,12 +60,32 @@ public class LobbyActivity extends AppCompatActivity {
         TextView[] playerNames = {playerOne, playerTwo, playerThree, playerFour, playerFive};
         ImageView[] playerColors = {plyrOne, plyrTwo, plyrThree, plyrFour, plyrFive};
 
-        for (int i = 0; i < userNames.size(); i++) {
-            playerNames[i].setText(userNames.get(i));
-            playerColors[i].setVisibility(View.VISIBLE);
-        }
 
+        GameClient.getInstance().registerCallback(new Callback<BaseMessage>() {
+            @Override
+            public void callback(BaseMessage argument) {
+                if (argument instanceof StartMessage) {
+                    Intent intent = new Intent(getApplicationContext(), MapActivity.class);
+                    intent.putExtra("names", ((StartMessage) argument).names);
+                    intent.putExtra("colors", ((StartMessage) argument).colors);
+                    startActivity(intent);
+                }
 
+                else if(argument instanceof ResponsePlayerMessage){
+                    userNames = ((ResponsePlayerMessage)argument).getPlayerNames();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            for (int i = 0; i < userNames.size(); i++) {
+                                playerNames[i].setText(userNames.get(i));
+                                playerColors[i].setVisibility(View.VISIBLE);
+                            }
+                        }
+                    });
+                }
+            }
+
+        });
 
 
         Button btnExit = findViewById(R.id.btnExit);
@@ -112,7 +107,6 @@ public class LobbyActivity extends AppCompatActivity {
         });
 
     }
-
 
 
 }
