@@ -101,7 +101,7 @@ public class Main {
                         // Order Clients to start:
                         // ((StartMessage) argument).names = new String[] {"One", "Two", "Three"};
                         ((StartMessage) argument).names = playerNames.toArray(new String[0]);
-                        ((StartMessage) argument).colors = new Integer[] {0xFFFFCC00, 0xFFFF44CC, 0x00CCFF};
+                        ((StartMessage) argument).colors = new Integer[] {0xFFFFCC00, 0xFFFF44CC, 0x00CCFF, 0x00FF00, 0xFF0000};
                         server.broadcastMessage(argument);
 
                         readyBarrier = 0;
