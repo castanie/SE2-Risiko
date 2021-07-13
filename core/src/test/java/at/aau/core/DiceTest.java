@@ -14,7 +14,6 @@ public class DiceTest {
     public void setup() {
         diceAtt = new Dice("Attacker");
         diceDef = new Dice("Defender");
-
     }
     @Test
     public void testConstructor() {
@@ -36,7 +35,7 @@ public class DiceTest {
         assertEquals(6, diceAtt.getEyeNumber());
     }
     @Test
-    public void testGetEynuber() {
+    public void testGetEyenumber() {
         diceDef.setEyeNumber(4);
         assertEquals(4, diceDef.getEyeNumber());
     }
