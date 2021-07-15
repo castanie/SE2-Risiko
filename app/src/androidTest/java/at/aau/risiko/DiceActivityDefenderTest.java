@@ -2,6 +2,13 @@ package at.aau.risiko;
 
 import android.view.View;
 
+import static androidx.test.espresso.Espresso.onView;
+
+import androidx.test.espresso.Espresso;
+
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+
 import androidx.test.rule.ActivityTestRule;
 
 import org.junit.After;
@@ -41,6 +48,14 @@ public class DiceActivityDefenderTest {
         assertNotNull(attackerLbl);
         View defenderLbl = mActivity.findViewById(R.id.defenderLbl);
         assertNotNull(defenderLbl);
+
+        assertNotNull(mActivity.findViewById(R.id.cheatBtn));
+    }
+
+    @Test
+    public void testCheatedButton() {
+        onView(withId(R.id.cheatBtn)).perform(click());
+        assertTrue(mActivity.isClicked);
     }
 
     @After

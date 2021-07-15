@@ -57,6 +57,9 @@ public class DiceActivityDefender extends AppCompatActivity implements SensorEve
     TextView attackerLbl;
     TextView defenderLbl;
 
+    //only for testing
+    public boolean isClicked = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,6 +136,8 @@ public class DiceActivityDefender extends AppCompatActivity implements SensorEve
                     toast.show();
                     GameClient.getInstance().sendMessage(new CheatedMessage(false, true));
                 }
+
+                isClicked = true;
 
             }
         });

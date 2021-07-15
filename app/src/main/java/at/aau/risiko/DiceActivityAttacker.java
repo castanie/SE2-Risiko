@@ -57,6 +57,9 @@ public class DiceActivityAttacker extends AppCompatActivity implements SensorEve
     boolean opponentCheated = false;
     boolean opponentNotCheated = false;
 
+    //only for testing
+    public boolean isClicked = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

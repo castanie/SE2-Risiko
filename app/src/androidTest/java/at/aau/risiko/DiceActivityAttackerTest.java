@@ -10,6 +10,9 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static org.junit.Assert.*;
 
 public class DiceActivityAttackerTest {
@@ -42,6 +45,12 @@ public class DiceActivityAttackerTest {
         assertNotNull(attackerLbl);
         View defenderLbl = mActivity.findViewById(R.id.defenderLbl);
         assertNotNull(defenderLbl);
+    }
+
+    @Test
+    public void testCheatedButton() {
+        onView(withId(R.id.cheatBtn)).perform(click());
+        assertTrue(mActivity.isClicked);
     }
 
     @After
