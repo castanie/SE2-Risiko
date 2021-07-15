@@ -12,22 +12,22 @@ public class DiceTest {
     Dice diceDef;
     @BeforeEach
     public void setup() {
-        diceAtt = new Dice("Attacker");
-        diceDef = new Dice("Defender");
+        diceAtt = new Dice("attacker");
+        diceDef = new Dice("defender");
     }
     @Test
     public void testConstructor() {
-        Dice dice = new Dice("Attacker");
-        assertEquals("Attacker", dice.getType());
+        Dice dice = new Dice("attacker");
+        assertEquals("attacker", dice.getType());
     }
     @Test
     public void testSetType() {
-        diceAtt.setType("Defender");
-        assertEquals("Defender", diceAtt.getType());
+        diceAtt.setType("defender");
+        assertEquals("defender", diceAtt.getType());
     }
     @Test
     public void testGetType() {
-        assertEquals("Defender", diceDef.getType());
+        assertEquals("defender", diceDef.getType());
     }
     @Test
     public void testSetEyenumber() {
