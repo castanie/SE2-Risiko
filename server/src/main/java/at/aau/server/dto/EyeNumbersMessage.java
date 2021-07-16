@@ -25,4 +25,8 @@ public class EyeNumbersMessage extends BaseMessage{
     public int[] getMessage(){
         return eyeNumbers;
     }
+
+    public boolean getIsDefender() {
+        return isDefender;
+    }
 }

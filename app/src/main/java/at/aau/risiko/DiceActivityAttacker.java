@@ -57,6 +57,9 @@ public class DiceActivityAttacker extends AppCompatActivity implements SensorEve
     boolean opponentCheated = false;
     boolean opponentNotCheated = false;
 
+    //only for testing
+    boolean isClicked = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -401,5 +404,9 @@ public class DiceActivityAttacker extends AppCompatActivity implements SensorEve
         } else if (index == 3) {
             diceThreeDefense.startAnimation(rollAnimation);
         }
+    }
+
+    public boolean getIsClicked() {
+        return isClicked;
     }
 }

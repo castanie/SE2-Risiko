@@ -17,7 +17,7 @@ public class Dice {
     }
 
     public int diceRoll() {
-        eyeNumber = rand.nextInt(5) + 1;
+        eyeNumber = rand.nextInt(6) + 1;
         return eyeNumber;
     }
 
