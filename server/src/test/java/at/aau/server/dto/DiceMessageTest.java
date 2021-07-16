@@ -10,7 +10,7 @@ class DiceMessageTest {
 
 
     @Test
-    public void constructorTest() {
+     void constructorTest() {
         DiceMessage diceMsg = new DiceMessage(1, 2, "Scandinavia", "Greenland", 3,3);
         assertEquals(1, diceMsg.playerIndex);
         assertEquals(2, diceMsg.defendingIndex);

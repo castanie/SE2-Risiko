@@ -10,28 +10,28 @@ class CheatedMessageTest {
     private CheatedMessage msg = null;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         msg = new CheatedMessage(true, false);
     }
 
     @Test
-    public void constructorTest() {
+    void constructorTest() {
         CheatedMessage message = new CheatedMessage(false, true);
         assertFalse(message.getMessage());
         assertTrue(message.getSenderIsDefender());
     }
     @Test
-    public void getMessageTest() {
+    void getMessageTest() {
         assertTrue(msg.getMessage());
     }
     @Test
-    public void getSenderIsDefenderTest() {
+    void getSenderIsDefenderTest() {
         assertFalse(msg.getSenderIsDefender());
     }
 
 
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         msg = null;
     }
 

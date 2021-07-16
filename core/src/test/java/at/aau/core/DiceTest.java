@@ -16,31 +16,31 @@ public class DiceTest {
         diceDef = new Dice("defender");
     }
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         Dice dice = new Dice("attacker");
         assertEquals("attacker", dice.getType());
     }
     @Test
-    public void testSetType() {
+    void testSetType() {
         diceAtt.setType("defender");
         assertEquals("defender", diceAtt.getType());
     }
     @Test
-    public void testGetType() {
+    void testGetType() {
         assertEquals("defender", diceDef.getType());
     }
     @Test
-    public void testSetEyenumber() {
+    void testSetEyenumber() {
         diceAtt.setEyeNumber(6);
         assertEquals(6, diceAtt.getEyeNumber());
     }
     @Test
-    public void testGetEyenumber() {
+    void testGetEyenumber() {
         diceDef.setEyeNumber(4);
         assertEquals(4, diceDef.getEyeNumber());
     }
     @Test
-    public void testDiceRoll() {
+    void testDiceRoll() {
         int eyeNum;
         int lowestEyeNum = 7;
         int hightestEyeNum = 0;

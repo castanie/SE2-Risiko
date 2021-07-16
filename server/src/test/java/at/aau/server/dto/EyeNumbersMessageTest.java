@@ -17,7 +17,7 @@ class EyeNumbersMessageTest {
     }
 
     @Test
-    public void attackerConstructorTest() {
+    void attackerConstructorTest() {
         EyeNumbersMessage msg = new EyeNumbersMessage(new int[]{3, 3, 3});
         for(int i = 0; i < 3; i++) {
             assertEquals(3, msg.getMessage()[i]);
@@ -25,7 +25,7 @@ class EyeNumbersMessageTest {
         assertFalse(msg.getIsDefender());
     }
     @Test
-    public void defenderConstructorTest() {
+    void defenderConstructorTest() {
         EyeNumbersMessage msg = new EyeNumbersMessage(new int[]{3, 3, 3}, true);
         for (int i = 0; i < 3; i++) {
             assertEquals(3, msg.getMessage()[i]);
@@ -33,13 +33,13 @@ class EyeNumbersMessageTest {
         assertTrue(msg.getIsDefender());
     }
     @Test
-    public void testGetMessage() {
+    void testGetMessage() {
         for (int i = 0; i < 3; i++) {
             assertEquals(5-i, eyeNumMsgAtt.getMessage()[i]);
         }
     }
     @Test
-    public void testGetIsDefender() {
+    void testGetIsDefender() {
         assertTrue(eyeNumMsgDef.getIsDefender());
     }
 
