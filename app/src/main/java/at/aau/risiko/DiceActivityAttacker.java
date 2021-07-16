@@ -58,7 +58,7 @@ public class DiceActivityAttacker extends AppCompatActivity implements SensorEve
     boolean opponentNotCheated = false;
 
     //only for testing
-    public boolean isClicked = false;
+    boolean isClicked = false;
 
 
     @Override
@@ -404,5 +404,9 @@ public class DiceActivityAttacker extends AppCompatActivity implements SensorEve
         } else if (index == 3) {
             diceThreeDefense.startAnimation(rollAnimation);
         }
+    }
+
+    public boolean getIsClicked() {
+        return isClicked;
     }
 }
