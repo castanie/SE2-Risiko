@@ -53,6 +53,11 @@ public class DiceActivityAttackerTest {
         assertTrue(mActivity.isClicked);
     }
 
+    @Test
+    public void testIsClicked() {
+        assertFalse(mActivity.getIsClicked());
+    }
+
     @After
     public void tearDown() throws Exception {
         mActivity = null;
