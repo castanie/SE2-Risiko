@@ -58,7 +58,7 @@ public class DiceActivityDefender extends AppCompatActivity implements SensorEve
     TextView defenderLbl;
 
     //only for testing
-    public boolean isClicked = false;
+    boolean isClicked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -401,6 +401,10 @@ public class DiceActivityDefender extends AppCompatActivity implements SensorEve
 
     private void setAttackersDices(int[] arr) {
         attackersDices = arr;
+    }
+
+    public boolean getIsClicked() {
+        return isClicked;
     }
 
 }
