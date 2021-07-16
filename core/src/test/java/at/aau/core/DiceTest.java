@@ -8,8 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class DiceTest {
-    Dice diceAtt;
-    Dice diceDef;
+    private Dice diceAtt = null;
+    private Dice diceDef = null;
     @BeforeEach
     public void setup() {
         diceAtt = new Dice("attacker");
