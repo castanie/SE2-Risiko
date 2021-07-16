@@ -54,7 +54,7 @@ public class DiceActivityAttackerTest {
     }
 
     @Test
-    public void testIsClicked() {
+    public void testGetIsClicked() {
         assertFalse(mActivity.getIsClicked());
     }
 

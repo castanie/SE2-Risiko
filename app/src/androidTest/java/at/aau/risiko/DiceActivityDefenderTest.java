@@ -59,7 +59,7 @@ public class DiceActivityDefenderTest {
     }
 
     @Test
-    public void testIsClicked() {
+    public void testGetIsClicked() {
         assertFalse(mActivity.getIsClicked());
     }
 
